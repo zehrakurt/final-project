@@ -1,0 +1,386 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+/* Genel Stiller */
+.container {
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    max-width: 1200px;
+}
+
+.hsb {
+    color: #000;
+    font-family: Inter;
+    font-size: 25px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 40px;
+}
+
+.a2 {
+    color: #000;
+    font-family: Inter;
+    font-size: 16.031px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 28px;
+    margin-bottom: 20px;
+}
+
+.pag {
+    color: #222;
+    font-family: Inter;
+    font-size: 14.25px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 24px;
+    margin-bottom: 5px;
+}
+
+.save-button-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 24px;
+    margin-bottom: 108px;
+}
+
+.save-button {
+    display: flex;
+    width: 101.28px;
+    height: 55px;
+    padding: 13.5px 19.8px;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    border-radius: 4px;
+    background: #000;
+    color: #fff;
+    cursor: pointer;
+    border: none;
+    font-size: 16px;
+}
+
+/* --- Profil Bağlantıları Bölümü Stilleri --- */
+
+.profile-header-container {
+    /* Genel olarak esnek bir kapsayıcı olacak */
+    display: flex;
+    flex-direction: column; /* İçindeki öğeler varsayılan olarak sütun şeklinde sıralansın */
+    align-items: flex-start; /* Başlangıca hizala */
+}
+
+.profile-links-container {
+    margin-top: 0.5rem;
+    display: flex; /* Linkleri yan yana sıralamak için */
+    flex-wrap: wrap; /* Gerekirse alt satıra geçsinler */
+    justify-content: flex-start; /* Başlangıca hizala */
+    gap: 15px; /* Linkler arasında boşluk bırak */
+    width: 100%; /* Kapsayıcının tam genişliğini kullan */
+}
+
+.profile-title-link {
+    display: flex; /* İçindeki ikon ve yazıyı yan yana hizalamak için */
+    align-items: center; /* Dikeyde ortala */
+    text-decoration: none;
+    padding: 0.5rem 0; /* Üstten alttan boşluk */
+    color: inherit; /* Varsayılan metin rengini koru */
+    white-space: nowrap; /* Metnin tek satırda kalmasını sağla */
+}
+
+.profile-title-link:hover {
+    color: #000;
+}
+
+.profile-title-icon {
+    width: 1.5rem; /* İkon boyutu */
+    height: 1.5rem; /* İkon boyutu */
+    margin-right: 0.5rem; /* İkon ve yazı arasına boşluk */
+    flex-shrink: 0; /* İkonun küçülmesini engelle */
+}
+
+.profile-section-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+/* --- Hesap Bilgileri Bölümü Stilleri --- */
+.account-info-container {
+    padding: 1rem;
+}
+
+.account-info-title {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+}
+
+/* Mantine TextInput stilleri - Özel boyutlandırma */
+.mantine-TextInput-input {
+    border-radius: 4px;
+    border: 1px solid #E5E5E5;
+    background-color: #F7F7F7; /* Standart arka plan rengi */
+    height: 50px;
+    padding: 14.5px 17px;
+    font-family: Inter;
+    font-size: 14.25px;
+    font-weight: 500;
+    color: #222;
+    box-sizing: border-box;
+}
+
+.mantine-TextInput-label {
+    color: #222;
+    font-family: Inter;
+    font-size: 14.25px;
+    font-weight: 500;
+    line-height: 24px;
+    margin-bottom: 5px;
+}
+
+.mantine-TextInput-input:read-only {
+    background-color: #E5E5E5;
+    border-color: #888;
+    color: #222;
+}
+
+/* react-phone-number-input stilleri - Belirttiğiniz özelliklere göre güncellendi */
+.PhoneInput {
+    border-radius: 4px; /* İstediğiniz border-radius */
+    border: 1px solid #E5E5E5; /* İstediğiniz border */
+    background: #F7F7F7; /* İstediğiniz background */
+    height: 50px; /* Mantine input yüksekliği ile aynı */
+    display: flex; /* İçindeki elemanların yan yana durması için */
+    align-items: center; /* Dikeyde ortala */
+    box-sizing: border-box; /* Padding ve border'ın genişliği etkilememesi için */
+}
+
+.PhoneInputInput {
+    /* Bu, telefon numarasının girildiği input alanıdır */
+    border: none; /* Kapsayıcıda zaten border var, iç inputta olmasın */
+    background-color: transparent; /* Kapsayıcının rengini alsın */
+    height: 100%; /* Kapsayıcının yüksekliğini doldursun */
+    padding: 14.5px 17px; /* Mantine input ile aynı padding */
+    font-family: Inter;
+    font-size: 14.25px;
+    font-weight: 500;
+    color: #222;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.PhoneInputCountrySelect {
+    /* Bu, ülke kodu seçicisidir */
+    border: none; /* Kapsayıcıda zaten border var, bunda olmasın */
+    border-right: 1px solid #E5E5E5; /* Ülke seçicisi ile input arasına ayırıcı çizgi */
+    background-color: transparent; /* Kapsayıcının rengini alsın */
+    height: 100%; /* Kapsayıcının yüksekliğini doldursun */
+    font-family: Inter;
+    font-size: 14.25px;
+    font-weight: 500;
+    color: #222;
+    /* icon'u ve padding'i gerektiği gibi ayarlayabilirsiniz */
+}
+
+/* --- Duyarlı Tasarım Kuralları --- */
+
+/* Masaüstü için CSS Kuralları (Minimum ekran genişliği 768px) */
+@media (min-width: 768px) {
+    .grid-cols-\[2fr_10fr\] {
+        grid-template-columns: 2fr 10fr;
+    }
+
+    .profile-header-container {
+        display: block; /* Masaüstünde blok element gibi davranacak */
+        margin-bottom: 0;
+        padding: 0;
+        width: auto;
+    }
+
+    .profile-links-container {
+        display: block; /* Masaüstünde linkler alt alta sıralanır */
+        width: auto;
+        gap: 0; /* Masaüstünde yan yana boşlukları kaldır */
+    }
+
+    .profile-title-link {
+        padding: 0.5rem 0; /* Yan yana durmadığı için yatay padding'i sıfırla */
+    }
+
+    .profile-section-title {
+        font-size: 1.5rem; /* Masaüstünde daha büyük başlık */
+        font-weight: bold;
+    }
+
+    .account-info-container {
+        padding: 1rem;
+        margin-left: 20px;
+    }
+
+    .account-info-title {
+        text-align: left;
+    }
+
+    /* Ad Soyad inputlarının yan yana ve istenen boyutta olması için */
+    .mantine-Group-root {
+        display: flex;
+        gap: 20px; /* Aralarındaki boşluk */
+    }
+
+    .mantine-Group-root > div { /* Group içindeki her bir TextInput'ı hedef alır */
+        flex: 1; /* Eşit oranda büyümelerini sağlar */
+        max-width: 464px; /* İstenen maksimum genişlik */
+    }
+
+    .mantine-TextInput-input {
+        width: 100%; /* İçindeki alana tam oturması için */
+    }
+
+    /* Diğer inputların genişlikleri */
+    .mantine-TextInput[data-label="Telefon"] .mantine-TextInput-input,
+    .mantine-TextInput[data-label="Email"] .mantine-TextInput-input {
+        max-width: 464px;
+    }
+
+    /* PhoneInput'ın da maksimum genişliğini ayarla */
+    .mantine-TextInput[component="PhoneInput"] { /* Bu Mantine TextInput'ın kapsayıcısı */
+        max-width: 464px;
+    }
+}
+
+/* Tablet için CSS Kuralları (Ekran genişliği 768px ile 1024px arası için) */
+@media (min-width: 768px) and (max-width: 1024px) {
+    .grid-cols-\[2fr_10fr\] {
+        grid-template-columns: 200px 1fr;
+    }
+
+    .profile-header-container {
+        width: 200px;
+        display: block;
+        margin-bottom: 20px;
+        padding: 0;
+    }
+
+    .profile-links-container {
+        display: block; /* Tablette de alt alta */
+        width: auto;
+        gap: 0;
+    }
+
+    .profile-title-link {
+        padding: 0.5rem 0;
+    }
+
+    .profile-section-title {
+        font-size: 16px; /* Tablet için biraz daha küçük başlık */
+        font-weight: bold;
+    }
+
+    .account-info-container {
+        margin-left: 20px;
+        padding: 1rem;
+    }
+
+    .account-info-title {
+        text-align: left;
+    }
+
+    .mantine-Group-root {
+        display: flex;
+        gap: 15px;
+    }
+
+    .mantine-Group-root > div {
+        flex: 1;
+        max-width: 300px; /* Tablet için daha uygun bir genişlik */
+    }
+
+    .mantine-TextInput[data-label="Telefon"] .mantine-TextInput-input,
+    .mantine-TextInput[data-label="Email"] .mantine-TextInput-input {
+        max-width: 400px;
+    }
+
+    /* PhoneInput'ın da maksimum genişliğini ayarla */
+    .mantine-TextInput[component="PhoneInput"] {
+        max-width: 400px;
+    }
+}
+/* Telefon için CSS Kuralları (Ekran genişliği maksimum 767px için) */
+@media (max-width: 767px) {
+    .grid-cols-\[2fr_10fr\] {
+        grid-template-columns: 1fr; /* Tek sütun */
+    }
+
+    .profile-header-container {
+        display: flex;
+        flex-direction: column; /* Mobil cihazlarda sütun olarak kalsın */
+        align-items: center; /* Ortala */
+        margin-bottom: 20px;
+        padding: 10px;
+    }
+
+    .profile-links-container {
+        display: flex; /* Linkleri yan yana sırala */
+        flex-direction: row;
+        justify-content: space-around; /* Boşlukları eşit dağıt */
+        align-items: center;
+        width: 100%;
+        gap: 5px; /* Mobil linkler arasında daha az boşluk */
+        flex-wrap: wrap; /* Gerekirse alt satıra geçsin */
+    }
+
+    .profile-title-link {
+        display: flex;
+        flex-direction: column; /* Mobil link içinde ikon üstte yazı altta */
+        align-items: center;
+        text-decoration: none;
+        padding: 5px;
+        flex: 1; /* Eşit genişlikte dağılsınlar */
+        min-width: 80px; /* Minimum genişlik vererek sıkışmayı engelle */
+    }
+
+    .profile-title-icon {
+        width: 28px; /* Mobil için ikon boyutunu biraz artır */
+        height: 28px;
+        margin-right: 0; /* Mobil ikon altında yazı olacağı için sağ boşluk kaldır */
+        margin-bottom: 5px; /* İkon ile yazı arasına boşluk */
+    }
+
+    .profile-section-title {
+        font-size: 12px; /* Mobil için daha küçük başlık */
+        font-weight: normal;
+        text-align: center; /* Metni ortala */
+    }
+
+    .account-info-container {
+        padding: 1rem;
+    }
+
+    .account-info-title {
+        font-size: 1.125rem;
+        margin-bottom: 1rem;
+        text-align: center;
+    }
+
+    .mantine-Group-root {
+        display: flex;
+        flex-direction: column; /* Mobil ekranda dikey sırala */
+        gap: 10px;
+    }
+
+    .mantine-Group-root > div {
+        flex: none; /* Flex özelliğini kaldır, tam genişlik alsın */
+        max-width: none;
+        width: 100%; /* Tam genişlik */
+    }
+
+    .mantine-TextInput-input,
+    .PhoneInputInput {
+        width: 100%; /* İç alanın tam genişliği */
+    }
+
+    /* PhoneInput'ın da tam genişliği almasını sağla */
+    .mantine-TextInput[component="PhoneInput"] {
+        width: 100%;
+        max-width: none;
+    }
+}

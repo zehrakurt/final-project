@@ -1,0 +1,481 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+.hdr-5 {
+    height: 134px;
+    background: #FFF;
+    align-items: center !important;
+    display: flex;
+}
+
+.logo-5 {
+    width: 171px !important;
+    height: 38px !important;
+}
+
+.first-input {
+    display: flex;
+    width: 316px;
+    height: 42px;
+    padding: 10.5px 12px;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    border-radius: 4px;
+    background: #FFF;
+    border-radius: 4px;
+    border: 2px solid #919191;
+    margin-left: 246px;
+}
+
+.btn-5 {
+    display: flex;
+    width: 80px;
+    height: 42px;
+    padding: 11px 26.88px 11px 27.06px;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    background: #919191;
+    color: #FFF;
+    text-align: center;
+    font-family: Inter;
+    font-size: 13.016px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.empty-cart {
+    color: #000;
+    text-align: center;
+    font-family: Inter;
+    font-size: 13.5px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px;
+}
+
+.aaa {
+    background: #F7F7F7;
+    height: 490px;
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+}
+
+.btn-6 {
+    width: 190px;
+    height: 46px;
+    flex-shrink: 0;
+    border-radius: 4px;
+    background: #919191;
+    color: #FFF;
+    margin-left: 30px;
+    justify-content: center !important;
+    align-items: center;
+    font-family: Inter;
+    font-size: 11.602px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 22.5px;
+    display: flex;
+    position: relative;
+}
+
+.icn-7 {
+    width: 27px;
+    height: 27px;
+    margin-right: 10px !important;
+}
+
+.roundedd {
+    position: absolute;
+    display: flex;
+    left: 70px;
+    top: 8%;
+    width: 18px;
+    height: 18px;
+    padding: 1px 5.39px 1px 5.58px;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    border-radius: 9999px;
+    background: #ED2727;
+    z-index: 1;
+}
+
+.mybag {
+    text-align: center;
+    margin-top: 8px;
+    color: #000;
+    font-family: Inter;
+    font-size: 21.188px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 48px;
+}
+
+.btn-container {
+    margin-top: auto;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    bottom: 36px;
+}
+
+.btn-77 {
+    width: 320px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 0;
+    gap: 10px;
+    border-radius: 4px;
+    background: #000;
+    color: #FFF;
+    font-family: Inter;
+    font-size: 18.125px;
+    font-weight: 700;
+    line-height: 40px;
+}
+
+.btn-77 img {
+    width: 12px;
+    height: 18px;
+    margin-left: 8px;
+}
+
+/* Sepet ürünleri için yeni CSS */
+.cart-item {
+    display: flex;
+    height: 120px;
+    padding: 8px 20px 9px 20px;
+    align-items: center;
+    gap: 16px;
+    flex-shrink: 0;
+    border-bottom: 1px solid #DDD;
+    width: 100%;
+    justify-content: space-between; /* Bu satır kalsın */
+}
+.item-name{
+    color: #000;
+font-family: Inter;
+font-size: 16.313px;
+font-style: normal;
+font-weight: 600;
+line-height: 28px; /* 171.648% */
+}
+.cart-item img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+}
+
+.cart-item-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-grow: 1;
+}
+
+.cart-item-details p {
+    margin: 0;
+}
+
+.cart-item-price {
+    font-weight: bold;
+    margin-bottom: 4px; /* Fiyat ile aksiyonlar arasında biraz boşluk bırakalım */
+    text-align: right; /* Fiyatı sağa hizalayalım */
+}
+
+.total-price {
+    color: #000;
+    font-family: Inter;
+    font-size: 14.375px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 24px;
+    position: absolute;
+    bottom: 100px;
+    right: 35px;
+}
+
+.bbbb {
+    color: #000;
+    font-family: Inter;
+    font-size: 16.313px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 28px; /* 171.648% */
+}
+
+.aroma {
+    color: #919191;
+    font-family: Inter;
+    font-size: 15.125px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 24px; /* 158.678% */
+}
+
+.ar {
+    display: flex;
+    width: 33.75px;
+    height: 36px;
+    padding: 4px 11.669px 4px 11.881px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    border-radius: 4px;
+    background: #FFF;
+    margin-left: 8px;
+}
+
+.quantity-controls {
+    display: flex;
+    align-items: center;
+}
+
+.delete-icon-button {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    display: flex;
+width: 33.75px;
+height: 36px;
+padding: 9.9px 7.429px 9px 9.221px;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+flex-shrink: 0;
+display: flex;
+width: 33.75px;
+height: 36px;
+padding: 9.9px 7.429px 9px 9.221px;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+flex-shrink: 0;
+border-radius: 4px;
+background: #FFF;
+}
+
+.plus-button {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    margin-left: 8px;
+}
+
+.delete-icon {
+    width: 17px;
+    height: 17px;
+    color: black;
+}
+
+.item-aroma{
+    color: #919191;
+font-family: Inter;
+font-size: 15.125px;
+font-style: normal;
+font-weight: 700;
+line-height: 24px; /* 158.678% */
+}
+.cart-item-actions {
+    display: flex;
+    flex-direction: column; /* Üst üste sıralama için */
+    align-items: flex-end; /* Sağ tarafa hizalama */
+}
+/* firstnavbar.css dosyanızın en altına ekleyin */
+
+/* --- Arama Özelliği İçin Minimal CSS Sınıfları (İlk Versiyon) --- */
+
+.navbar-search-wrapper {
+    position: relative; /* Dropdown'ın konumlandırılması için */
+    display: flex; /* Input ve butonun yan yana olması için */
+    align-items: center; /* Dikeyde ortalama */
+    flex-grow: 1; /* Mevcut esnek düzende genişlemesini sağlar */
+    /* max-width: 500px; */ /* Bu satır ve altındaki margin satırı mevcut stilinize göre ayarlanabilir */
+    /* margin: 0 10px; */
+}
+
+.search-results-dropdown {
+    position: absolute;
+    top: 100%; /* Arama input'unun hemen altında başlar */
+    left: 0;
+    width: var(--search-input-width, 100%); /* Dinamik genişlik veya fallback */
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-top: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    max-height: 300px;
+    overflow-y: auto;
+    border-radius: 0 0 5px 5px;
+    padding: 5px 0; /* İç boşluk */
+    box-sizing: border-box; /* Padding ve border genişliği etkilemesin */
+}
+
+.search-result-item {
+    display: flex;
+    align-items: center;
+    padding: 8px 15px; /* İç boşluk */
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.search-result-item:last-child {
+    border-bottom: none;
+}
+
+.search-result-item:hover {
+    background-color: #f5f5f5;
+}
+
+.search-result-image {
+    width: 60px; /* Daha küçük ve yönetilebilir bir boyut */
+    height: 60px;
+    object-fit: cover; /* Resmi kutuya sığdırır, orantısını korur */
+    margin-right: 15px; /* Resim ile metin arasında boşluk */
+    border-radius: 4px; /* Hafif yuvarlak köşeler */
+    flex-shrink: 0;
+}
+
+.search-result-info {
+    flex-grow: 1;
+    text-align: left;
+    overflow: hidden;
+}
+
+.search-result-name {
+    font-weight: 600;
+    color: #333;
+    margin: 0 0 4px 0;
+    font-size: 14px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.3;
+}
+
+.search-result-price {
+    color: #666;
+    font-size: 13px;
+    margin: 0;
+    line-height: 1.3;
+}
+
+.search-status-message {
+  padding: 15px;
+  text-align: center;
+  color: #777;
+  font-style: italic;
+  font-size: 14px;
+}
+
+/* Mobil uyumluluk için, eğer bu CSS'ler mobilde sorun çıkarırsa ayarlama yapabilirsiniz */
+@media (max-width: 768px) {
+  .search-results-dropdown {
+    width: 100%;
+    left: 0;
+    right: 0;
+    margin: auto;
+  }
+
+  .search-result-item {
+    padding: 10px;
+  }
+
+  .search-result-image {
+    width: 50px;
+    height: 50px;
+  }
+
+  .search-result-name {
+    font-size: 13px;
+  }
+
+  .search-result-price {
+    font-size: 12px;
+  }
+}
+
+.cart-item-actions > * {
+    margin-top: 4px; /* Elemanlar arasında biraz boşluk */
+    margin-left: 8px; /* Diğer elemanlardan soldan boşluk */
+}
+
+.cart-item-actions > *:first-child {
+    margin-top: 0; /* İlk elemanın üst boşluğu olmasın */
+    margin-left: 0; /* İlk elemanın sol boşluğu olmasın */
+}
+
+@media (max-width: 768px) {
+    .first-input {
+        margin-left: 24px;
+        width: 130px;
+    }
+
+    .btn-6 {
+        width: 100px;
+        height: 46px;
+        margin-left: 10px;
+    }
+
+    .btn-5 {
+        width: 40px;
+        height: 42px;
+    }
+}
+
+@media (max-width: 600px) {
+    .hdr-5 {
+        display: none;
+    }
+
+    .btn-77 {
+        width: 300px;
+        padding: 7px;
+        font-size: 17.5px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 28px;
+    }
+
+    .aaa {
+        background: transparent;
+        height: auto;
+        align-items: flex-start;
+    }
+
+    .cart-item {
+        flex-direction: row;
+        align-items: center;
+        height: auto;
+        padding: 10px;
+        margin-bottom: 10px;
+    }
+
+    .cart-item-price {
+        margin-left: auto; /* Fiyatı en sağa yaslar */
+        margin-bottom: 0; /* Diğer sağ elemanlarla hizalar */
+    }
+
+    .cart-item-actions {
+        flex-direction: row; /* Yan yana sıralama */
+        align-items: center; /* Dikeyde ortalama */
+        margin-left: 8px; /* Sol taraftan biraz boşluk */
+    }
+
+    .cart-item-actions > * {
+        margin-top: 0; /* Üst boşluk yok */
+        margin-left: 8px; /* Aralarında boşluk */
+    }
+}

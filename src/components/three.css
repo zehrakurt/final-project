@@ -1,0 +1,95 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+.text-overlay {
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  transform: translateY(-50%);
+  color: white;
+  text-align: right;
+}
+
+.image-wrapper {
+  position: relative;
+}
+
+.text-1 {
+  color: #000;
+  font-family: Inter;
+  font-size: 28px;
+  font-weight: 900;
+  line-height: 32px;
+}
+
+.btn-2 {
+  border-radius: 10px;
+  background: #000;
+  width: 120px;
+  height: 34px;
+  flex-shrink: 0;
+}
+
+.imgall2 {
+  width: 100%;
+  height: 157px;
+  flex-shrink: 0;
+  border-radius: 10px;
+}
+
+@media (max-width: 768px) {
+  .grid-cols-1 {
+    grid-template-columns: repeat(2, minmax(0, 1fr)); 
+  }
+
+  .text-1 {
+    font-size: 18px;
+    line-height: 20px;
+  }
+
+  .btn-2 {
+    width: 73px;
+    height: 21px;
+  }
+}
+
+@media (max-width: 600px) {
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px; /* Boşlukları azaltmak için bu değeri küçültebilirsiniz */
+    justify-content: center; /* Öğeleri ortalamak için */
+  }
+
+  .text-overlay {
+    top: 50%;
+    right: 10px; /* Sağdan daha az boşluk bırakmak için */
+    transform: translateY(-50%);
+    text-align: right; /* Sağ yaslama için */
+  }
+
+  .image-wrapper {
+    justify-content: center;
+    align-items: center;
+  }
+
+  .text-1 {
+    font-size: 16px; 
+    line-height: 18px;
+    text-align: right; 
+ margin-right: 9px;
+  }
+
+  .btn-2 {
+    width: 70px;
+    height: 20px;
+    margin-top: 8px; 
+    margin-right: 9px;
+    padding-bottom: 25px;
+  }
+
+  .imgall2 {
+    width: 100%;
+    height:96px;
+ 
+  }
+}

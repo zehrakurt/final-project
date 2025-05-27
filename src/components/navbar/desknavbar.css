@@ -1,0 +1,83 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+.kef {
+    background: #222;
+    height: 35px;
+    justify-content: center;
+    align-items: center;
+}
+
+.navbar-menu {
+    display: flex;
+    justify-content: space-around;
+    list-style: none;
+    align-items: center;
+}
+
+.navbar-menu li {
+    display: inline;
+    color: #FFF !important;
+    text-align: center;
+    font-family: Inter;
+    font-size: 13.359px !important;
+    font-style: normal !important;
+    font-weight: 400 !important;
+    line-height: 35px !important;
+    margin: 0 !important;
+}
+.spe{
+    color: #FFF;
+text-align: center;
+font-family: Inter;
+font-size: 13.828px;
+font-style: normal;
+font-weight: 400;
+line-height: 35px; /* 253.107% */
+}
+.hover-dropdown-content {
+    color: blue;
+}
+
+.aa {
+    margin-left: 40px;
+}
+
+.category-columns {
+    display: flex;
+    flex-wrap: wrap; /* Eğer sığmazsa alt satıra geçsin */
+}
+
+.category-column {
+  flex: 0 0 200px; /* Her sütun 200 piksel genişliğinde */
+  list-style: none;
+  padding: 0 10px;
+}
+
+.category-column li {
+    margin-bottom: 5px; /* Öğeler arasında boşluk */
+}
+
+.sub-children {
+    list-style: none;
+  
+}
+.ss{
+  color: #6d6d6d;
+    font-family: Inter, sans-serif;
+    font-size: 17.297px;
+}
+
+.ll{
+  color: #999;
+  padding-bottom: 43px;
+  font-family: Inter, sans-serif;
+  font-size:12px;
+}
+
+
+
+@media (max-width: 600px) {
+    .kef {
+        display: none;
+    }
+}

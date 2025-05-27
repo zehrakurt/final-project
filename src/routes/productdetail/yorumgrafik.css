@@ -1,0 +1,129 @@
+/* yorumgrafik.css */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+.yorumlar {
+  display: flex;
+  width: 145.52px; /* Genişliği koruyabiliriz veya isterseniz daha esnek yapabilirsiniz */
+  /* height: 47px; */ /* Bu satırı yorum satırı yapın veya kaldırın */
+  padding: 16px 19.81px 17px 20px; /* Bu padding'i azaltabiliriz veya daha esnek bir değer verebiliriz */
+  justify-content: center;
+  align-items: center; /* Bu zaten doğru */
+  gap: 3.06px; /* Tek span kullandığımız için bu artık çok kritik değil, ama durabilir */
+  border-radius: 25px;
+  background: linear-gradient(81deg, #387EC7 0%, #1F23AA 100%);
+  margin-bottom: 20px;
+  cursor: pointer; 
+  /* Eğer içindeki metin hala sığmıyorsa 'white-space: nowrap;' ekleyebiliriz. */
+  white-space: nowrap; /* Metnin tek satırda kalmasını sağlar */
+  overflow: hidden; /* Taşmayı gizler */
+  text-overflow: ellipsis; /* Taşma durumunda üç nokta gösterir */
+}
+
+/* Yorum metni için özel stil, tek span'e taşıdık */
+.yorumlar .yorum-text { /* `.yorumlar` içindeki `.yorum-text`'i hedefliyoruz */
+  color: #FFF;
+  text-align: center;
+  font-family: Inter;
+  font-size: 13.672px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 14px; /* Line-height'in metin yüksekliğine uygun olduğundan emin olun */
+  text-transform: uppercase;
+}
+
+.yorum-listesi {
+  width: 100%;
+  border-radius: 30px;
+  background: #F7F7F7;
+  margin-bottom: 10px;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.yorum-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.yorum-satir {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start; /* Dikey hizalamayı üste aldım */
+}
+
+.yorum-yildiz-kullanici {
+  display: flex;
+  align-items: center;
+}
+
+.yorum-kullanici {
+    color: #000;
+    font-family: Inter;
+    font-size: 19.063px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 20px; /* 104.918% */
+  margin-left: 10px; /* Yıldız ile kullanıcı adı arasına boşluk ekledim */
+}
+
+.yorum-tarih {
+    color: #333;
+    font-family: Inter;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 17px; /* 106.25% */
+    text-transform: uppercase;
+  align-self: flex-end; /* Tarihi en sağa aldım */
+}
+
+.yorum-yildiz {
+  display: flex;
+  align-items: center;
+}
+
+.yorum-metin {
+    color: #333;
+    font-family: Inter;
+    font-size: 15.214px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 23.66px; /* 155.514% */
+  margin-bottom: 5px;
+}
+
+.yorum-baslik {
+    color: #111;
+    font-family: Inter;
+    font-size: 22.87px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 30.94px; /* 135.285% */
+  margin-top: 5px;
+}
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+  }
+  
+  .pagination button {
+    padding: 8px 16px;
+    margin: 0 5px;
+    border: none;
+    background-color: transparent;
+    color: #1F23AA;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 16px;
+  }
+  
+  .pagination span {
+    padding: 8px 16px;
+    margin: 0 5px;
+    color: #1F23AA; /* Renk güncellendi */
+    font-weight: bold;
+    font-size: 16px;
+  }

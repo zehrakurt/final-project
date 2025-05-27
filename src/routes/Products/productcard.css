@@ -1,0 +1,220 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+.card {
+  width: 200px;
+  height: 365px;
+  position: relative;
+}
+.product-item{
+  align-items: center !important;
+}
+.img-1 {
+  width: 168px;
+  height: 168px;
+  display: block;
+  margin: 0 auto;
+}
+
+.name-1 {
+  color: #000;
+  text-align: center;
+  font-family: Inter;
+  font-size: 16.172px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 18px;
+  margin-top: 8px;
+  text-align: center;
+  height: 38px;
+}
+
+.css-7 {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.bsk {
+  color: #222;
+  margin: 22px 0 22px 0;
+  text-align: center;
+  font-family: Inter;
+  font-size: 21.563px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 32px;
+}
+
+.explan {
+  color: #888;
+  text-align: center;
+  font-family: Inter;
+  font-size: 11.273px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 16px;
+  height: 36px;
+}
+
+.stars-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 8px 0;
+}
+
+.price-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 4px;
+  height: 32px;
+}
+
+.discounted-price {
+  color: red;
+  font-weight: bold;
+  font-family: Inter;
+  font-size: 19.5px;
+  margin-right: 5px;
+}
+
+.original-price {
+  text-decoration: line-through;
+  color: gray;
+  font-family: Inter;
+  font-size: 19.5px;
+}
+
+.price {
+  color: #000;
+  font-family: Inter;
+  font-size: 19.5px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 32px;
+  height: 32px;
+}
+
+.comment {
+  color: #333;
+  font-family: Inter;
+  font-size: 13.008px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 17px;
+  text-align: center;
+  margin-top: 22px;
+  height: 10px;
+}
+
+.ortimg {
+  width: 100%;
+  height: 480px;
+}
+
+.for-h3 {
+  color: #000;
+  text-align: center;
+  font-family: Inter;
+  font-size: 45.188px;
+  font-style: normal;
+  font-weight: 800;
+  line-height: 48px;
+  margin-top: 72px;
+  margin-bottom: 40px;
+}
+
+.ser-7 {
+  color: #000;
+  text-align: center;
+  font-family: Inter;
+  font-size: 11.922px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+  margin-top: 30px;
+}
+
+.css-1086bdv-MuiPaper-root-MuiAccordion-root::before {
+  background-color: transparent !important;
+}
+
+.open-1 {
+  color: #000;
+  font-family: Inter;
+  font-size: 15.125px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 22.08px;
+  margin-top: 63px;
+}
+
+.bld {
+  color: #000;
+  font-family: Inter;
+  font-size: 15.125px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 22.08px;
+}
+
+.text-blue {
+  color: #059669;
+  text-align: left !important;
+  font-family: Inter;
+  font-size: 13.75px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px;
+  text-decoration-line: underline;
+  margin-bottom: 64px;
+  margin-top: 13px;
+}
+
+.discount-box {
+  position: absolute;
+  top: 15px;
+  left: 0; /* Sol kenara sıfırla */
+  transform: translateX(var(--discount-offset-right, 130px)); /* Hesaplanan değer kadar sağa it */
+  background: #ed2727;
+  color: white;
+  padding: 6px 8px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  z-index: 10;
+  white-space: nowrap;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.discount-text {
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+/* Bu sınıfa artık ihtiyacımız yok çünkü konumlandırmayı translateX ile yapıyoruz.
+   Ancak ProductList.tsx ve ProductCard.tsx içinde isProductListPage'i kullandığımız için
+   boş da olsa bırakabiliriz ya da tamamen silebiliriz.
+   Şimdilik boş bırakalım ki hata vermesin.
+*/
+.discount-box.discount-box-product-list {
+    /* Bu kurallar artık translateX tarafından override edilecek veya gereksiz kalacak */
+    /* Yine de ne olur ne olmaz diye left: auto !important ekleyebiliriz */
+    left: auto !important; 
+}
+
+
+@media (max-width: 768px) {
+  .stars-container {
+    justify-content: center !important;
+  }
+    .discount-box.discount-box-product-list {
+        left: auto !important;
+    }
+}

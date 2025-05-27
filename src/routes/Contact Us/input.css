@@ -1,0 +1,86 @@
+.label-4{
+    width: 342px !important;
+height: 50px !important;
+border-radius: 4px !important;
+border: 1px solid #E5E5E5 !important;
+background: #F7F7F7 !important;
+display: inline !important;
+align-items: flex-start !important;
+}
+.mail-input{
+    width: 700px !important;
+height: 50px !important;
+display: inline !important;
+align-items: flex-start !important;
+border-radius: 4px !important;
+border: 1px solid #E5E5E5 !important;
+background: #F7F7F7 !important;
+margin-top: 16px;
+}
+.mesaj-input{
+    width: 700px !important;
+height: 150px !important;
+display: inline !important;
+align-items: flex-start !important;
+border-radius: 4px !important;
+border: 1px solid #E5E5E5 !important;
+background: #F7F7F7 !important;
+margin-top: 16px;
+}
+.mesaj-input::placeholder {
+    text-align: left !important;
+    padding-top: 8px !important; 
+    display: flex;
+}
+.gndr-btn{
+    display: flex;
+width: 121.64px;
+height: 55px;
+padding: 13.5px 19.8px 13.5px 20px;
+justify-content: center;
+align-items: center;
+flex-shrink: 0;
+border-radius: 4px;
+background: #000;
+color: #FFF;
+text-align: center;
+font-family: Inter;
+font-size: 19.219px;
+font-style: normal;
+font-weight: 600;
+line-height: 28px;
+}
+.input-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    gap: 16px;
+  }
+  
+  .name-surname-container {
+    display: flex;
+    gap: 16px;
+  }
+  
+  .label-align {
+    display: block;
+    text-align: center; 
+    margin-bottom: 8px; 
+  }
+
+  @media (max-width:600px) {
+    .label-4{
+        
+        width: 358px !important;
+height: 50px !important;
+    }
+    .mail-input{
+        width: 358px !important;
+height: 50px !important;
+    }
+    .mesaj-input{
+        width: 358px !important;
+height: 50px !important;
+    }
+  }
+  

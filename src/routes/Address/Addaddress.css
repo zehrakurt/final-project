@@ -1,0 +1,514 @@
+@import 'bootstrap-icons/font/bootstrap-icons.css';
+
+/* Genel Stiller */
+.address-wrapper {
+    padding: 20px;
+    font-family: Inter, sans-serif;
+    color: #222;
+}
+
+/* Adres Oluştur Container */
+.without-address-container {
+    background-color: #f7f7f7;
+    border: 1px solid #e5e5e5;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.without-address-title {
+    margin-bottom: 15px;
+}
+
+.address-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #000;
+    margin-top: 0;
+    margin-bottom: 5px;
+}
+
+.address-info-wrapper {
+    margin-bottom: 20px;
+}
+
+.address-info {
+    font-size: 16px;
+    color: #555;
+}
+
+/* Adres Formu */
+.address-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.address-title-label,
+.address-firstName-label,
+.address-lastName-label,
+.address-label,
+.address-city-label,
+.address-state-label,
+.address-subregion-label,
+.address-phone-label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+    display: block;
+    margin-bottom: 5px;
+    font-family: Inter;
+    font-style: normal;
+    line-height: normal;
+}
+
+.address-title-input,
+.address-firstName-input,
+.address-lastName-input,
+.address-input,
+.address-city-input,
+.address-state-input,
+.address-subregion-input,
+.address-phone-container .address-phone-input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #e5e5e5;
+    border-radius: 4px;
+    background-color: #fff;
+    font-size: 16px;
+    color: #222;
+    box-sizing: border-box;
+    font-family: Inter;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    height: auto; /* Telefon inputunun yüksekliğini otomatik yap */
+}
+
+.address-title-input::placeholder,
+.address-firstName-input::placeholder,
+.address-lastName-input::placeholder,
+.address-input::placeholder {
+    color: #999;
+}
+
+.address-city-input,
+.address-state-input,
+.address-subregion-input {
+    appearance: none;
+    background-image: url('data:image/svg+xml;charset=UTF-8,<svg fill="%23222" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 15px center;
+    background-size: 1em;
+}
+
+.address-city-input:disabled,
+.address-state-input:disabled,
+.address-subregion-input:disabled {
+    background-color: #f0f0f0;
+    color: #777;
+    cursor: not-allowed;
+}
+.address-phone-container .react-tel-input .form-control {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #e5e5e5;
+    border-radius: 4px;
+    background-color: #fff;
+    font-size: 16px;
+    color: #222;
+    box-sizing: border-box;
+    font-family: Inter;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    height: auto;
+}
+
+.address-phone-container .react-tel-input .form-control::placeholder {
+    color: #999;
+}
+.address-button-wrapper {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+.address-title-input,
+.address-firstName-input,
+.address-lastName-input,
+.address-input,
+.address-city-input,
+.address-state-input,
+.address-subregion-input {
+    border-radius: 4px;
+    border: 1px solid #E5E5E5;
+    background-color: #F7F7F7;
+    padding: 8px; /* İhtiyaç duyulursa padding ekleyebilirsiniz */
+    box-sizing: border-box;   /* Eklenen padding'in genişliği etkilememesi için */
+    width: 100%; /* Inputların container genişliğine yayılması için */
+    margin-bottom: 10px;
+    height: 50px; /* Inputlar arasında boşluk bırakmak için */
+}
+
+.address-title-input:focus,
+.address-firstName-input:focus,
+.address-lastName-input:focus,
+.address-input:focus,
+.address-city-input:focus,
+.address-state-input:focus,
+.address-subregion-input:focus {
+    outline: none; /* Focus olduğunda oluşan varsayılan çerçeveyi kaldırır */
+    border-color: #007BFF; /* Focus olduğunda border rengini değiştirir (isteğe bağlı) */
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25); /* Focus olduğunda shadow ekler (isteğe bağlı) */
+}
+
+.address-button-wrapper {
+    margin-top: 20px; /* Buton ve inputlar arasında boşluk bırakır */
+}
+
+.address-submit-button {
+    background-color: #007BFF; /* Mavi renk (örnek) */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease; /* Hover efekti için geçiş */
+}
+
+.address-submit-button:hover {
+    background-color: #0056b3; /* Hover olduğunda daha koyu mavi (örnek) */
+}
+
+.error-message {
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+.info-message {
+    border-radius: 4px;
+    border: 1px solid #2126AB;
+    background: rgba(33, 38, 171, 0.10);
+    display: flex;
+    padding: 17px;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+    margin: 0 auto 20px auto;
+}
+.info-message p{
+    color: #000;
+    font-family: Inter;
+    font-size: 13.5px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.5;
+    margin: 0;
+}
+
+/* Responsive düzenleme için media query */
+@media (max-width: 768px) { /* Tabletler için */
+    .info-message {
+        padding: 12px;
+    }
+}
+
+@media (max-width: 480px) { /* Telefonlar için */
+    .info-message {
+        padding: 10px;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .info-message p{
+       font-size: 12px;
+    }
+}
+
+
+.address-submit-button {
+    background-color: #000;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 12px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.address-submit-button:hover {
+    background-color: #333;
+}
+
+/* Kayıtlı Adresler Bölümü */
+.saved-address-wrapper {
+
+}
+
+.saved-address-wrapper h3 {
+    font-size: 20px;
+    font-weight: 700;
+    color: #000;
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+
+.address-box {
+    width: 100%;
+    border-radius: 8px;
+    border: 1px solid #2126AB;
+    background: #F7F7F9;
+    box-shadow: 0px 0px 0px 1px #2126AB;
+    padding: 15px;
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-sizing: border-box;
+}
+
+.address-box:last-child {
+    margin-bottom: 0;
+}
+
+.address-box .address-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.address-box .address-details {
+    margin-bottom: 10px;
+}
+
+.address-box .address-details .address-line {
+    color: #000;
+    font-family: Inter;
+    font-size: 13.5px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.5;
+    margin-bottom: 3px;
+}
+
+.address-box .address-details .address-location {
+    color: #000;
+    font-family: Inter;
+    font-size: 13.5px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.5;
+}
+
+.address-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+}
+
+.icon-button {
+    background: none;
+    border: none;
+    padding: 5px;
+    cursor: pointer;
+    font-size: 15px;
+    border-radius: 4px;
+}
+
+.delete-button {
+    color: black;
+}
+
+.edit-button {
+    color: black;
+}
+
+.icon-button:hover {
+    opacity: 0.8;
+}
+
+
+
+/* Modal Stilleri */
+.modal-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    overflow: auto;
+}
+
+.modal-wrapper {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    width: 90%;
+    max-width: 600px;
+    max-height: 95vh;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+.modal-title-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    flex-shrink: 0;
+}
+
+.modal-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #000;
+    margin: 0;
+}
+
+.modal-close-button {
+    background: none;
+    border: none;
+    color: #888;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.modal-close-button:hover {
+    color: #333;
+}
+.button-5{
+    background-color: #000;
+    padding: 8px 16px;
+    border-radius: 15px;
+    color: #F7F7F7;
+}
+.modal-form-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    flex-grow: 1;
+    overflow-y: auto;
+    margin-bottom: 15px;
+}
+
+.modal-form-wrapper > *:last-child {
+    margin-bottom: 0;
+}
+
+.address-button-wrapper {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+    flex-shrink: 0;
+}
+
+/* Hata ve Bilgi Mesajları */
+.error-message {
+    color: #f44336;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+.info-message {
+    color: #007bff;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+/* Kayıtlı Adreslerdeki İkon Butonları */
+.address-actions {
+    display: flex;
+    gap: 10px;
+    align-self: flex-end;
+}
+
+.icon-button {
+    background: none;
+    border: none;
+    padding: 5px;
+    cursor: pointer;
+    font-size: 15px;
+    border-radius: 4px;
+}
+
+.delete-button {
+    color: black;
+}
+
+.edit-button {
+    color: black;
+}
+
+.icon-button:hover {
+    opacity: 0.8;
+}
+
+/* Düzenleme: .container ve .col-span-* stilleri için */
+.address-management-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+.address-management-grid {
+    display: flex;
+    flex-wrap: wrap;
+}
+.address-management-col-span-2 {
+    width: 16.66%;
+    padding-left: 15px;
+    padding-right: 15px;
+    box-sizing: border-box;
+}
+.address-management-col-span-10 {
+    width: 83.33%;
+    padding-left: 15px;
+    padding-right: 15px;
+    box-sizing: border-box;
+}
+
+/* Tablet için düzenleme */
+@media (max-width: 768px) {
+    .address-management-col-span-2 {
+        width: 100%;
+    }
+    .address-management-col-span-10 {
+        width: 100%;
+    }
+    .profile-links-container {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+    .profile-link-item{
+        margin-right: 0;
+        margin-bottom: 0;
+    }
+}
+
+/* Telefon için düzenleme */
+@media (max-width: 480px) {
+    .address-management-col-span-2 {
+        width: 100%;
+    }
+    .address-management-col-span-10 {
+        width: 100%;
+    }
+    .profile-links-container {
+        flex-direction: column;
+    }
+    .profile-link-item{
+        margin-bottom: 10px;
+    }
+}
+.profile-header-container {
+    margin-right: 20px;
+}

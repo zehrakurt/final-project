@@ -1,0 +1,151 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+.bsk {
+    color: #222;
+    text-align: center;
+    font-family: Inter;
+    font-size: 21.563px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 32px;
+}
+
+.container {
+    margin-top: 40px;
+}
+
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between; /* Kartlar arasında eşit boşluk bırakmak için */
+    gap: 10px; /* Kartlar arasındaki boşluk */
+}
+
+.card {
+    width: calc(100% / 6 - 10px); /* 6 kartın yan yana sığması için hesaplama */
+    padding: 16px;
+    margin: 10px 0;
+    height: 365px;
+    text-align: center;
+}
+
+.product-image {
+    width: 168px;
+    height: 168px;
+    margin-bottom: 9px;
+}
+
+.name-1 {
+    color: #000;
+    text-align: center;
+    font-family: Inter;
+    font-size: 16.172px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 18px;
+}
+
+.description {
+    color: #888;
+    text-align: center;
+    font-family: Inter;
+    font-size: 11.273px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 16px;
+}
+
+.stars {
+    color: #f5c518;
+    font-size: 18px;
+}
+
+.review {
+    color: #333;
+    font-family: Inter;
+    font-size: 13.008px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 17px;
+}
+
+.price {
+    color: #000;
+    text-align: center;
+    font-family: Inter;
+    font-size: 19.5px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 32px;
+}
+.recently-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    position: relative;
+}
+
+.recently-title {
+    font-size: 1.125rem;
+    font-weight: 600;
+}
+
+.nav-wrapper {
+    display: flex;
+    gap: 8px;
+    position: relative;
+    top: 0;
+    right: 10px; /* sola yaklaştırmak için ayar */
+}
+
+.nav-btn {
+    background-color: #f0f0f0;
+    border: none;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    cursor: pointer;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.2s;
+}
+
+.nav-btn:hover {
+    background-color: #e0e0e0;
+}
+
+.swiper-button-prev::after,
+.swiper-button-next::after {
+    display: none;
+}
+
+
+.greenimg {
+    width: 100%;
+    height: 480px;
+}
+
+@media (max-width: 1200px) {
+    .card {
+        width: calc(100% / 3 - 10px); /* Orta ekranlar için 3 kart sığacak şekilde ayarlama */
+    }
+}
+
+@media (max-width: 900px) {
+    .card {
+        width: calc(100% / 2 - 10px); /* Küçük ekranlar için 2 kart sığacak şekilde ayarlama */
+    }
+}
+
+@media (max-width: 600px) {
+    .card {
+        width: calc(100% / 2 - 10px); /* Mobilde her satıra 2 kart sığacak şekilde */
+    }
+    .ortimg {
+        display: none; /* Mobilde ortimg'i gizlemek için */
+    }
+}

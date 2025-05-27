@@ -1,0 +1,284 @@
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { getMyProfile, UpdateMyProfile } from '../signup/auth';
+import { FetchWithAuth } from '../signup/api-client';
+import { getAccessToken } from '../signup/storage'; // Token'ı almak için
+import './Profile.css'; // CSS dosyasını dahil ettiğimizden emin olun
+import { TextInput, Button, Group, Stack } from '@mantine/core';
+import { useMediaQuery } from '@mantine/hooks';
+import PhoneInput from 'react-phone-number-input';
+import 'react-phone-number-input/style.css'; // react-phone-number-input stilleri
+import axios from 'axios'; // Axios dahil bırakıldı, ama artık burada şifre değiştirme için kullanılmıyor
+
+// Kullanıcı profil arayüzü
+interface UserProfile {
+    first_name?: string;
+    last_name?: string;
+    email?: string;
+    phone_number?: string;
+}
+
+// Adres arayüzü
+interface Address {
+    id: number;
+    title: string;
+    address: string;
+    city: string;
+    country: string;
+}
+
+// Backend'den gelen sipariş arayüzü
+interface OrderFromBackend {
+    order_no: string;
+    order_status: string;
+    created_at: string;
+    total_price: number;
+    cart_detail: any[];
+}
+
+// Tüm sipariş türleri arayüzü (API yanıtı için)
+interface AllOrderTypes {
+    status: string;
+    data: OrderFromBackend[];
+    message?: string; // API'den gelebilecek hata mesajı için
+}
+
+const Profile: React.FC = () => {
+    // State tanımlamaları
+    const [profile, setProfile] = useState<UserProfile | null>(null);
+    const [addresses, setAddresses] = useState<Address[]>([]);
+    const [orders, setOrders] = useState<OrderFromBackend[]>([]);
+    const [loadingProfile, setLoadingProfile] = useState(true);
+    const [loadingAddresses, setLoadingAddresses] = useState(true);
+    const [loadingOrders, setLoadingOrders] = useState(true);
+    const [errorProfile, setErrorProfile] = useState<string | null>(null);
+    const [errorAddresses, setErrorAddresses] = useState<string | null>(null);
+    const [errorOrders, setErrorOrders] = useState<string | null>(null);
+
+    // Profil güncelleme formu state'i
+    const [profileForm, setProfileForm] = useState<UserProfile>({
+        first_name: '',
+        last_name: '',
+        email: '',
+        phone_number: '',
+    });
+    // Telefon numarası için ayrı state (PhoneInput'ın kendi değeri için)
+    const [phoneNumber, setPhoneNumber] = useState<string | undefined>(profile?.phone_number);
+
+    // Güncelleme başarı/hata mesajları
+    const [updateSuccess, setUpdateSuccess] = useState<string | null>(null);
+    const [updateError, setUpdateError] = useState<string | null>(null);
+
+    // Mobil cihaz kontrolü
+    const isMobile = useMediaQuery('(max-width: 768px)');
+
+    // Sayfa yüklendiğinde profil, adres ve sipariş bilgilerini çekme
+    useEffect(() => {
+        const fetchProfileData = async () => {
+            setLoadingProfile(true);
+            setErrorProfile(null);
+            try {
+                const profileData = await getMyProfile();
+                console.log("Profile içinde gelen profil verisi", profileData);
+                if (profileData && profileData.data) {
+                    setProfile(profileData.data);
+                    setProfileForm({
+                        first_name: profileData.data?.first_name || '',
+                        last_name: profileData.data?.last_name || '',
+                        email: profileData.data?.email || '',
+                        phone_number: profileData.data?.phone_number || '',
+                    });
+                    setPhoneNumber(profileData.data?.phone_number);
+                } else {
+                    setErrorProfile("Profil bilgileri alınamadı veya boş geldi.");
+                    setProfile(null);
+                }
+            } catch (error: any) {
+                setErrorProfile("Profil bilgileri yüklenirken bir hata oluştu: " + error.message);
+                setProfile(null);
+            } finally {
+                setLoadingProfile(false);
+            }
+        };
+
+        const fetchAddresses = async () => {
+            setLoadingAddresses(true);
+            setErrorAddresses(null);
+            try {
+                const response = await FetchWithAuth('/users/addresses?limit=10&offset=0');
+                const data = await response.json();
+                setAddresses(data.data);
+            } catch (error: any) {
+                setErrorAddresses("Adresler yüklenirken bir hata oluştu: " + error.message);
+            } finally {
+                setLoadingAddresses(false);
+            }
+        };
+
+        const fetchOrders = async () => {
+            setLoadingOrders(true);
+            setErrorOrders(null);
+            try {
+                const response = await FetchWithAuth('/orders');
+                const data = await response.json() as AllOrderTypes;
+
+                if (data.status === "success") {
+                    setOrders(data.data);
+                } else {
+                    setErrorOrders("Siparişler yüklenirken bir hata oluştu: " + (data.message || ""));
+                }
+            } catch (error: any) {
+                setErrorOrders("Siparişler yüklenirken bir hata oluştu: " + error.message);
+            } finally {
+                setLoadingOrders(false);
+            }
+        };
+
+        fetchProfileData();
+        fetchAddresses();
+        fetchOrders();
+    }, []); // Boş bağımlılık dizisi, sadece bir kez yüklenmesini sağlar
+
+    // Input alanlarındaki değişiklikleri yönetme
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setProfileForm({ ...profileForm, [e.target.name]: e.target.value });
+    };
+
+    // Telefon numarası inputundaki değişiklikleri yönetme
+    const handlePhoneNumberChange = (value: string | undefined) => {
+        setProfileForm({ ...profileForm, phone_number: value });
+        setPhoneNumber(value);
+        console.log('Telefon Numarası:', value);
+    };
+
+    // Profil güncelleme formunu gönderme
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setUpdateSuccess(null);
+        setUpdateError(null);
+        try {
+            const updatedData = await UpdateMyProfile(profileForm);
+            console.log("Profil güncelleme cevabı:", updatedData);
+            if (updatedData && updatedData.data) {
+                setProfile(updatedData.data);
+                setProfileForm({
+                    first_name: updatedData.data.first_name || '',
+                    last_name: updatedData.data.last_name || '',
+                    email: updatedData.data.email || '',
+                    phone_number: updatedData.data.phone_number || '',
+                });
+                setPhoneNumber(updatedData.data.phone_number);
+                setUpdateSuccess("Profil başarıyla güncellendi!");
+            } else {
+                setUpdateError("Profil güncelleme cevabı beklenenden farklı.");
+            }
+        } catch (error: any) {
+            setUpdateError("Profil bilgileri güncellenirken bir hata oluştu: " + error.message);
+        }
+    };
+
+    return (
+        <div className='container mx-auto'>
+            <div className="grid grid-cols-[2fr_10fr] gap-8">
+                {/* Sol menü kısmı */}
+                <div className="profile-header-container">
+                    <div className="profile-links-container">
+                        <Link to="/profile" className="profile-title-link profile-link-item">
+                            <img
+                                src="/images/13.png" // Hesabım ikonu
+                                alt="Hesabım İkonu"
+                                className="profile-title-icon"
+                            />
+                            <p className="profile-section-title">Hesabım</p>
+                        </Link>
+                        <Link to="/orders" className="profile-title-link profile-link-item">
+                            <img
+                                src="/images/14.png" // Siparişlerim ikonu
+                                alt="Siparişlerim İkonu"
+                                className="profile-title-icon"
+                            />
+                            <p className="profile-section-title">Siparişlerim</p>
+                        </Link>
+                        <Link to="/add-address" className="profile-title-link profile-link-item">
+                            <img
+                                src="/images/15.png" // Adreslerim ikonu
+                                alt="Adreslerim İkonu"
+                                className="profile-title-icon"
+                            />
+                            <p className="profile-section-title">Adreslerim</p>
+                        </Link>
+                        {/* Şifre değiştirme linki */}
+                        <Link to="/change-password" className="profile-title-link profile-link-item">
+                            <img
+                                src="/images/padlock.png" // Şifre değiştirme ikonu
+                                alt="Şifre Değiştir İkonu"
+                                className="profile-title-icon"
+                            />
+                            <p className="profile-section-title">Şifre Değiştir</p>
+                        </Link>
+                    </div>
+                </div>
+                {/* Sağ içerik kısmı - Hesap Bilgileri */}
+                <div className="account-info-container">
+                    <p className='account-info-title a2'>Hesap Bilgilerim</p>
+                    {/* Güncelleme başarı/hata mesajları */}
+                    {updateSuccess && <div className="text-green-500 mb-4">{updateSuccess}</div>}
+                    {updateError && <div className="text-red-500 mb-4">{updateError}</div>}
+                    <form onSubmit={handleSubmit}>
+                        <Stack spacing="md">
+                            <Group grow>
+                                {/* Ad inputu */}
+                                <TextInput
+                                    label="Ad"
+                                    placeholder="Adınızı girin"
+                                    name="first_name"
+                                    value={profileForm.first_name?.toUpperCase() || ''}
+                                    onChange={handleInputChange}
+                                    classNames={{ input: 'mantine-TextInput-input', label: 'mantine-TextInput-label' }}
+                                />
+                                {/* Soyad inputu */}
+                                <TextInput
+                                    label="Soyad"
+                                    placeholder="Soyadınızı girin"
+                                    name="last_name"
+                                    value={profileForm.last_name?.toUpperCase() || ''}
+                                    onChange={handleInputChange}
+                                    classNames={{ input: 'mantine-TextInput-input', label: 'mantine-TextInput-label' }}
+                                />
+                            </Group>
+                            {/* Telefon inputu (react-phone-number-input) */}
+                            <TextInput
+                                label="Telefon"
+                                placeholder="Telefon numaranızı girin"
+                                name="phone_number"
+                                value={phoneNumber} // PhoneInput'ın kendi değeri
+                                onChange={handlePhoneNumberChange} // PhoneInput'ın kendi onChange'i
+                                component={PhoneInput} // Mantine TextInput'ı PhoneInput olarak kullan
+                                country="TR" // Varsayılan ülke
+                                classNames={{ input: 'PhoneInput', label: 'mantine-TextInput-label' }} // CSS sınıflarını PhoneInput'a uyguluyoruz
+                            />
+                            {/* Email inputu (sadece okunabilir) */}
+                            <TextInput
+                                label="Email"
+                                placeholder="Email adresiniz"
+                                name="email"
+                                value={profileForm.email?.toUpperCase() || ''}
+                                onChange={handleInputChange} // readOnly olduğu için aslında çalışmaz ama tutarlılık için bırakıldı
+                                readOnly // Email'i değiştirilemez yap
+                                classNames={{ input: 'mantine-TextInput-input', label: 'mantine-TextInput-label' }}
+                            />
+                            {/* Kaydet butonu */}
+                            <div className="save-button-container">
+                                <Button type="submit" className="save-button">
+                                    Kaydet
+                                </Button>
+                            </div>
+                        </Stack>
+                    </form>
+                </div>
+            </div>
+        </div>
+    );
+};
+
+export default Profile;

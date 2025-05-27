@@ -1,0 +1,728 @@
+@import 'bootstrap-icons/font/bootstrap-icons.css';
+
+/* Genel Stiller */
+.payment-container {
+    /* max-w-6xl için CSS */
+    max-width: 1152px; /* Tailwind'in max-w-6xl değeri */
+    margin-left: auto;
+    margin-right: auto;
+    padding: 1rem; /* p-4 değeri */
+}
+.kg-8{
+    color: #8A8B94;
+font-family: Roboto;
+font-size: 12px;
+font-style: normal;
+font-weight: 400;
+line-height: 20px; /* 166.667% */
+margin-top: 5px;
+}
+/* Yeni Grid Yapısı */
+.payment-content-grid {
+    display: grid;
+    /* Sol kısım 2 birim, sağ kısım 1 birim olarak böl */
+    grid-template-columns: 2fr 1fr; /* Bu satır korundu */
+    gap: 30px; /* Sütunlar arası boşluk */
+    align-items: start; /* İçerikleri üste hizala */
+}
+
+/* Sol Sütun */
+.payment-left-column {
+    /* Adım göstergesi ve aktif adım içerikleri burada */
+}
+
+/* Sağ Sütun: Sipariş Özeti */
+.payment-right-column {
+    position: sticky; /* Sayfayı kaydırırken sabit kalmasını sağlar */
+    top: 20px; /* Üstten ne kadar boşluk kalacak */
+    flex-shrink: 0; /* İçeriğin sıkışmasını engeller */
+}
+
+.order-summary-box {
+    /* width: 600px; */ /* Bu satır kaldırıldı */
+    height: 343px; /* İstediğin yükseklik */
+    flex-shrink: 0; /* İstediğin flex-shrink */
+    background-color: transparent; /* Arka plan rengi yok */
+    border: none; /* Kenarlık yok */
+    box-shadow: none; /* Gölge yok */
+    padding: 0; /* İç boşluğu 0 yap, içindeki elemanlara padding verilebilir */
+    overflow-y: auto; /* İçerik taşarsa kaydırma çubuğu çıksın */
+}
+
+/* Adres Seçimi Grid'i (Teslimat Adresi adımında) */
+.address-selection-grid {
+    display: grid;
+    /* Adres kartları için yeni minimum genişlik */
+    grid-template-columns: repeat(auto-fill, minmax(552px, 1fr)); /* BURASI GÜNCELLENDİ */
+    gap: 15px; /* Kartlar arası boşluk */
+    margin-top: 10px;
+}
+
+/* Adres Kartı ve Radyo Butonu İçin Özel Stiller */
+.address-box-label {
+    display: flex; /* Radyo butonu ve kartı yan yana hizalamak için */
+    align-items: flex-start; /* Dikeyde hizalama */
+    cursor: pointer;
+    position: relative; /* Custom radyo butonu için */
+    margin-bottom: 10px; /* Her label arasında boşluk */
+}
+
+.address-box-label:last-child {
+    margin-bottom: 0;
+}
+
+.custom-radio-button {
+    /* Varsayılan radyo butonunu gizle */
+    opacity: 0;
+    width: 0;
+    height: 0;
+    position: absolute;
+    left: -9999px; /* Ekranda olmasın */
+}
+
+/* Özel radyo butonu görünümü için psödo-element kullanma */
+.address-box-label .address-box::before {
+    content: '';
+    display: block;
+    width: 24px; /* Radyo butonu boyutu */
+    height: 24px;
+    min-width: 24px; /* Flexbox'ta küçülmemesi için */
+    min-height: 24px;
+    border: 1px solid #ccc;
+    border-radius: 50%; /* Daire */
+    margin-right: 15px; /* Radyo butonu ile adres kutusu arası boşluk */
+    background-color: #fff;
+    box-sizing: border-box;
+    transition: all 0.2s ease;
+}
+
+/* Seçili olduğunda radyo butonu stili */
+.custom-radio-button:checked + .address-box::before {
+    background-color: #2126AB; /* Seçili olduğunda iç rengi */
+    border: 10px solid #000; /* İstediğin siyah kalın border */
+    border-radius: 20px; /* İstediğin border-radius */
+    box-sizing: border-box; /* Border'ın boyutu dahil et */
+}
+
+
+/* Seçili Adres Kutusu için Ek Stil */
+.selected-address-box {
+    border: 2px solid #2126AB !important; /* Seçili olduğunda daha belirgin border */
+    background-color: #e6e8fc !important; /* Hafif bir arka plan rengi */
+}
+
+
+/* Genel Stiller */
+.address-wrapper {
+    padding: 20px;
+    font-family: Inter, sans-serif;
+    color: #222;
+}
+
+/* Adres Oluştur Container */
+.without-address-container {
+    background-color: #f7f7f7;
+    border: 1px solid #e5e5e5;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.without-address-title {
+    margin-bottom: 15px;
+}
+
+
+.address-info-wrapper {
+    margin-bottom: 20px;
+}
+
+.address-info {
+    font-size: 16px;
+    color: #555;
+}
+
+/* Adres Formu */
+.address-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.address-title-label,
+.address-firstName-label,
+.address-lastName-label,
+.address-label,
+.address-city-label,
+.address-state-label,
+.address-subregion-label,
+.address-phone-label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+    display: block;
+    margin-bottom: 5px;
+    font-family: Inter;
+    font-style: normal;
+    line-height: normal;
+}
+
+.address-title-input,
+.address-firstName-input,
+.address-lastName-input,
+.address-input,
+.address-city-input,
+.address-state-input,
+.address-subregion-input,
+.address-phone-container .address-phone-input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #e5e5e5;
+    border-radius: 4px;
+    background-color: #fff;
+    font-size: 16px;
+    color: #222;
+    box-sizing: border-box;
+    font-family: Inter;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    height: auto;
+}
+
+.address-title-input::placeholder,
+.address-firstName-input::placeholder,
+.address-lastName-input::placeholder,
+.address-input::placeholder {
+    color: #999;
+}
+
+.address-city-input,
+.address-state-input,
+.address-subregion-input {
+    appearance: none;
+    background-image: url('data:image/svg+xml;charset=UTF-8,<svg fill="%23222" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 15px center;
+    background-size: 1em;
+}
+
+.address-city-input:disabled,
+.address-state-input:disabled,
+.address-subregion-input:disabled {
+    background-color: #f0f0f0;
+    color: #777;
+    cursor: not-allowed;
+}
+.address-phone-container .react-tel-input .form-control {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #e5e5e5;
+    border-radius: 4px;
+    background-color: #fff;
+    font-size: 16px;
+    color: #222;
+    box-sizing: border-box;
+    font-family: Inter;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    height: auto;
+}
+
+.address-phone-container .react-tel-input .form-control::placeholder {
+    color: #999;
+}
+.address-button-wrapper {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+.address-title-input,
+.address-firstName-input,
+.address-lastName-input,
+.address-input,
+.address-city-input,
+.address-state-input,
+.address-subregion-input {
+    border-radius: 4px;
+    border: 1px solid #E5E5E5;
+    background-color: #F7F7F7;
+    padding: 8px;
+    box-sizing: border-box;
+    width: 100%;
+    margin-bottom: 10px;
+    height: 50px;
+}
+
+
+.address-title-input:focus,
+.address-firstName-input:focus,
+.address-lastName-input:focus,
+.address-input:focus,
+.address-city-input:focus,
+.address-state-input:focus,
+.address-subregion-input:focus {
+    outline: none;
+    border-color: #007BFF;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+.address-button-wrapper {
+    margin-top: 20px;
+}
+
+.address-submit-button {
+    background-color: #007BFF;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.address-submit-button:hover {
+    background-color: #0056b3;
+}
+
+.error-message {
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+.info-message {
+    border-radius: 4px;
+    border: 1px solid #2126AB;
+    background: rgba(33, 38, 171, 0.10);
+    display: flex;
+    padding: 17px;
+    align-items: center;
+    width: 100%;
+    box-sizing: border-box;
+    margin: 0 auto 20px auto;
+}
+.info-message p{
+    color: #000;
+    font-family: Inter;
+    font-size: 13.5px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.5;
+    margin: 0;
+}
+
+/* Responsive düzenleme için media query */
+@media (max-width: 768px) {
+    .info-message {
+        padding: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .info-message {
+        padding: 10px;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .info-message p{
+        font-size: 12px;
+    }
+}
+
+
+.address-submit-button {
+    background-color: #000;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 12px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.address-submit-button:hover {
+    background-color: #333;
+}
+
+/* Kayıtlı Adresler Bölümü */
+.saved-address-wrapper {
+    /* Buraya özel stiller eklenebilir */
+}
+
+.saved-address-wrapper h3 {
+    font-size: 20px;
+    font-weight: 700;
+    color: #000;
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+.add-new-address-box-label {
+    display: flex;
+    align-items: flex-start; /* Radyo butonu ve kutu içeriğini üste hizala */
+    cursor: pointer;
+    position: relative;
+    margin-bottom: 10px; /* Diğer kutularla aynı boşluk */
+}
+
+.add-new-address-box-label:last-child {
+    margin-bottom: 0;
+}
+
+.add-new-address-box {
+    display: flex;
+    width: 552px; /* Adres kutusuyla aynı genişlik */
+   margin-top: 17px;
+    padding: 17px; /* Belirttiğin padding'i kullan */
+    /* Not: padding: 17px 422.32px 17px 17px; değeri çok büyük bir yatay padding içeriyor.
+       Bu, içeriğin çok sıkışmasına neden olabilir. Genel bir padding (17px) uyguluyorum.
+       Eğer özel hizalama istiyorsan, içindeki elementlere margin/padding verebiliriz. */
+    align-items: center;
+    gap: 16px; /* İkon ve yazı arası boşluk */
+    border-radius: 8px;
+    border: 1px solid #E5E4E9; /* İstediğin border rengi */
+    background: #F7F7F9; /* Arka plan rengi */
+    box-shadow: 0px 0px 0px 1px #E5E4E9; /* İstediğin box shadow */
+    box-sizing: border-box; /* Padding ve border'ı width/height'e dahil et */
+    flex-shrink: 0; /* Küçülmesini engelle */
+    justify-content: flex-start; /* İçeriği solda hizala */
+}
+
+/* "Yeni Adres Ekle" yazısı için stil */
+.add-new-address-text {
+    color: #000; /* Yazı rengi */
+    font-family: Inter, sans-serif; /* Yazı tipi */
+    font-size: 16px; /* Yazı boyutu */
+    font-weight: 500; /* Kalınlık */
+}
+
+/* Radyo butonu benzeri yuvarlak ikon */
+.add-new-address-box-label .add-new-address-box::before {
+    content: '';
+    display: block;
+    width: 20px; /* İstediğin genişlik */
+    height: 20px; /* İstediğin yükseklik */
+    min-width: 20px; /* Flexbox'ta küçülmesini engelle */
+    min-height: 20px;
+    flex-shrink: 0; /* Küçülmesini engelle */
+    border-radius: 20px; /* İstediğin border-radius (yuvarlak için) */
+    border: 1px solid #E5E4E9; /* İstediğin border rengi */
+    margin-right: 15px; /* İkon ile kutu içeriği arası boşluk */
+    background-color: #fff; /* İç arka plan */
+    box-sizing: border-box;
+    transition: all 0.2s ease;
+}
+
+/* "Yeni Adres Ekle" kutusu seçildiğinde özel radyo butonu stili */
+.custom-radio-button:checked + .add-new-address-box-label .add-new-address-box::before {
+    background-color: #2126AB; /* Seçili olduğunda iç rengi */
+    border: 10px solid #000; /* İstediğin siyah kalın border */
+    border-radius: 20px; /* İstediğin border-radius */
+    box-sizing: border-box;
+}
+
+/* "Yeni Adres Ekle" kutusu seçildiğinde kutunun kendisinin stili */
+.custom-radio-button:checked + .add-new-address-box-label .add-new-address-box {
+    border: 2px solid #2126AB !important; /* Seçili olduğunda daha belirgin border */
+    background-color: #e6e8fc !important; /* Hafif bir arka plan rengi */
+    box-shadow: 0px 0px 0px 1px #2126AB !important; /* Gölge de seçili renge dönsün */
+}
+.kg-button{ 
+    display: flex;
+width: 552px;
+height: 56px;
+padding: 16px 0px;
+justify-content: center;
+align-items: center;
+flex-shrink: 0;
+border-radius: 8px;
+background: #000;
+color: #FFF;
+text-align: center;
+font-family: Roboto;
+font-size: 16px;
+font-style: normal;
+font-weight: 600;
+line-height: 24px; /* 150% */
+margin-top: 17px;
+}
+/* address-box için asıl stil tanımı */
+.address-box {
+    width: 552px; /* YENİ: Sabit genişlik */
+    height: 148px; /* YENİ: Sabit yükseklik */
+    flex-shrink: 0; /* YENİ: Küçülmesini engelle */
+    border-radius: 8px; /* YENİ: Border radius */
+    border: 1px solid #2126AB; /* YENİ: Border */
+    background: #F7F7F9; /* YENİ: Arka plan */
+    box-shadow: 0px 0px 0px 1px #2126AB; /* YENİ: Box shadow */
+    padding: 15px;
+    margin-bottom: 0;
+    box-sizing: border-box;
+    flex-grow: 0; /* Artık sabit boyutta olduğu için flex-grow: 0 */
+    display: flex;
+ 
+    /* overflow: hidden; */ /* İçerik taşarsa gizle veya scrollbar için auto dene */
+}
+
+.address-box .address-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.address-box .address-details {
+    margin-bottom: 0;
+    flex-grow: 1;
+    overflow: hidden; /* İçerik taşarsa gizle */
+    text-overflow: ellipsis; /* İçerik taşarsa ... göster */
+    white-space: normal; /* Uzun satırları otomatik sar */
+}
+
+.address-box .address-details .address-line {
+    color: #000;
+    font-family: Inter;
+    font-size: 13.5px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.5;
+    margin-bottom: 3px;
+}
+
+.address-box .address-details .address-location {
+    color: #000;
+    font-family: Inter;
+    font-size: 13.5px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.5;
+}
+
+/* Modal Stilleri */
+.modal-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    overflow: auto;
+}
+
+.modal-wrapper {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    width: 90%;
+    max-width: 600px;
+    max-height: 95vh;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+.modal-title-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    flex-shrink: 0;
+}
+
+.modal-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #000;
+    margin: 0;
+}
+
+.modal-close-button {
+    background: none;
+    border: none;
+    color: #888;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.modal-close-button:hover {
+    color: #333;
+}
+
+.modal-form-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    flex-grow: 1;
+    overflow-y: auto;
+    margin-bottom: 15px;
+}
+
+.modal-form-wrapper > *:last-child {
+    margin-bottom: 0;
+}
+
+/* Hata ve Bilgi Mesajları */
+
+/* Düzenleme: .container ve .col-span-* stilleri için */
+.address-management-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+.address-management-grid {
+    display: flex;
+    flex-wrap: wrap;
+}
+.address-management-col-span-2 {
+    width: 16.66%;
+    padding-left: 15px;
+    padding-right: 15px;
+    box-sizing: border-box;
+}
+.address-management-col-span-10 {
+    width: 83.33%;
+    padding-left: 15px;
+    padding-right: 15px;
+    box-sizing: border-box;
+}
+
+/* Ürün Listesi Stilleri (Yeni Eklenenler) */
+.product-list-summary {
+    margin-top: 15px;
+    border-top: 1px solid #eee; /* Ürün listesinin üstündeki çizgi */
+    padding-top: 15px;
+    max-height: calc(343px - 150px); /* Kutu yüksekliğinden başlık ve toplam alanını çıkar */
+    overflow-y: auto; /* Ürünler taşarsa kaydırma çubuğu */
+}
+
+.product-item-summary {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    gap: 10px; /* Elemanlar arası boşluk */
+    padding-bottom: 15px;
+    border-bottom: 1px dashed #eee; /* Ürünler arasına ince çizgi */
+}
+
+.product-item-summary:last-child {
+    margin-bottom: 0;
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.product-image-summary {
+    width: 64px;
+    height: 64px;
+    flex-shrink: 0; /* Resmin boyutunu koru */
+    object-fit: cover; /* Resmi kutuya sığdır */
+    border-radius: 4px; /* Hafif yuvarlak köşeler */
+}
+
+.product-details-summary {
+    flex-grow: 1; /* Ürün adının boşluğu doldurmasını sağla */
+}
+
+.product-name-summary {
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 2px;
+}
+
+.product-quantity-summary {
+    font-size: 12px;
+    color: #666;
+}
+
+.product-total-summary {
+    font-size: 14px;
+    font-weight: 600;
+    color: #000;
+    text-align: right;
+    min-width: 80px; /* Toplam tutar için minimum genişlik */
+}
+
+
+/* Responsive Düzenlemeler */
+@media (max-width: 1024px) { /* Medium ekranlar için */
+    .payment-content-grid {
+        grid-template-columns: 1fr; /* Tek sütuna düşür */
+        gap: 20px;
+    }
+    .payment-right-column {
+        position: relative; /* Sticky'i kaldır */
+        top: auto;
+        width: 100%; /* Tam genişlik */
+    }
+    .order-summary-box {
+        width: 100%; /* Tam genişlik */
+        height: auto; /* Yüksekliği otomatik yap, içerik taşmasın */
+        margin-top: 20px; /* Üstüne boşluk ekle */
+        padding: 20px; /* Mobil ve küçük ekranlarda padding ekle */
+    }
+    /* Adres kartları da 100% genişlik alsın */
+    .address-box {
+        width: 100%; /* Mobil cihazlarda tam genişlik */
+        height: auto; /* İçerik boyutu kadar yükseklik */
+    }
+    .address-selection-grid {
+        grid-template-columns: 1fr; /* Mobil cihazlarda tek sütun */
+    }
+}
+
+@media (max-width: 768px) { /* Tabletler için */
+    .address-management-col-span-2 {
+        width: 100%;
+    }
+    .address-management-col-span-10 {
+        width: 100%;
+    }
+    .profile-links-container {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+    .profile-link-item{
+        margin-right: 0;
+        margin-bottom: 0;
+    }
+}
+
+@media (max-width: 480px) { /* Telefonlar için */
+    .address-selection-grid {
+        grid-template-columns: 1fr; /* Mobil cihazlarda tek sütun */
+    }
+    .address-management-col-span-2 {
+        width: 100%;
+    }
+    .address-management-col-span-10 {
+        width: 100%;
+    }
+    .profile-links-container {
+        flex-direction: column;
+    }
+    .profile-link-item{
+        margin-bottom: 10px;
+    }
+    .product-item-summary {
+        flex-wrap: wrap; /* Küçük ekranlarda alt alta geçebilir */
+        justify-content: center;
+        text-align: center;
+    }
+    .product-details-summary, .product-total-summary {
+        width: 100%; /* Tam genişlik */
+        text-align: center;
+    }
+    .product-image-summary {
+        margin-bottom: 5px;
+    }
+}
+.profile-header-container {
+    margin-right: 20px;
+}

@@ -1,0 +1,312 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+.abt-1{
+    background: #FFF;
+}
+.fit-1{
+    color: #000;
+font-family: Inter;
+font-size: 31.125px;
+font-style: normal;
+font-weight: 700;
+line-height: 48px;
+margin-bottom: 24px;
+}
+.ag-1{
+    color: #000;
+
+font-family: Inter;
+font-size: 13.625px;
+font-style: normal;
+font-weight: 400;
+line-height: 24px;
+}
+.bin-1{
+    color: #000;
+font-family: Inter;
+font-size: 30px;
+font-style: normal;
+font-weight: 700;
+line-height: 48px;
+margin-top: 23px;
+}
+.ayr-5{
+    margin-top: 5px;
+    margin-left: 15px;
+}
+.ser-1{
+    color: #000;
+font-family: Inter;
+font-size: 30.75px;
+font-style: normal;
+font-weight: 700;
+line-height: 48px;
+margin-top: 45px;
+}
+.img-77 img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    margin-bottom: 100px;
+}
+.bas-1{
+    display: flex;
+height: 56px;
+align-items: center;
+flex-shrink: 0;
+border-top: 1px solid #E3E3E3 ;
+border-bottom: 1px solid #E3E3E3;
+margin-bottom: 12px;
+}
+.ince-1{
+    border-radius: 25px;
+background: linear-gradient(83deg, #387EC7 0%, #1F23AA 100%);
+display: flex;
+width: 173.94px;
+height: 47px;
+justify-content: center;
+align-items: center;
+flex-shrink: 0;
+color: #FFF;
+text-align: center;
+font-family: Inter;
+font-size: 13.016px;
+font-style: normal;
+font-weight: 700;
+line-height: 14px;
+text-transform: uppercase;
+margin-bottom: 16px;
+}
+.card-2{
+    border-radius: 30px;
+background: #F7F7F7;
+/* height: 201.58px; otomatik yüksekliğe bırakılabilir */
+}
+.comments-text-1{
+    color: #1F23AA;
+
+font-family: "Open Sans";
+font-size: 13px;
+font-style: normal;
+font-weight: 400;
+line-height: 17px;
+}
+.yorum-ust{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 8px; /* Üst boşluk */
+}
+.name-4{
+    color: #000;
+font-family: Inter;
+font-size: 19.531px;
+font-style: normal;
+font-weight: 700;
+line-height: 20px;
+margin-left: 24px;
+}
+.all-7{
+    border-radius: 20px;
+background: #BBDCC7;
+width: 127.66px;
+height: 25px;
+padding:10px 14px;
+justify-content: center;
+align-items: center;
+flex-shrink: 0;
+color: #008000;
+font-family: Inter;
+font-size: 8.75px;
+font-style: normal;
+font-weight: 400;
+line-height: 25px;
+text-transform: uppercase;
+margin-left: 21px;
+}
+/* .title-4 class'ı artık yorumun altında */
+.starss{
+font-size: 30px;
+color: yellow;
+}
+.link-5{
+    color: #333;
+font-family: Inter;
+font-size: 8.906px;
+font-style: normal;
+font-weight: 400;
+line-height: 17px; /* 190.877% */
+text-transform: uppercase;
+padding-left: 187px;
+margin-top: 21px;
+}
+.tarih-yorum{
+    color: #333;
+font-family: Inter;
+font-size: 16px;
+font-style: normal;
+font-weight: 700;
+line-height: 17px; /* 106.25% */
+text-transform: uppercase;
+margin-right: 42px; /* Sağdan biraz boşluk bırakılabilir */
+}
+/* Yeni başlık stili */
+.title-yeni{
+    color: #111;
+font-family: Inter;
+font-size: 19px;
+font-style: normal;
+font-weight: 700;
+line-height: 30.94px; /* 131.024% */
+margin-bottom: 5px; /* Başlıkla diğer bilgiler arasına boşluk */
+display: block; /* Satırı kaplaması için */
+margin-top: 13px;
+}
+
+@media (max-width:768px) {
+    .fit-1{
+        font-size: 31.25px;
+font-style: normal;
+font-weight: 700;
+line-height: 48px;
+    }
+    .ag-1{
+        font-size: 13.875px;
+font-style: normal;
+font-weight: 400;
+line-height: 24px;
+    }
+    .ser-1{
+        font-size: 30.75px;
+font-style: normal;
+font-weight: 700;
+line-height: 48px;
+    }
+    .yorum-ust{
+        flex-direction: column; /* Mobil ekranda alt alta sırala */
+        align-items: flex-start; /* Sola hizala */
+        margin-top: 5px;
+    }
+    .tarih-yorum{
+        margin-left: 0; /* Mobil ekranda sola yasla */
+        margin-top: 3px; /* Tarihi biraz aşağıya al */
+    }
+    .name-4{
+        margin-left: 0; /* Mobil ekranda sola yasla */
+    }
+    .all-7{
+        margin-left: 0; /* Mobil ekranda sola yasla */
+    }
+    .link-5{
+        padding-left: 24px; /* Mobil ekranda sola yasla */
+    }
+    .title-yeni{
+        font-size: 20px; /* Mobil ekranda başlık boyutu küçültülebilir */
+        margin-bottom: 3px;
+    }
+}
+
+@media (max-width:600px){
+    .comments-text-1{
+        margin-left: 24px;
+    }
+    .fit-1{
+        font-size: 30.875px;
+font-style: normal;
+font-weight: 700;
+line-height: 48px;
+    }
+    .bin-1{
+        font-size: 30px;
+font-style: normal;
+font-weight: 700;
+line-height: 48px;
+margin-top: 23px;
+}
+    .ag-1{
+        font-size: 13.875px;
+font-style: normal;
+font-weight: 400;
+line-height: 24px;
+    }
+    .bin-1{
+        font-size: 29.875px;
+font-style: normal;
+font-weight: 700;
+line-height: 48px;
+    }
+    .ser-1{
+        font-size: 30.75px;
+font-style: normal;
+font-weight: 700;
+line-height: 48px;
+    }
+    .img-77 {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        margin-bottom: 153px;
+    }
+
+    .img-77 img {
+        width: 26%;
+        height: auto;
+        margin-bottom: 5px;
+    }
+    .ince-1{
+        margin-left: 24px;
+    }
+    .card-2{
+        width: 338px;
+height: auto; /* Yüksekliği içeriğe göre ayarla */
+margin-left: 24px;
+    }
+    .all-7{
+        margin-left: 10px;
+        display: inline-block;
+        width: 127.66px;
+height: 25px;
+padding: 0px 9.8px 0px 10px;
+vertical-align: middle;
+    }
+    .name-4 {
+        display: inline-block;
+        margin-top: 0px; /* Yazar adını aşağıya indirir */
+        margin-left: 0;
+        vertical-align: middle;
+    }
+
+    .starss {
+        display: inline-block;
+        font-size: 30px;
+        color: yellow;
+        vertical-align: middle;
+    }
+
+    /* .title-4 class'ı artık yorumun altında */
+    .ayr-5{
+        margin-top: 5px;
+        margin-left: 15px;
+    }
+    .yorum-ust{
+        flex-direction: column; /* Mobil ekranda alt alta sırala */
+        align-items: flex-start; /* Sola hizala */
+        margin-top: 5px;
+    }
+    .tarih-yorum{
+        margin-left: 0; /* Mobil ekranda sola yasla */
+        margin-top: 3px; /* Tarihi biraz aşağıya al */
+    }
+    .name-4{
+        margin-left: 0; /* Mobil ekranda sola yasla */
+    }
+    .all-7{
+        margin-left: 0; /* Mobil ekranda sola yasla */
+    }
+    .link-5{
+        padding-left: 24px; /* Mobil ekranda sola yasla */
+    }
+    .title-yeni{
+        font-size: 18px; /* Daha küçük mobil ekranlar için başlık boyutu */
+        margin-bottom: 2px;
+    }
+}
