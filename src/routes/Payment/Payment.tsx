@@ -19,19 +19,19 @@ import {
 } from "../signup/address-types.ts";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import './Paymentstyle.css'; // Stil dosyanı kontrol et
+import './Paymentstyle.css'; 
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 
-// Sabitler
+
 const BASE_URL = 'https://fe1111.projects.academy.onlyjs.com/api/v1/orders/complete-shopping';
 const STANDARD_SHIPPING_PRICE = 10;
 const EXPRESS_SHIPPING_PRICE = 20;
 const CASH_ON_DELIVERY_FEE = 39;
 const CARD_ON_DELIVERY_FEE = 45;
 
-// Statik Veriler (Backend'den alınması önerilir)
+
 const staticShippingMethods: ShippingMethod[] = [
     { name: "Standart Kargo", value: "standard", price: STANDARD_SHIPPING_PRICE, content: "3-5 iş günü" },
     { name: "Hızlı Kargo", value: "express", price: EXPRESS_SHIPPING_PRICE, content: "1-2 iş günü" },
@@ -43,7 +43,7 @@ const staticPaymentMethods = [
     { type: "credit_cart_at_door", name: "Kapıda Kredi Kartı Ödeme" },
 ];
 
-// Yardımcı fonksiyon: Sayıyı güvenli bir şekilde ayrıştırma (birimleri de dikkate alır)
+
 function safeParseFloat(value: any): number {
     if (typeof value === 'number') {
         return isNaN(value) ? 0 : value;
@@ -67,7 +67,6 @@ const Payment: React.FC = () => {
     const clearCart = useCartStore((state) => state.clearCart);
     const navigate = useNavigate();
 
-    // Ödeme Sayfası State Yönetimi
     const [allAddresses, setAllAddresses] = useState<AllAddressType[] | null>(null);
     const [address, setAddress] = useState<AllAddressType | null>(null);
     const [currentStep, setCurrentStep] = useState(0); // İlk adım 0
@@ -83,7 +82,7 @@ const Payment: React.FC = () => {
     const [selectedAddressId, setSelectedAddressId] = useState<string | null>(null);
     const [extra, setExtra] = useState(0);
 
-    // Kredi Kartı Bilgileri State'leri
+
     const [cardDigits, setCardDigits] = useState("");
     const [cardExpirationMonth, setCardExpirationMonth] = useState("");
     const [cardExpirationYear, setCardExpirationYear] = useState("");
@@ -91,7 +90,7 @@ const Payment: React.FC = () => {
     const [cardName, setCardName] = useState("");
     const [cardType, setCardType] = useState<string>("VISA");
 
-    // Adres Ekleme/Düzenleme Modalı İçin State'ler
+
     const [countries, setCountries] = useState<CountriesType | null>(null);
     const [countriesLoading, setCountriesLoading] = useState(true);
     const [countriesError, setCountriesError] = useState<string | null>(null);
@@ -112,22 +111,22 @@ const Payment: React.FC = () => {
     const [isEditAddressModalOpen, setIsEditAddressModalOpen] = useState<boolean>(false);
     const [addressToEdit, setAddressToEdit] = useState<AllAddressType | null>(null);
 
-    // React Hook Form başlatma (Yeni Adres ve Düzenleme Modalı için)
+   
     const { register, control, handleSubmit, reset, formState: { errors } } = useForm<AddressPayloadType>();
 
-    // Yardımcı Diziler
+   
     const months = Array.from({ length: 12 }, (_, i) => String(i + 1).padStart(2, '0'));
     const currentYear = new Date().getFullYear();
     const years = Array.from({ length: 10 }, (_, i) => String(currentYear + i));
 
 
-    // Input Değişim Handler'ları
+    
     const handleCardDigitsChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setCardDigits(e.target.value.replace(/\D/g, ''));
     };
 
  const handleCardExpirationYearChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        setCardExpirationYear(e.target.value); // --> slice(-2) kısmını kaldırın
+        setCardExpirationYear(e.target.value); 
     };
 
     const handlePaymentMethodChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -149,7 +148,7 @@ const Payment: React.FC = () => {
         }
     };
 
-    // Adres Bilgilerini Getir ve İlk Adresi Otomatik Seç
+
     useEffect(() => {
         const fetchAddress = async () => {
             setLoading(true);
@@ -160,15 +159,15 @@ const Payment: React.FC = () => {
                     const defaultAddress = addressResponse.data.results[0];
                     setAddress(defaultAddress);
                     setSelectedAddressId(defaultAddress.id.toString());
-                    setAddressError(null); // Adres varsa hatayı temizle
+                    setAddressError(null);
                 } else {
-                    setAllAddresses([]); // Adres yoksa boş dizi olarak ayarla
+                    setAllAddresses([]); 
                     setAddressError("Kayıtlı adresiniz bulunmamaktadır. Lütfen adres ekleyiniz.");
                 }
             } catch (error: any) {
                 console.error("Adres alınamadı:", error);
                 setAddressError("Adres bilgileri yüklenirken bir hata oluştu.");
-                setAllAddresses([]); // Hata durumunda da boş dizi olarak ayarla
+                setAllAddresses([]); 
             } finally {
                 setLoading(false);
             }
@@ -177,7 +176,7 @@ const Payment: React.FC = () => {
         fetchAddress();
     }, []);
 
-    // selectedAddressId değiştiğinde 'address' state'ini güncelle
+
     useEffect(() => {
         if (allAddresses && selectedAddressId) {
             const foundAddress = allAddresses.find(addr => addr.id.toString() === selectedAddressId);
@@ -185,7 +184,7 @@ const Payment: React.FC = () => {
         }
     }, [selectedAddressId, allAddresses]);
 
-    // Ülkeleri çekme (Yeni Adres Modalı için gerekli)
+   
     useEffect(() => {
         const fetchCountriesData = async () => {
             setCountriesLoading(true);
@@ -203,7 +202,7 @@ const Payment: React.FC = () => {
         fetchCountriesData();
     }, []);
 
-    // selectedCountry değiştiğinde şehirleri getir (Yeni Adres Modalı için gerekli)
+   
     useEffect(() => {
         if (selectedCountry) {
             const fetchRegions = async () => {
@@ -225,7 +224,7 @@ const Payment: React.FC = () => {
         }
     }, [selectedCountry]);
 
-    // selectedRegion değiştiğinde ilçeleri getir (Yeni Adres Modalı için gerekli)
+   
     useEffect(() => {
         if (selectedRegion) {
             const fetchSubRegions = async () => {
@@ -247,39 +246,39 @@ const Payment: React.FC = () => {
         }
     }, [selectedRegion]);
 
-    // Yeni adres oluşturma submit handler'ı
+
     const addressSubmit: SubmitHandler<AddressPayloadType> = async (data) => {
         try {
-            delete data.apartment_no; // apartment_no alanını göndermemek için sil
+            delete data.apartment_no; 
 
             await CreateNewAddress(data);
-            const renewedAddressResponse = await GetAllMyAddress(); // Adres listesini yenile
+            const renewedAddressResponse = await GetAllMyAddress(); 
             if (renewedAddressResponse?.data?.results?.length) {
                 setAllAddresses(renewedAddressResponse.data.results);
                 const newlyAddedAddress = renewedAddressResponse.data.results[renewedAddressResponse.data.results.length - 1];
                 setAddress(newlyAddedAddress);
                 setSelectedAddressId(newlyAddedAddress.id.toString());
-                setAddressError(null); // Adres eklendiğinde hatayı temizle
+                setAddressError(null); 
             }
-            reset(); // Formu sıfırla
-            setIsNewAddressModalOpen(false); // Yeni adres modalını kapat
-            // alert("Adres başarıyla oluşturuldu!"); // Alert yerine modal kullanın
+            reset(); 
+            setIsNewAddressModalOpen(false); 
+          
         } catch (error: any) {
             console.error("Adres oluşturulurken hata:", error);
-            // alert("Adres oluşturulurken bir hata oluştu: " + (error.response?.data?.reason?.phone_number?.[0] || error.message));
+            
         }
     };
 
-    // Adres silme fonksiyonu
+ 
     const deleteMyAddress = async (idToDelete: string) => {
-        // Confirm yerine özel bir modal kullanın
+  
         const confirmDelete = window.confirm("Bu adresi silmek istediğinizden emin misiniz?");
         if (!confirmDelete) {
             return;
         }
         try {
             await DeleteMyAddress(idToDelete);
-            const renewedAddress = await GetAllMyAddress(); // Adres listesini yenile
+            const renewedAddress = await GetAllMyAddress(); 
             setAllAddresses(renewedAddress?.data?.results || null);
             if (selectedAddressId === idToDelete) {
                 if (renewedAddress?.data?.results?.length > 0) {
@@ -292,60 +291,60 @@ const Payment: React.FC = () => {
                     setAddressError("Kayıtlı adresiniz bulunmamaktadır. Lütfen adres ekleyiniz.");
                 }
             }
-            // alert("Adres başarıyla silindi!"); // Alert yerine modal kullanın
+            
         } catch (error: any) {
             console.error("Adres silinirken hata:", error);
-            // alert("Adres silinirken bir hata oluştu."); // Alert yerine modal kullanın
+            
         }
     };
 
-    // Adres düzenleme submit handler'ı
+   
     const editMyAddress: SubmitHandler<AddressPayloadType> = async (data) => {
         try {
             if (!addressToEdit) {
-                // alert("Düzenlenecek adres bulunamadı."); // Alert yerine modal kullanın
+                
                 return;
             }
-            delete data.apartment_no; // apartment_no alanını göndermemek için sil
+            delete data.apartment_no; 
 
             const response = await EditMyAddress({ data, addressId: addressToEdit.id.toString() });
             if (response?.status === "success") {
-                setIsEditAddressModalOpen(false); // Düzenleme modalını kapat
-                const renewedAddress = await GetAllMyAddress(); // Adres listesini yenile
+                setIsEditAddressModalOpen(false); 
+                const renewedAddress = await GetAllMyAddress(); 
                 setAllAddresses(renewedAddress?.data?.results || null);
                 if (selectedAddressId === addressToEdit.id.toString()) {
                     const updatedAddress = renewedAddress?.data?.results?.find(addr => addr.id.toString() === addressToEdit.id.toString());
                     setAddress(updatedAddress || null);
                 }
-                // alert("Adres başarıyla düzenlendi!"); // Alert yerine modal kullanın
+              
             } else {
-                // alert("Adres düzenlenirken bir hata oluştu."); // Alert yerine modal kullanın
+                
             }
         } catch (error: any) {
             console.error("Adres düzenlenirken hata:", error);
-            // alert("Adres düzenlenirken bir hata oluştu: " + (error.response?.data?.reason?.phone_number?.[0] || error.message));
+           
         }
     };
 
-    // Adımlar Arası Geçiş
+ 
     const goToNextStep = () => {
         if (currentStep === 0) {
             if (!selectedAddressId) {
-                // alert("Lütfen bir adres seçin."); // Alert yerine modal kullanın
+                
                 return;
             }
             if (allAddresses?.length === 0 && selectedAddressId === "new-address" && !isNewAddressModalOpen) {
-                // Eğer hiç adres yoksa ve "Yeni Adres Ekle" seçeneği seçiliyse modalı aç
+               
                 setIsNewAddressModalOpen(true);
                 return;
             }
         } else if (currentStep === 1) {
             if (!selectedShippingMethod) {
-                // alert("Lütfen bir kargo yöntemi seçin."); // Alert yerine modal kullanın
+              
                 return;
             }
         }
-        // Ödeme adımında goToNextStep'i çağırmayız, direkt sipariş tamamlanır
+        
 
         if (currentStep < steps.length - 1) {
             setCurrentStep(currentStep + 1);
@@ -358,16 +357,16 @@ const Payment: React.FC = () => {
         }
     };
 
-    // Ödeme Tamamlama Fonksiyonu
+
     const handleCompletePayment = async () => {
         if (!selectedAddressId || !paymentChoice) {
-            // alert("Siparişinizi tamamlamak için tüm adımları eksiksiz doldurun."); // Alert yerine modal kullanın
+
             return;
         }
 
         if (paymentChoice === "credit_cart") {
             if (!cardDigits || cardDigits.length < 13 || cardDigits.length > 16 || !cardExpirationMonth || !cardExpirationYear || !cardSecurityCode || !cardName) {
-                // alert("Lütfen kredi kartı bilgilerini eksiksiz ve doğru girin."); // Alert yerine modal kullanın
+            
                 return;
             }
         }
@@ -376,7 +375,7 @@ const Payment: React.FC = () => {
         setFormSubmitted(true);
 
         const cardExpirationDate = paymentChoice === "credit_cart"
-        ? `${cardExpirationMonth}-${cardExpirationYear.slice(-2)}` // Yılın son 2 hanesini kullan
+        ? `${cardExpirationMonth}-${cardExpirationYear.slice(-2)}`
         : undefined;
 
     const orderData = {
@@ -412,29 +411,25 @@ const Payment: React.FC = () => {
             console.log("Sipariş Başarılı:", response.data.data);
             setOrderNumber(response.data.data.order_no);
             clearCart();
-            setCurrentStep(3); // Tamamlandı adımına geç
+            setCurrentStep(3); 
 
         } catch (error: any) {
             console.error("Sipariş Oluşturma Hatası:", error);
-            // alert("Sipariş oluşturulurken bir hata oluştu: " + (error.response?.data?.message || error.message)); // Alert yerine modal kullanın
         } finally {
             setIsSubmitting(false);
             setFormSubmitted(false);
         }
     };
 
-    // Adımlar Dizisi
+
     const steps = ["Teslimat Adresi", "Kargo", "Ödeme", "Tamamlandı"];
 
-    // Render Bölümü
+ 
     if (loading) {
         return <div className="text-center py-10">Yükleniyor...</div>;
     }
 
-    // Eğer adres hatası varsa ve modal açık değilse sadece bu hata mesajını ve modalı göster
-    // Bu blok, tüm component'i return ettiği için diğer adımların görünmesini engeller.
-    // Eğer adımlar görünürken hata mesajı göstermek istiyorsanız, bu return bloğunu kaldırıp
-    // hata mesajını ilgili adımın içine conditional olarak yerleştirmeniz gerekir.
+
     if (addressError && !isNewAddressModalOpen && !isEditAddressModalOpen) {
         return (
             <div className="payment-container max-w-3xl mx-auto p-4">
@@ -450,7 +445,7 @@ const Payment: React.FC = () => {
                         </span>
                     </p>
                 </div>
-                {/* Yeni Adres Ekle Modalı */}
+             
                 {isNewAddressModalOpen && (
                     <div className="modal-container" onClick={(e) => {
                         if (e.target.className === 'modal-container') {
@@ -584,12 +579,11 @@ const Payment: React.FC = () => {
         );
     }
 
-    // Ana render bloğu
+ 
     return (
         <div className="payment-container max-w-6xl mx-auto p-4">
             <h1 className="text-2xl font-bold mb-6 text-center">Ödeme Sayfası</h1>
 
-            {/* Sipariş Tamamlandı Ekranı - currentStep 3 olduğunda tüm içeriği değiştir */}
             {currentStep === 3 && orderNumber ? (
     <div className="bg-white p-6 rounded-lg shadow-md text-center">
         <h2 className="text-xl font-semibold text-green-600 mb-2">Siparişiniz Başarıyla Alındı!</h2>
@@ -597,9 +591,9 @@ const Payment: React.FC = () => {
         <p className="mt-4">Ana sayfaya dönmek için <span onClick={() => navigate('/')} className="underline text-blue-500 cursor-pointer">tıklayın.</span></p>
     </div>
 ) : (
-                // Normal Adım Akışı (currentStep 0, 1, 2)
+          
                 <div className="payment-content-grid">
-                    {/* Sol Sütun: Adımlar ve Aktif Adım İçeriği */}
+                
                     <div className="payment-left-column">
                         <div className="steps-indicator flex flex-col mb-6">
                             {steps.map((step, index) => (
@@ -628,7 +622,7 @@ const Payment: React.FC = () => {
                                         </p>
                                     </div>
 
-                                    {/* Sadece aktif olan adımın detaylarını ve etkileşimli elemanlarını göster */}
+                                  
                                     {index === 0 && currentStep === 0 && (
                                         <div className="ml-10 mt-1 space-y-0.5">
                                             <h3 className="text-lg font-semibold mb-3">Teslimat Adresinizi Seçin</h3>
@@ -663,9 +657,9 @@ const Payment: React.FC = () => {
                                                                         e.preventDefault();
                                                                         setAddressToEdit(addr);
                                                                         reset({
-                                                                            country_id: addr.country_id, // API'den gelen ID'yi kullan
-                                                                            region_id: addr.region_id, // API'den gelen ID'yi kullan
-                                                                            subregion_id: addr.subregion_id, // API'den gelen ID'yi kullan
+                                                                            country_id: addr.country_id, 
+                                                                            region_id: addr.region_id, 
+                                                                            subregion_id: addr.subregion_id, 
                                                                             first_name: addr.first_name,
                                                                             last_name: addr.last_name,
                                                                             phone_number: addr.phone_number,
@@ -697,7 +691,7 @@ const Payment: React.FC = () => {
                                                             </div>
                                                         </div>
                                                     ))}
-                                                    {/* Yeni Adres Ekle seçeneği */}
+                                                  
                                                     <div className="add-new-address-box">
                                                         <label className="flex items-center cursor-pointer">
                                                             <input
@@ -744,7 +738,7 @@ const Payment: React.FC = () => {
                                         </div>
                                     )}
 
-                                    {/* Kargo Yöntemi Seçimi */}
+                                 
                                     {index === 1 && currentStep === 1 && (
                                         <div className="ml-10 mt-4 px-4 py-3 bg-white rounded-lg shadow-sm">
                                             <p className="font-bold text-lg text-gray-800 mb-4 border-b pb-2">Kargo Seçimi</p>
@@ -800,7 +794,7 @@ const Payment: React.FC = () => {
                                         </div>
                                     )}
 
-                                    {/* Ödeme Yöntemi Seçimi */}
+                                  
                                     {index === 2 && currentStep === 2 && (
                                         <div className="ml-10 text-gray-700 text-sm mt-1 space-y-0.5">
                                             <h3 className="text-lg font-semibold mb-2">Ödeme Yöntemi Seçimi</h3>
@@ -820,7 +814,7 @@ const Payment: React.FC = () => {
                                                 ))}
                                             </div>
 
-                                            {/* Kredi Kartı Bilgileri */}
+                
                                             {paymentChoice === "credit_cart" && (
                                                 <div className="mt-4">
                                                     <h3 className="text-md font-semibold mb-2">Kredi Kartı Bilgileri</h3>
@@ -918,7 +912,7 @@ const Payment: React.FC = () => {
                                                 </div>
                                             )}
 
-                                            {/* Kapıda Nakit Ödeme */}
+                                            
                                             {paymentChoice === "cash_at_door" && (
                                                 <div className="mt-4">
                                                     <h3 className="text-md font-semibold mb-2">Kapıda Nakit Ödeme</h3>
@@ -934,7 +928,7 @@ const Payment: React.FC = () => {
                                                 </div>
                                             )}
 
-                                            {/* Kapıda Kredi Kartı Ödeme */}
+                                           
                                             {paymentChoice === "credit_cart_at_door" && (
                                                 <div className="mt-4">
                                                     <h3 className="text-md font-semibold mb-2">Kapıda Kredi Kartı Ödeme</h3>
@@ -956,7 +950,6 @@ const Payment: React.FC = () => {
                         </div>
                     </div>
 
-                    {/* Sağ Sütun: Sipariş Özeti */}
                     <div className="payment-right-column w-[600px] flex-shrink-0">
                         <div className="bg-white p-4 rounded-lg shadow-md h-[200px] flex flex-col justify-between">
                             <h3 className="text-lg font-semibold mb-3">Sipariş Özeti</h3>
@@ -993,7 +986,7 @@ const Payment: React.FC = () => {
                 </div>
             )}
 
-            {/* Yeni Adres Ekle Modalı (Ana bileşenin dışında, isNewAddressModalOpen ile kontrol ediliyor) */}
+           
             {isNewAddressModalOpen && (
                 <div className="modal-container" onClick={(e) => {
                     if (e.target.className === 'modal-container') {
@@ -1124,7 +1117,7 @@ const Payment: React.FC = () => {
                 </div>
             )}
 
-            {/* Adres Düzenle Modalı */}
+           
             {isEditAddressModalOpen && addressToEdit && (
                 <div className="modal-container" onClick={(e) => {
                     if (e.target.className === 'modal-container') {

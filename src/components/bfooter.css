@@ -46,14 +46,14 @@
     margin-top: 150px;
 }
 
-/* Mobilde footer'ı gizle */
+
 @media (max-width: 600px) {
     .ftr {
         display: none;
     }
 }
 
-/* Tablet için sola padding ekle */
+
 @media (max-width: 768px) {
     .ftr {
         padding-left: 20px;

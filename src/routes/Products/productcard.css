@@ -174,8 +174,8 @@
 .discount-box {
   position: absolute;
   top: 15px;
-  left: 0; /* Sol kenara sıfırla */
-  transform: translateX(var(--discount-offset-right, 130px)); /* Hesaplanan değer kadar sağa it */
+  left: 0; 
+  transform: translateX(var(--discount-offset-right, 130px));
   background: #ed2727;
   color: white;
   padding: 6px 8px;
@@ -198,14 +198,9 @@
   line-height: 1.2;
 }
 
-/* Bu sınıfa artık ihtiyacımız yok çünkü konumlandırmayı translateX ile yapıyoruz.
-   Ancak ProductList.tsx ve ProductCard.tsx içinde isProductListPage'i kullandığımız için
-   boş da olsa bırakabiliriz ya da tamamen silebiliriz.
-   Şimdilik boş bırakalım ki hata vermesin.
-*/
+
 .discount-box.discount-box-product-list {
-    /* Bu kurallar artık translateX tarafından override edilecek veya gereksiz kalacak */
-    /* Yine de ne olur ne olmaz diye left: auto !important ekleyebiliriz */
+
     left: auto !important; 
 }
 

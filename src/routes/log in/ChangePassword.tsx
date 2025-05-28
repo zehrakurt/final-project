@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { getAccessToken } from '../signup/storage'; // getToken yerine getAccessToken kullanıyoruz
-
+import { getAccessToken } from '../signup/storage'; 
 export default function ChangePassword() {
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
@@ -31,7 +30,7 @@ export default function ChangePassword() {
         }
 
         try {
-            const token = getAccessToken(); // Burayı değiştirdik: getToken() yerine getAccessToken()
+            const token = getAccessToken(); 
             if (!token) {
                 setError('Lütfen önce giriş yapın.');
                 navigate('/login');

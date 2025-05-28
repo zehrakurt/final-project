@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react'; // useRef ve useEffect import edildi
+import React, { useRef, useEffect } from 'react'; 
 import './productcard.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
@@ -27,17 +27,16 @@ interface ProductCardProps {
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({ product, baseURL, isProductListPage }) => {
-    const discountBoxRef = useRef<HTMLDivElement>(null); // İndirim kutusuna referans
-    const cardRef = useRef<HTMLAnchorElement>(null); // Kartın kendisine referans
+    const discountBoxRef = useRef<HTMLDivElement>(null); 
+    const cardRef = useRef<HTMLAnchorElement>(null); 
 
     useEffect(() => {
         if (discountBoxRef.current && cardRef.current) {
             const discountBoxWidth = discountBoxRef.current.offsetWidth;
             const cardWidth = cardRef.current.offsetWidth;
             
-            // Kartın genişliğinden indirim kutusunun genişliğini çıkarıp, sağdan istediğimiz boşluğu ekliyoruz.
-            // Bu değeri translateX ile kullanacağız.
-            const offsetRight = cardWidth - discountBoxWidth - 0; // 10px sağdan boşluk
+       
+            const offsetRight = cardWidth - discountBoxWidth - 0;
 
             cardRef.current.style.setProperty('--discount-offset-right', `${offsetRight}px`);
         }

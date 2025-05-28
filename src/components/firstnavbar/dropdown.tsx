@@ -27,16 +27,16 @@ export default function Dropdown() {
                 setError(null);
                 try {
                     const profileData = await getMyProfile();
-                    console.log("Dropdown içinde gelen profil verisi:", profileData); // Bunu ekledim
+                    console.log("Dropdown içinde gelen profil verisi:", profileData); 
                     if (profileData) {
-                        setProfile(profileData.data); // .data ekledim
+                        setProfile(profileData.data); 
                     } else {
                         setError("Profil bilgileri alınamadı.");
-                        setProfile(null); //state sıfırladım
+                        setProfile(null); 
                     }
                 } catch (error: any) {
                     setError(error.message || "Profil verisi alınırken bir hata oluştu.");
-                    setProfile(null);  //state sıfırladım
+                    setProfile(null);  
                 } finally {
                     setLoading(false);
                 }

@@ -32,7 +32,7 @@ font-family: Inter;
 font-size: 13.828px;
 font-style: normal;
 font-weight: 400;
-line-height: 35px; /* 253.107% */
+line-height: 35px;
 }
 .hover-dropdown-content {
     color: blue;
@@ -44,18 +44,17 @@ line-height: 35px; /* 253.107% */
 
 .category-columns {
     display: flex;
-    flex-wrap: wrap; /* Eğer sığmazsa alt satıra geçsin */
+    flex-wrap: wrap; 
 }
 
 .category-column {
-  flex: 0 0 200px; /* Her sütun 200 piksel genişliğinde */
+  flex: 0 0 200px; 
   list-style: none;
   padding: 0 10px;
 }
 
 .category-column li {
-    margin-bottom: 5px; /* Öğeler arasında boşluk */
-}
+    margin-bottom: 5px; }
 
 .sub-children {
     list-style: none;

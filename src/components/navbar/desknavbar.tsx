@@ -85,7 +85,7 @@ export default function Desknavbar() {
                             </HoverCard>
                         </li>
                     ))}
-                    {/* "Tüm Ürünler" kategorisi */}
+                   
                     <li>
                         <Link className="spe"  to="/products/all-products">
                             <p>TÜM ÜRÜNLER</p>

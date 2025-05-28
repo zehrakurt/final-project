@@ -1,4 +1,4 @@
-import React, { useEffect, useState,useRef } from "react";
+import  { useEffect, useState,useRef } from "react";
 import "./Addaddress.css";
 import '../Profile/Profile.css';
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
@@ -26,14 +26,13 @@ import { getAccessToken } from "../signup/storage.ts";
 export default function MyAccount() {
     const access_token = getAccessToken();
     if (!access_token) {
-        // Access token yoksa veya geçersizse hata fırlat.
-        // Gerçek bir uygulamada bu, kullanıcıyı login sayfasına yönlendirebilir.
+     
         throw new Error("Access token is invalid");
     }
-     const addressWrapperRef = useRef<HTMLDivElement>(null); // Ref tanımlayın
+     const addressWrapperRef = useRef<HTMLDivElement>(null); 
 
  useEffect(() => {
-    // Sayfa yüklendiğinde (component mount edildiğinde) en üste kaydır
+   
     const scrollToTop = () => {
         window.scrollTo(0, 0);
         if (addressWrapperRef.current) {
@@ -41,13 +40,11 @@ export default function MyAccount() {
         }
     };
 
-    // DOM'un güncellenmesi için küçük bir gecikme ekleyebiliriz
-    // Bu genellikle resimler veya diğer medya yüklendiğinde faydalı olur.
-    const timeoutId = setTimeout(scrollToTop, 100); // 100ms gecikme
-
-    return () => clearTimeout(timeoutId); // Temizlik fonksiyonu
+  
+    const timeoutId = setTimeout(scrollToTop, 100); 
+    return () => clearTimeout(timeoutId); 
 }, []);
-    // State Tanımlamaları
+
     const [countries, setCountries] = useState<CountriesType | null>(null);
     const [countriesLoading, setCountriesLoading] = useState(true);
     const [countriesError, setCountriesError] = useState<string | null>(null);
@@ -64,24 +61,24 @@ export default function MyAccount() {
     const [addressLoading, setAddressLoading] = useState(true);
     const [addressError, setAddressError] = useState<string | null>(null);
 
-    const [addressId, setaddressId] = useState<string>(""); // Düzenlenecek adresin ID'si
+    const [addressId, setaddressId] = useState<string>("");
 
-    // Seçilen ülke, şehir, ilçe isimlerini tutan state'ler
+   
     const [selectedCountry, setselectedCountry] = useState<string | null>();
     const [selectedRegion, setselectedRegion] = useState<string | null>();
     const [selectedSubRegion, setselectedSubRegion] = useState<string | null>();
 
-    // Adres olup olmadığını kontrol eden state
+    
     const [isAddress, setisAddress] = useState<boolean>(false);
 
-    // Modal kontrol state'leri
-    const [handleEditAddress, setHandleEditAddress] = useState<boolean>(false); // Adres Düzenle modalı için
-    const [isNewAddressModalOpen, setIsNewAddressModalOpen] = useState<boolean>(false); // Yeni Adres Ekle modalı için
+ 
+    const [handleEditAddress, setHandleEditAddress] = useState<boolean>(false); 
+    const [isNewAddressModalOpen, setIsNewAddressModalOpen] = useState<boolean>(false); 
 
-    // React Hook Form başlatma
+    
     const { register, control, handleSubmit, reset, formState: { errors } } = useForm<AddressPayloadType>();
 
-    // İlk yüklemede ülkeleri ve kayıtlı adresleri getir
+   
     useEffect(() => {
         const fetchCountries = async () => {
             setCountriesLoading(true);
@@ -102,7 +99,7 @@ export default function MyAccount() {
             try {
                 const response = await GetAllMyAddress();
                 setAddress(response);
-                // Eğer adres varsa isAddress'i true yap, yoksa false
+               
                 setisAddress(response?.data?.count > 0);
                 setAddressLoading(false);
             } catch (error: any) {
@@ -113,9 +110,9 @@ export default function MyAccount() {
 
         fetchCountries();
         fetchAllMyAddress();
-    }, []); // Sadece bir kere çalışır
+    }, []); 
 
-    // selectedCountry değiştiğinde şehirleri getir
+    
     useEffect(() => {
         if (selectedCountry) {
             const fetchRegions = async () => {
@@ -128,16 +125,16 @@ export default function MyAccount() {
                 } catch (error: any) {
                     setRegionError("Şehirler yüklenirken bir hata oluştu.");
                     setRegionLoading(false);
-                    setRegion(null); // Hata durumunda şehirleri sıfırla
+                    setRegion(null); 
                 }
             };
             fetchRegions();
         } else {
-            setRegion(null); // Ülke seçili değilse şehirleri sıfırla
+            setRegion(null); 
         }
-    }, [selectedCountry]); // selectedCountry değiştiğinde çalışır
+    }, [selectedCountry]);
 
-    // selectedRegion değiştiğinde ilçeleri getir
+   
     useEffect(() => {
         if (selectedRegion) {
             const fetchSubRegions = async () => {
@@ -150,24 +147,24 @@ export default function MyAccount() {
                 } catch (error: any) {
                     setSubRegionError("İlçeler yüklenirken bir hata oluştu.");
                     setSubRegionLoading(false);
-                    setsubRegion(null); // Hata durumunda ilçeleri sıfırla
+                    setsubRegion(null); 
                 }
             };
             fetchSubRegions();
         } else {
-            setsubRegion(null); // Şehir seçili değilse ilçeleri sıfırla
+            setsubRegion(null); 
         }
-    }, [selectedRegion]); // selectedRegion değiştiğinde çalışır
+    }, [selectedRegion]); 
 
-    // Yeni adres oluşturma submit handler'ı
+ 
     const addressSubmit: SubmitHandler<AddressPayloadType> = async (data) => {
         try {
             await CreateNewAddress(data);
-            const renewedAddress = await GetAllMyAddress(); // Adres listesini yenile
+            const renewedAddress = await GetAllMyAddress(); 
             setAddress(renewedAddress);
-            setisAddress(true); // Yeni adres eklendiği için isAddress'i true yap
-            reset(); // Formu sıfırla
-            setIsNewAddressModalOpen(false); // Yeni adres modalını kapat
+            setisAddress(true); 
+            reset(); 
+            setIsNewAddressModalOpen(false); 
             alert("Adres başarıyla oluşturuldu!");
         } catch (error: any) {
             console.error("Adres oluşturulurken hata:", error);
@@ -175,13 +172,13 @@ export default function MyAccount() {
         }
     };
 
-    // Adres silme fonksiyonu
+
     const deleteMyAddress = async (idToDelete: string) => {
         try {
             await DeleteMyAddress(idToDelete);
-            const renewedAddress = await GetAllMyAddress(); // Adres listesini yenile
+            const renewedAddress = await GetAllMyAddress(); 
             setAddress(renewedAddress);
-            // Eğer hiç adres kalmadıysa isAddress'i false yap
+          
             setisAddress(renewedAddress?.data?.count > 0);
             alert("Adres başarıyla silindi!");
         } catch (error: any) {
@@ -190,13 +187,13 @@ export default function MyAccount() {
         }
     };
 
-    // Adres düzenleme submit handler'ı
+   
     const editMyAddress: SubmitHandler<AddressPayloadType> = async (data) => {
         try {
-            const response = await EditMyAddress({ data, addressId }); // addressId'yi kullan
+            const response = await EditMyAddress({ data, addressId }); 
             if (response?.status === "success") {
-                setHandleEditAddress(false); // Düzenleme modalını kapat
-                const renewedAddress = await GetAllMyAddress(); // Adres listesini yenile
+                setHandleEditAddress(false); 
+                const renewedAddress = await GetAllMyAddress(); 
                 setAddress(renewedAddress);
                 alert("Adres başarıyla düzenlendi!");
             } else {
@@ -208,12 +205,11 @@ export default function MyAccount() {
         }
     };
 
-    // Yüklenme durumları
+
     if (countriesLoading || addressLoading) {
         return <div>Yükleniyor...</div>;
     }
 
-    // Hata durumları
     if (countriesError || addressError) {
         return <div>Hata oluştu: {countriesError || addressError}</div>;
     }
@@ -240,7 +236,7 @@ export default function MyAccount() {
             </div>
             <div className="col-span-10">
                 <div className="address-wrapper" >
-                    {/* Kayıtlı adresler varsa listeyi göster */}
+                  
                     {isAddress && address?.data?.results?.length > 0 ? (
                         <>
                             <div className="saved-address-wrapper" style={{ marginBottom: '20px' }}>
@@ -249,12 +245,12 @@ export default function MyAccount() {
                                     <button
                                         className="a2"
                                         onClick={() => {
-                                            setIsNewAddressModalOpen(true); // Sadece yeni adres modalını aç
-                                            setHandleEditAddress(false); // Düzenleme modalını kapat
-                                            reset(); // Formu sıfırla (yeni giriş için)
-                                            setselectedCountry(null); // Seçili ülkeyi sıfırla
-                                            setselectedRegion(null); // Seçili şehri sıfırla
-                                            setselectedSubRegion(null); // Seçili ilçeyi sıfırla
+                                            setIsNewAddressModalOpen(true); 
+                                            setHandleEditAddress(false); 
+                                            reset(); 
+                                            setselectedCountry(null);
+                                            setselectedRegion(null); 
+                                            setselectedSubRegion(null); 
                                         }}
                                     >
                                         + Yeni Adres Ekle
@@ -266,7 +262,7 @@ export default function MyAccount() {
                                     <div className="error-message">{addressError}</div>
                                 ) : (
                                     address?.data?.results?.map((a, index) => (
-                                        <div key={index} className="address-box" style={{ marginBottom: '17px' }}> {/* Buraya eklendi */}
+                                        <div key={index} className="address-box" style={{ marginBottom: '17px' }}> 
                                             <div className="address-details">
                                                 <div className="address-title">{a.title}</div>
                                                 <div className="address-line">{`${a.full_address}, ${a.apartment_no || ''}`.trimEnd(', ')}</div>
@@ -285,7 +281,7 @@ export default function MyAccount() {
                                                 <button
                                                     onClick={() => {
                                                         setaddressId(a.id);
-                                                        // Düzenlenecek adresin verilerini forma yükle
+                                                       
                                                         reset({
                                                             title: a.title,
                                                             first_name: a.first_name,
@@ -295,13 +291,13 @@ export default function MyAccount() {
                                                             region_id: a.region_id,
                                                             subregion_id: a.subregion_id,
                                                             phone_number: a.phone_number,
-                                                            apartment_no: a.apartment_no, // apartment_no da eklenmeli
+                                                            apartment_no: a.apartment_no, 
                                                         });
                                                         setselectedCountry(a.country?.name || null);
                                                         setselectedRegion(a.region?.name || null);
                                                         setselectedSubRegion(a.subregion?.name || null);
-                                                        setHandleEditAddress(true); // Düzenleme modalını aç
-                                                        setIsNewAddressModalOpen(false); // Yeni adres modalını kapat
+                                                        setHandleEditAddress(true); 
+                                                        setIsNewAddressModalOpen(false); 
                                                     }}
                                                     className="icon-button edit-button"
                                                     title="Düzenle"
@@ -315,39 +311,10 @@ export default function MyAccount() {
                             </div>
                         </>
                     ) : (
-                        // Kayıtlı adres yoksa veya isAddress false ise yeni adres ekleme formunu göster
-                        // Bu kısım artık modal içinde değil, direkt sayfa içinde gösteriliyor.
-                        // Eğer bu formun da modalda açılmasını istiyorsanız, aşağıdaki modal yapısını kullanmalısınız.
+                       
                         <div className="new-address-form-container">
                             {!isAddress && <h3 className="mb-4 info-message"><p>Kayıtlı Adresiniz Bulunmamaktadır, Lütfen Adres Ekleyiniz</p></h3>}
-                            {/* Bu formun da modalda açılmasını istiyorsanız, aşağıdaki modal yapısını kullanın */}
-                            {/* <AddressFormContent
-                                register={register}
-                                control={control}
-                                errors={errors}
-                                countries={countries}
-                                countriesLoading={countriesLoading}
-                                countriesError={countriesError}
-                                region={region}
-                                regionLoading={regionLoading}
-                                regionError={regionError}
-                                subRegion={subRegion}
-                                subRegionLoading={subRegionLoading}
-                                subRegionError={subRegionError}
-                                selectedCountry={selectedCountry}
-                                setselectedCountry={setselectedCountry}
-                                selectedRegion={selectedRegion}
-                                setselectedRegion={setselectedRegion}
-                                selectedSubRegion={selectedSubRegion}
-                                setselectedSubRegion={setselectedSubRegion}
-                                onSubmit={handleSubmit(addressSubmit)} // Yeni adres ekleme submit'i
-                                isEditMode={false} // Yeni adres modu
-                                onClose={() => setIsNewAddressModalOpen(false)}
-                            /> */}
-                            {/* Eğer adres yoksa direkt formu gösteriyorsunuz, modalda değil. */}
-                            {/* Bu formun da modalda açılmasını istiyorsanız, aşağıdaki `isNewAddressModalOpen` koşulunu kullanın */}
-                            {/* Aşağıdaki form, eğer hiç adres yoksa ve modal açılmamışsa görünür. */}
-                            {/* Eğer yeni adres ekle butonuna basıldığında modalda açılmasını istiyorsanız, bu kısmı kaldırıp aşağıdaki modal yapısını kullanın. */}
+                           
                             <form onSubmit={handleSubmit(addressSubmit)} className="address-form">
                                 <label className="address-title-label">
                                     *Adres Başlığı
@@ -567,10 +534,10 @@ export default function MyAccount() {
                         </div>
                     )}
 
-                    {/* Yeni Adres Ekle Modalı */}
+
                     {isNewAddressModalOpen && (
                         <div className="modal-container" onClick={(e) => {
-                            // Modal dışına tıklayınca kapanma
+                          
                             if (e.target.className === 'modal-container') {
                                 setIsNewAddressModalOpen(false);
                             }
@@ -582,7 +549,7 @@ export default function MyAccount() {
                                     </h5>
                                     <button
                                         className="modal-close-button"
-                                        onClick={() => setIsNewAddressModalOpen(false)} // Kapatma butonu
+                                        onClick={() => setIsNewAddressModalOpen(false)} 
                                     >
                                         <i className="bi bi-x-lg"></i>
                                     </button>
@@ -590,16 +557,16 @@ export default function MyAccount() {
 
                                 <div className="modal-form-wrapper">
                                     <form
-                                        onSubmit={handleSubmit(addressSubmit)} // Yeni adres submit fonksiyonu
+                                        onSubmit={handleSubmit(addressSubmit)} 
                                         className="modal-form"
                                     >
-                                        {/* Yeni Adres Formu Alanları - Kayıtlı adres yoksa gösterilen formun aynısı */}
+                                      
                                         <label className="address-title-label">
                                             *Adres Başlığı
                                         </label>
                                         <input
                                             {...register("title", { required: "Adres başlığı zorunludur." })}
-                                            id="new-address-title-input" // ID'yi benzersiz yapın
+                                            id="new-address-title-input" 
                                             type="text"
                                             placeholder="ev,iş vb..."
                                             className="address-title-input"
@@ -648,7 +615,7 @@ export default function MyAccount() {
                                                 required: "Lütfen bir ülke seçin.",
                                                 setValueAs: (value) => parseInt(value, 10),
                                             })}
-                                            id="new-address-country-input" // ID'yi benzersiz yapın
+                                            id="new-address-country-input" 
                                             onChange={(e) => {
                                                 const selectedCountryId = countries?.data?.results?.find(
                                                     (country) => country.id === Number(e.target.value)
@@ -682,7 +649,7 @@ export default function MyAccount() {
                                                 required: "Lütfen bir şehir seçin.",
                                                 setValueAs: (value) => parseInt(value, 10),
                                             })}
-                                            id="new-address-state-input" // ID'yi benzersiz yapın
+                                            id="new-address-state-input" 
                                             onChange={(e) => {
                                                 const selectedRegionId = region?.data?.results?.find(
                                                     (regionItem) => regionItem.id === Number(e.target.value)
@@ -718,7 +685,7 @@ export default function MyAccount() {
                                                 required: "Lütfen bir ilçe seçin.",
                                                 setValueAs: (value) => parseInt(value, 10),
                                             })}
-                                            id="new-address-subregion-input" // ID'yi benzersiz yapın
+                                            id="new-address-subregion-input" 
                                             onChange={(e) => {
                                                 const selectedSubregionId =
                                                     subRegion?.data?.results?.find(
@@ -813,7 +780,7 @@ export default function MyAccount() {
                         </div>
                     )}
 
-                    {/* Adres Düzenle Modalı */}
+                  
                     {handleEditAddress && (
                         <div className="modal-container" onClick={(e) => {
                             if (e.target.className === 'modal-container') {
@@ -835,16 +802,16 @@ export default function MyAccount() {
 
                                 <div className="modal-form-wrapper">
                                     <form
-                                        onSubmit={handleSubmit(editMyAddress)} // Adres düzenleme submit fonksiyonu
+                                        onSubmit={handleSubmit(editMyAddress)} 
                                         className="modal-form"
                                     >
-                                        {/* Adres Düzenleme Formu Alanları - Mevcut formun aynısı */}
+                                      
                                         <label className="address-title-label">
                                             *Adres Başlığı
                                         </label>
                                         <input
                                             {...register("title", { required: "Adres başlığı zorunludur." })}
-                                            id="edit-address-title-input" // ID'yi benzersiz yapın
+                                            id="edit-address-title-input" 
                                             type="text"
                                             placeholder="ev,iş vb..."
                                             className="address-title-input"
@@ -1014,7 +981,7 @@ export default function MyAccount() {
                                                             padding: '12px 15px',
                                                             border: '1px solid #e5e5e5',
                                                             borderRadius: '4px',
-                                                            backgroundColor: '#fff', // Düzenleme modunda farklı renk olabilir
+                                                            backgroundColor: '#fff', 
                                                             fontSize: '16px',
                                                             color: '#222',
                                                             boxSizing: 'border-box',
@@ -1022,7 +989,7 @@ export default function MyAccount() {
                                                             fontStyle: 'normal',
                                                             fontWeight: 400,
                                                             lineHeight: 'normal',
-                                                            height: 'auto', // Auto height for better responsiveness
+                                                            height: 'auto', 
                                                             paddingLeft: '45px',
                                                         }}
                                                         containerClass="address-phone-container"

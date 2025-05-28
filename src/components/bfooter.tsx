@@ -8,7 +8,7 @@ export default function Bfooter() {
       <div className="container mx-auto">
         <div className="grid grid-cols-3 gap-4">
           
-          {/* LOGO & GENEL BİLGİLER */}
+     
           <div>
             <ul className="footer-menu">
               <li><img className='footer-logo' src="/images/LOGO_Siyah.png" alt="Logo" /></li>
@@ -24,7 +24,7 @@ export default function Bfooter() {
             </ul>
           </div>
 
-          {/* KATEGORİLER */}
+
           <div>
             <ul className="footer-menu">
               <li className="footer-menu-title">Kategoriler</li>
@@ -39,7 +39,7 @@ export default function Bfooter() {
             </ul>
           </div>
 
-          {/* POPÜLER ÜRÜNLER */}
+    
           <div>
             <ul className="footer-menu">
               <li className="footer-menu-title">Popüler Ürünler</li>

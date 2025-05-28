@@ -1,12 +1,12 @@
 @import 'bootstrap-icons/font/bootstrap-icons.css';
 
-/* Genel Stiller */
+
 .payment-container {
-    /* max-w-6xl için CSS */
-    max-width: 1152px; /* Tailwind'in max-w-6xl değeri */
+ 
+    max-width: 1152px; 
     margin-left: auto;
     margin-right: auto;
-    padding: 1rem; /* p-4 değeri */
+    padding: 1rem; 
 }
 .kg-8{
     color: #8A8B94;
@@ -14,57 +14,55 @@ font-family: Roboto;
 font-size: 12px;
 font-style: normal;
 font-weight: 400;
-line-height: 20px; /* 166.667% */
+line-height: 20px; 
 margin-top: 5px;
 }
-/* Yeni Grid Yapısı */
+
 .payment-content-grid {
     display: grid;
-    /* Sol kısım 2 birim, sağ kısım 1 birim olarak böl */
-    grid-template-columns: 2fr 1fr; /* Bu satır korundu */
-    gap: 30px; /* Sütunlar arası boşluk */
-    align-items: start; /* İçerikleri üste hizala */
+    
+    grid-template-columns: 2fr 1fr; 
+    gap: 30px; 
+    align-items: start; 
 }
 
-/* Sol Sütun */
-.payment-left-column {
-    /* Adım göstergesi ve aktif adım içerikleri burada */
-}
 
-/* Sağ Sütun: Sipariş Özeti */
+
+
+
 .payment-right-column {
-    position: sticky; /* Sayfayı kaydırırken sabit kalmasını sağlar */
-    top: 20px; /* Üstten ne kadar boşluk kalacak */
-    flex-shrink: 0; /* İçeriğin sıkışmasını engeller */
+    position: sticky; 
+    top: 20px; 
+    flex-shrink: 0; 
 }
 
 .order-summary-box {
-    /* width: 600px; */ /* Bu satır kaldırıldı */
-    height: 343px; /* İstediğin yükseklik */
-    flex-shrink: 0; /* İstediğin flex-shrink */
-    background-color: transparent; /* Arka plan rengi yok */
-    border: none; /* Kenarlık yok */
-    box-shadow: none; /* Gölge yok */
-    padding: 0; /* İç boşluğu 0 yap, içindeki elemanlara padding verilebilir */
-    overflow-y: auto; /* İçerik taşarsa kaydırma çubuğu çıksın */
+   
+    height: 343px; 
+    flex-shrink: 0; 
+    background-color: transparent; 
+    border: none; 
+    box-shadow: none;
+    padding: 0;
+    overflow-y: auto; 
 }
 
-/* Adres Seçimi Grid'i (Teslimat Adresi adımında) */
+
 .address-selection-grid {
     display: grid;
-    /* Adres kartları için yeni minimum genişlik */
-    grid-template-columns: repeat(auto-fill, minmax(552px, 1fr)); /* BURASI GÜNCELLENDİ */
-    gap: 15px; /* Kartlar arası boşluk */
+ 
+    grid-template-columns: repeat(auto-fill, minmax(552px, 1fr)); 
+    gap: 15px; 
     margin-top: 10px;
 }
 
-/* Adres Kartı ve Radyo Butonu İçin Özel Stiller */
+
 .address-box-label {
-    display: flex; /* Radyo butonu ve kartı yan yana hizalamak için */
-    align-items: flex-start; /* Dikeyde hizalama */
+    display: flex;
+    align-items: flex-start;
     cursor: pointer;
-    position: relative; /* Custom radyo butonu için */
-    margin-bottom: 10px; /* Her label arasında boşluk */
+    position: relative; 
+    margin-bottom: 10px; 
 }
 
 .address-box-label:last-child {
@@ -72,54 +70,53 @@ margin-top: 5px;
 }
 
 .custom-radio-button {
-    /* Varsayılan radyo butonunu gizle */
+   
     opacity: 0;
     width: 0;
     height: 0;
     position: absolute;
-    left: -9999px; /* Ekranda olmasın */
+    left: -9999px; 
 }
 
-/* Özel radyo butonu görünümü için psödo-element kullanma */
+
 .address-box-label .address-box::before {
     content: '';
     display: block;
-    width: 24px; /* Radyo butonu boyutu */
+    width: 24px; 
     height: 24px;
-    min-width: 24px; /* Flexbox'ta küçülmemesi için */
+    min-width: 24px; 
     min-height: 24px;
     border: 1px solid #ccc;
-    border-radius: 50%; /* Daire */
-    margin-right: 15px; /* Radyo butonu ile adres kutusu arası boşluk */
+    border-radius: 50%; 
+    margin-right: 15px; 
     background-color: #fff;
     box-sizing: border-box;
     transition: all 0.2s ease;
 }
 
-/* Seçili olduğunda radyo butonu stili */
+
 .custom-radio-button:checked + .address-box::before {
-    background-color: #2126AB; /* Seçili olduğunda iç rengi */
-    border: 10px solid #000; /* İstediğin siyah kalın border */
-    border-radius: 20px; /* İstediğin border-radius */
-    box-sizing: border-box; /* Border'ın boyutu dahil et */
+    background-color: #2126AB; 
+    border: 10px solid #000; 
+    border-radius: 20px; 
+    box-sizing: border-box; 
 }
 
 
-/* Seçili Adres Kutusu için Ek Stil */
+
 .selected-address-box {
-    border: 2px solid #2126AB !important; /* Seçili olduğunda daha belirgin border */
-    background-color: #e6e8fc !important; /* Hafif bir arka plan rengi */
+    border: 2px solid #2126AB !important; 
+    background-color: #e6e8fc !important; 
 }
 
 
-/* Genel Stiller */
 .address-wrapper {
     padding: 20px;
     font-family: Inter, sans-serif;
     color: #222;
 }
 
-/* Adres Oluştur Container */
+
 .without-address-container {
     background-color: #f7f7f7;
     border: 1px solid #e5e5e5;
@@ -142,7 +139,6 @@ margin-top: 5px;
     color: #555;
 }
 
-/* Adres Formu */
 .address-form {
     display: flex;
     flex-direction: column;
@@ -314,7 +310,6 @@ margin-top: 5px;
     margin: 0;
 }
 
-/* Responsive düzenleme için media query */
 @media (max-width: 768px) {
     .info-message {
         padding: 12px;
@@ -348,10 +343,7 @@ margin-top: 5px;
     background-color: #333;
 }
 
-/* Kayıtlı Adresler Bölümü */
-.saved-address-wrapper {
-    /* Buraya özel stiller eklenebilir */
-}
+
 
 .saved-address-wrapper h3 {
     font-size: 20px;
@@ -362,10 +354,10 @@ margin-top: 5px;
 }
 .add-new-address-box-label {
     display: flex;
-    align-items: flex-start; /* Radyo butonu ve kutu içeriğini üste hizala */
+    align-items: flex-start; 
     cursor: pointer;
     position: relative;
-    margin-bottom: 10px; /* Diğer kutularla aynı boşluk */
+    margin-bottom: 10px; 
 }
 
 .add-new-address-box-label:last-child {
@@ -374,62 +366,57 @@ margin-top: 5px;
 
 .add-new-address-box {
     display: flex;
-    width: 552px; /* Adres kutusuyla aynı genişlik */
+    width: 552px; 
    margin-top: 17px;
-    padding: 17px; /* Belirttiğin padding'i kullan */
-    /* Not: padding: 17px 422.32px 17px 17px; değeri çok büyük bir yatay padding içeriyor.
-       Bu, içeriğin çok sıkışmasına neden olabilir. Genel bir padding (17px) uyguluyorum.
-       Eğer özel hizalama istiyorsan, içindeki elementlere margin/padding verebiliriz. */
+    padding: 17px; 
     align-items: center;
-    gap: 16px; /* İkon ve yazı arası boşluk */
+    gap: 16px; 
     border-radius: 8px;
-    border: 1px solid #E5E4E9; /* İstediğin border rengi */
-    background: #F7F7F9; /* Arka plan rengi */
-    box-shadow: 0px 0px 0px 1px #E5E4E9; /* İstediğin box shadow */
-    box-sizing: border-box; /* Padding ve border'ı width/height'e dahil et */
-    flex-shrink: 0; /* Küçülmesini engelle */
-    justify-content: flex-start; /* İçeriği solda hizala */
+    border: 1px solid #E5E4E9; 
+    background: #F7F7F9; 
+    box-shadow: 0px 0px 0px 1px #E5E4E9; 
+    box-sizing: border-box; 
+    flex-shrink: 0;
+    justify-content: flex-start; 
 }
 
-/* "Yeni Adres Ekle" yazısı için stil */
+
 .add-new-address-text {
-    color: #000; /* Yazı rengi */
-    font-family: Inter, sans-serif; /* Yazı tipi */
-    font-size: 16px; /* Yazı boyutu */
-    font-weight: 500; /* Kalınlık */
+    color: #000; 
+    font-family: Inter, sans-serif; 
+    font-size: 16px; 
+    font-weight: 500; 
 }
 
-/* Radyo butonu benzeri yuvarlak ikon */
+
 .add-new-address-box-label .add-new-address-box::before {
     content: '';
     display: block;
-    width: 20px; /* İstediğin genişlik */
-    height: 20px; /* İstediğin yükseklik */
-    min-width: 20px; /* Flexbox'ta küçülmesini engelle */
+    width: 20px; 
+    height: 20px; 
+    min-width: 20px; 
     min-height: 20px;
-    flex-shrink: 0; /* Küçülmesini engelle */
-    border-radius: 20px; /* İstediğin border-radius (yuvarlak için) */
-    border: 1px solid #E5E4E9; /* İstediğin border rengi */
-    margin-right: 15px; /* İkon ile kutu içeriği arası boşluk */
-    background-color: #fff; /* İç arka plan */
+    flex-shrink: 0; 
+    border-radius: 20px; 
+    border: 1px solid #E5E4E9; 
+    margin-right: 15px; 
+    background-color: #fff; 
     box-sizing: border-box;
     transition: all 0.2s ease;
 }
 
-/* "Yeni Adres Ekle" kutusu seçildiğinde özel radyo butonu stili */
 .custom-radio-button:checked + .add-new-address-box-label .add-new-address-box::before {
-    background-color: #2126AB; /* Seçili olduğunda iç rengi */
-    border: 10px solid #000; /* İstediğin siyah kalın border */
-    border-radius: 20px; /* İstediğin border-radius */
+    background-color: #2126AB;
+    border: 10px solid #000; 
+    border-radius: 20px; 
     box-sizing: border-box;
 }
 
-/* "Yeni Adres Ekle" kutusu seçildiğinde kutunun kendisinin stili */
+
 .custom-radio-button:checked + .add-new-address-box-label .add-new-address-box {
-    border: 2px solid #2126AB !important; /* Seçili olduğunda daha belirgin border */
-    background-color: #e6e8fc !important; /* Hafif bir arka plan rengi */
-    box-shadow: 0px 0px 0px 1px #2126AB !important; /* Gölge de seçili renge dönsün */
-}
+    border: 2px solid #2126AB !important; 
+    background-color: #e6e8fc !important; 
+    box-shadow: 0px 0px 0px 1px #2126AB !important; }
 .kg-button{ 
     display: flex;
 width: 552px;
@@ -446,25 +433,25 @@ font-family: Roboto;
 font-size: 16px;
 font-style: normal;
 font-weight: 600;
-line-height: 24px; /* 150% */
+line-height: 24px; 
 margin-top: 17px;
 }
-/* address-box için asıl stil tanımı */
+
 .address-box {
-    width: 552px; /* YENİ: Sabit genişlik */
-    height: 148px; /* YENİ: Sabit yükseklik */
-    flex-shrink: 0; /* YENİ: Küçülmesini engelle */
-    border-radius: 8px; /* YENİ: Border radius */
-    border: 1px solid #2126AB; /* YENİ: Border */
-    background: #F7F7F9; /* YENİ: Arka plan */
-    box-shadow: 0px 0px 0px 1px #2126AB; /* YENİ: Box shadow */
+    width: 552px;
+    height: 148px; 
+    flex-shrink: 0; 
+    border-radius: 8px; 
+    border: 1px solid #2126AB; 
+    background: #F7F7F9;
+    box-shadow: 0px 0px 0px 1px #2126AB;
     padding: 15px;
     margin-bottom: 0;
     box-sizing: border-box;
-    flex-grow: 0; /* Artık sabit boyutta olduğu için flex-grow: 0 */
+    flex-grow: 0; 
     display: flex;
  
-    /* overflow: hidden; */ /* İçerik taşarsa gizle veya scrollbar için auto dene */
+    
 }
 
 .address-box .address-title {
@@ -476,9 +463,9 @@ margin-top: 17px;
 .address-box .address-details {
     margin-bottom: 0;
     flex-grow: 1;
-    overflow: hidden; /* İçerik taşarsa gizle */
-    text-overflow: ellipsis; /* İçerik taşarsa ... göster */
-    white-space: normal; /* Uzun satırları otomatik sar */
+    overflow: hidden; 
+    text-overflow: ellipsis; 
+    white-space: normal; 
 }
 
 .address-box .address-details .address-line {
@@ -500,7 +487,7 @@ margin-top: 17px;
     line-height: 1.5;
 }
 
-/* Modal Stilleri */
+
 .modal-container {
     position: fixed;
     top: 0;
@@ -567,9 +554,7 @@ margin-top: 17px;
     margin-bottom: 0;
 }
 
-/* Hata ve Bilgi Mesajları */
 
-/* Düzenleme: .container ve .col-span-* stilleri için */
 .address-management-container {
     max-width: 1200px;
     margin: 0 auto;
@@ -593,22 +578,20 @@ margin-top: 17px;
     box-sizing: border-box;
 }
 
-/* Ürün Listesi Stilleri (Yeni Eklenenler) */
 .product-list-summary {
     margin-top: 15px;
-    border-top: 1px solid #eee; /* Ürün listesinin üstündeki çizgi */
+    border-top: 1px solid #eee; 
     padding-top: 15px;
-    max-height: calc(343px - 150px); /* Kutu yüksekliğinden başlık ve toplam alanını çıkar */
-    overflow-y: auto; /* Ürünler taşarsa kaydırma çubuğu */
+    max-height: calc(343px - 150px); 
+    overflow-y: auto; 
 }
-
 .product-item-summary {
     display: flex;
     align-items: center;
     margin-bottom: 15px;
-    gap: 10px; /* Elemanlar arası boşluk */
+    gap: 10px; 
     padding-bottom: 15px;
-    border-bottom: 1px dashed #eee; /* Ürünler arasına ince çizgi */
+    border-bottom: 1px dashed #eee; 
 }
 
 .product-item-summary:last-child {
@@ -620,14 +603,13 @@ margin-top: 17px;
 .product-image-summary {
     width: 64px;
     height: 64px;
-    flex-shrink: 0; /* Resmin boyutunu koru */
-    object-fit: cover; /* Resmi kutuya sığdır */
-    border-radius: 4px; /* Hafif yuvarlak köşeler */
+    flex-shrink: 0; 
+    object-fit: cover; 
+    border-radius: 4px; 
 }
 
 .product-details-summary {
-    flex-grow: 1; /* Ürün adının boşluğu doldurmasını sağla */
-}
+    flex-grow: 1; }
 
 .product-name-summary {
     font-size: 14px;
@@ -646,38 +628,38 @@ margin-top: 17px;
     font-weight: 600;
     color: #000;
     text-align: right;
-    min-width: 80px; /* Toplam tutar için minimum genişlik */
+    min-width: 80px; 
 }
 
 
-/* Responsive Düzenlemeler */
-@media (max-width: 1024px) { /* Medium ekranlar için */
+
+@media (max-width: 1024px) { 
     .payment-content-grid {
-        grid-template-columns: 1fr; /* Tek sütuna düşür */
+        grid-template-columns: 1fr; 
         gap: 20px;
     }
     .payment-right-column {
-        position: relative; /* Sticky'i kaldır */
+        position: relative; 
         top: auto;
-        width: 100%; /* Tam genişlik */
+        width: 100%; 
     }
     .order-summary-box {
-        width: 100%; /* Tam genişlik */
-        height: auto; /* Yüksekliği otomatik yap, içerik taşmasın */
-        margin-top: 20px; /* Üstüne boşluk ekle */
-        padding: 20px; /* Mobil ve küçük ekranlarda padding ekle */
+        width: 100%; 
+        height: auto; 
+        margin-top: 20px; 
+        padding: 20px; 
     }
-    /* Adres kartları da 100% genişlik alsın */
+
     .address-box {
-        width: 100%; /* Mobil cihazlarda tam genişlik */
-        height: auto; /* İçerik boyutu kadar yükseklik */
+        width: 100%; 
+        height: auto; 
     }
     .address-selection-grid {
-        grid-template-columns: 1fr; /* Mobil cihazlarda tek sütun */
+        grid-template-columns: 1fr; 
     }
 }
 
-@media (max-width: 768px) { /* Tabletler için */
+@media (max-width: 768px) { 
     .address-management-col-span-2 {
         width: 100%;
     }
@@ -694,9 +676,9 @@ margin-top: 17px;
     }
 }
 
-@media (max-width: 480px) { /* Telefonlar için */
+@media (max-width: 480px) { 
     .address-selection-grid {
-        grid-template-columns: 1fr; /* Mobil cihazlarda tek sütun */
+        grid-template-columns: 1fr; 
     }
     .address-management-col-span-2 {
         width: 100%;
@@ -711,12 +693,12 @@ margin-top: 17px;
         margin-bottom: 10px;
     }
     .product-item-summary {
-        flex-wrap: wrap; /* Küçük ekranlarda alt alta geçebilir */
+        flex-wrap: wrap; 
         justify-content: center;
         text-align: center;
     }
     .product-details-summary, .product-total-summary {
-        width: 100%; /* Tam genişlik */
+        width: 100%; 
         text-align: center;
     }
     .product-image-summary {

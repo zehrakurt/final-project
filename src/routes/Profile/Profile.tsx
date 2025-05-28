@@ -2,15 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { getMyProfile, UpdateMyProfile } from '../signup/auth';
 import { FetchWithAuth } from '../signup/api-client';
-import { getAccessToken } from '../signup/storage'; // Token'ı almak için
-import './Profile.css'; // CSS dosyasını dahil ettiğimizden emin olun
+import './Profile.css'; 
 import { TextInput, Button, Group, Stack } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import PhoneInput from 'react-phone-number-input';
-import 'react-phone-number-input/style.css'; // react-phone-number-input stilleri
-import axios from 'axios'; // Axios dahil bırakıldı, ama artık burada şifre değiştirme için kullanılmıyor
+import 'react-phone-number-input/style.css'; 
 
-// Kullanıcı profil arayüzü
+
+
 interface UserProfile {
     first_name?: string;
     last_name?: string;
@@ -18,7 +17,7 @@ interface UserProfile {
     phone_number?: string;
 }
 
-// Adres arayüzü
+
 interface Address {
     id: number;
     title: string;
@@ -27,7 +26,6 @@ interface Address {
     country: string;
 }
 
-// Backend'den gelen sipariş arayüzü
 interface OrderFromBackend {
     order_no: string;
     order_status: string;
@@ -36,11 +34,11 @@ interface OrderFromBackend {
     cart_detail: any[];
 }
 
-// Tüm sipariş türleri arayüzü (API yanıtı için)
+
 interface AllOrderTypes {
     status: string;
     data: OrderFromBackend[];
-    message?: string; // API'den gelebilecek hata mesajı için
+    message?: string; 
 }
 
 const Profile: React.FC = () => {
@@ -55,24 +53,23 @@ const Profile: React.FC = () => {
     const [errorAddresses, setErrorAddresses] = useState<string | null>(null);
     const [errorOrders, setErrorOrders] = useState<string | null>(null);
 
-    // Profil güncelleme formu state'i
+  
     const [profileForm, setProfileForm] = useState<UserProfile>({
         first_name: '',
         last_name: '',
         email: '',
         phone_number: '',
     });
-    // Telefon numarası için ayrı state (PhoneInput'ın kendi değeri için)
+
     const [phoneNumber, setPhoneNumber] = useState<string | undefined>(profile?.phone_number);
 
-    // Güncelleme başarı/hata mesajları
     const [updateSuccess, setUpdateSuccess] = useState<string | null>(null);
     const [updateError, setUpdateError] = useState<string | null>(null);
 
-    // Mobil cihaz kontrolü
+
     const isMobile = useMediaQuery('(max-width: 768px)');
 
-    // Sayfa yüklendiğinde profil, adres ve sipariş bilgilerini çekme
+
     useEffect(() => {
         const fetchProfileData = async () => {
             setLoadingProfile(true);
@@ -137,21 +134,20 @@ const Profile: React.FC = () => {
         fetchProfileData();
         fetchAddresses();
         fetchOrders();
-    }, []); // Boş bağımlılık dizisi, sadece bir kez yüklenmesini sağlar
+    }, []); 
 
-    // Input alanlarındaki değişiklikleri yönetme
+   
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setProfileForm({ ...profileForm, [e.target.name]: e.target.value });
     };
 
-    // Telefon numarası inputundaki değişiklikleri yönetme
+
     const handlePhoneNumberChange = (value: string | undefined) => {
         setProfileForm({ ...profileForm, phone_number: value });
         setPhoneNumber(value);
         console.log('Telefon Numarası:', value);
     };
 
-    // Profil güncelleme formunu gönderme
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setUpdateSuccess(null);
@@ -180,12 +176,12 @@ const Profile: React.FC = () => {
     return (
         <div className='container mx-auto'>
             <div className="grid grid-cols-[2fr_10fr] gap-8">
-                {/* Sol menü kısmı */}
+   
                 <div className="profile-header-container">
                     <div className="profile-links-container">
                         <Link to="/profile" className="profile-title-link profile-link-item">
                             <img
-                                src="/images/13.png" // Hesabım ikonu
+                                src="/images/13.png" 
                                 alt="Hesabım İkonu"
                                 className="profile-title-icon"
                             />
@@ -193,7 +189,7 @@ const Profile: React.FC = () => {
                         </Link>
                         <Link to="/orders" className="profile-title-link profile-link-item">
                             <img
-                                src="/images/14.png" // Siparişlerim ikonu
+                                src="/images/14.png" 
                                 alt="Siparişlerim İkonu"
                                 className="profile-title-icon"
                             />
@@ -201,16 +197,16 @@ const Profile: React.FC = () => {
                         </Link>
                         <Link to="/add-address" className="profile-title-link profile-link-item">
                             <img
-                                src="/images/15.png" // Adreslerim ikonu
+                                src="/images/15.png" 
                                 alt="Adreslerim İkonu"
                                 className="profile-title-icon"
                             />
                             <p className="profile-section-title">Adreslerim</p>
                         </Link>
-                        {/* Şifre değiştirme linki */}
+                        
                         <Link to="/change-password" className="profile-title-link profile-link-item">
                             <img
-                                src="/images/padlock.png" // Şifre değiştirme ikonu
+                                src="/images/padlock.png" 
                                 alt="Şifre Değiştir İkonu"
                                 className="profile-title-icon"
                             />
@@ -218,16 +214,16 @@ const Profile: React.FC = () => {
                         </Link>
                     </div>
                 </div>
-                {/* Sağ içerik kısmı - Hesap Bilgileri */}
+                
                 <div className="account-info-container">
                     <p className='account-info-title a2'>Hesap Bilgilerim</p>
-                    {/* Güncelleme başarı/hata mesajları */}
+     
                     {updateSuccess && <div className="text-green-500 mb-4">{updateSuccess}</div>}
                     {updateError && <div className="text-red-500 mb-4">{updateError}</div>}
                     <form onSubmit={handleSubmit}>
                         <Stack spacing="md">
                             <Group grow>
-                                {/* Ad inputu */}
+                  
                                 <TextInput
                                     label="Ad"
                                     placeholder="Adınızı girin"
@@ -236,7 +232,7 @@ const Profile: React.FC = () => {
                                     onChange={handleInputChange}
                                     classNames={{ input: 'mantine-TextInput-input', label: 'mantine-TextInput-label' }}
                                 />
-                                {/* Soyad inputu */}
+                  
                                 <TextInput
                                     label="Soyad"
                                     placeholder="Soyadınızı girin"
@@ -246,28 +242,28 @@ const Profile: React.FC = () => {
                                     classNames={{ input: 'mantine-TextInput-input', label: 'mantine-TextInput-label' }}
                                 />
                             </Group>
-                            {/* Telefon inputu (react-phone-number-input) */}
+                         
                             <TextInput
                                 label="Telefon"
                                 placeholder="Telefon numaranızı girin"
                                 name="phone_number"
-                                value={phoneNumber} // PhoneInput'ın kendi değeri
-                                onChange={handlePhoneNumberChange} // PhoneInput'ın kendi onChange'i
-                                component={PhoneInput} // Mantine TextInput'ı PhoneInput olarak kullan
-                                country="TR" // Varsayılan ülke
-                                classNames={{ input: 'PhoneInput', label: 'mantine-TextInput-label' }} // CSS sınıflarını PhoneInput'a uyguluyoruz
+                                value={phoneNumber}
+                                onChange={handlePhoneNumberChange} 
+                                component={PhoneInput} 
+                                country="TR" 
+                                classNames={{ input: 'PhoneInput', label: 'mantine-TextInput-label' }}
                             />
-                            {/* Email inputu (sadece okunabilir) */}
+                           
                             <TextInput
                                 label="Email"
                                 placeholder="Email adresiniz"
                                 name="email"
                                 value={profileForm.email?.toUpperCase() || ''}
-                                onChange={handleInputChange} // readOnly olduğu için aslında çalışmaz ama tutarlılık için bırakıldı
-                                readOnly // Email'i değiştirilemez yap
+                                onChange={handleInputChange} 
+                                readOnly 
                                 classNames={{ input: 'mantine-TextInput-input', label: 'mantine-TextInput-label' }}
                             />
-                            {/* Kaydet butonu */}
+                           
                             <div className="save-button-container">
                                 <Button type="submit" className="save-button">
                                     Kaydet

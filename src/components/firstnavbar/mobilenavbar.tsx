@@ -6,7 +6,7 @@ import './mobilenavbar.css';
 import { Link } from 'react-router-dom';
 import { MdOutlineShoppingCart } from "react-icons/md";
 import { useCartStore } from '../../store/sepet';
-import { calculateTotalPrice } from './calculateTotalPrice';
+
 
 export default function Mobilenavbar({ openMainDrawer }) {
   const [opened, { open, close }] = useDisclosure(false);

@@ -4,7 +4,7 @@ import Aboutyorum from './aboutyorum'
 import { useEffect } from "react";
 export default function Aboutus() {
    useEffect(() => {
-      // Sayfa yüklendiğinde (component mount edildiğinde) en üste kaydır
+ 
       window.scrollTo(0, 0);
     }, []);
   return (

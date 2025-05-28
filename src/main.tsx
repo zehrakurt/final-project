@@ -1,4 +1,4 @@
-// src/index.tsx (veya main.tsx)
+
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import Root from "./routes/Home/root";
@@ -23,10 +23,10 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import MyOrdersPage from './routes/Orders/MyOrdersPage';
 import ChangePassword from './routes/log in/ChangePassword'
 
-// notistack için gerekli import'lar
+
 import { SnackbarProvider } from 'notistack';
 
-// Create a new QueryClient
+
 const queryClient = new QueryClient();
 
 const router = createBrowserRouter([
@@ -102,8 +102,8 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
                 <SnackbarProvider
                     maxSnack={3}
                     anchorOrigin={{
-                        vertical: 'top',    // Dikeyde: Üstte
-                        horizontal: 'center', // Yatayda: Ortada
+                        vertical: 'top',    
+                        horizontal: 'center',
                     }}
                     autoHideDuration={2000}
                 >

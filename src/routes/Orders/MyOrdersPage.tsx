@@ -78,24 +78,23 @@ interface OrderDetailsType {
     };
 }
 
-// Bu fonksiyon, backend'den gelen sipariş durumunu Türkçeye çevirir.
-// Aynı zamanda 'delivered' sınıfının doğru şekilde atanması için de kullanılır.
+
 const translateOrderStatus = (status: string): string => {
     switch (status) {
         case 'delivered':
-        case 'Delivered': // Hem küçük hem de büyük harf desteği
+        case 'Delivered':
             return ' Sipariş Teslim Edildi';
         case 'in_cargo':
-        case 'Shipped': // Hem 'in_cargo' hem de 'Shipped' için
+        case 'Shipped': 
             return ' Sipariş Kargoda';
         case 'getting_ready':
-        case 'Processing': // Hem 'getting_ready' hem de 'Processing' için
+        case 'Processing': 
             return ' Sipariş Hazırlanıyor';
         default:
-            return ''; // Bu üçü dışındaki tüm durumlar için boş string döndür
+            return ''; 
     }
 };
-// Resim URL'sini oluşturan yardımcı fonksiyon
+
 const getImageUrl = (src: string) => {
     if (!src) return '';
     return src.startsWith('/') ? `https://fe1111.projects.academy.onlyjs.com${src}` : `https://fe1111.projects.academy.onlyjs.com/${src}`;
@@ -203,8 +202,7 @@ const MyOrdersPage: React.FC = () => {
                         </NavLink>
                     </div>
                 </div>
-
-                {/* Sipariş Listesi */}
+x
                 <div className="order-list-container">
                     <h1 className='a2'>Siparişlerim ({orders ? orders.data.length : 0})</h1>
                     <ul className="order-list">
@@ -221,7 +219,7 @@ const MyOrdersPage: React.FC = () => {
                                         </div>
                                     )}
                                     <div className="order-header-details">
-                                        {/* BURADA DEĞİŞİKLİK: translateOrderStatus fonksiyonunu kullanıyoruz */}
+                                     
                                         <div className={`order-status ${translateOrderStatus(order.order_status) === 'Teslim Edildi' ? 'delivered' : ''}`}>
                                             <p className='sssss'>{translateOrderStatus(order.order_status)}</p>
                                         </div>
@@ -286,7 +284,7 @@ const MyOrdersPage: React.FC = () => {
                 <div className="modal">
                     <h2 className="modal-title">Sipariş Detayları ({selectedOrderDetails.data.order_no})</h2>
                     <div className="order-info">
-                        {/* BURADA DA DEĞİŞİKLİK: translateOrderStatus fonksiyonunu kullanıyoruz */}
+                        
                         <p><strong>Sipariş Durumu:</strong> <span>{translateOrderStatus(selectedOrderDetails.data.order_status)}</span></p>
                         <p><strong>Kargo Takip No:</strong> <span>{selectedOrderDetails.data.shipment_tracking_number}</span></p>
                     </div>

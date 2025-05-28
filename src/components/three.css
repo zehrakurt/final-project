@@ -56,15 +56,15 @@
   .grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 8px; /* Boşlukları azaltmak için bu değeri küçültebilirsiniz */
-    justify-content: center; /* Öğeleri ortalamak için */
+    gap: 8px; 
+    justify-content: center; 
   }
 
   .text-overlay {
     top: 50%;
-    right: 10px; /* Sağdan daha az boşluk bırakmak için */
+    right: 10px;
     transform: translateY(-50%);
-    text-align: right; /* Sağ yaslama için */
+    text-align: right;
   }
 
   .image-wrapper {

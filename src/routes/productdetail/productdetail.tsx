@@ -1,4 +1,4 @@
-// src/components/ProductDetail/ProductDetail.tsx
+
 
 import React, { useEffect, useState, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
@@ -10,10 +10,10 @@ import { Button } from '../../components/variant/Button';
 import RecentlyViewedProducts from '../../components/RecentlyViewedProducts';
 import YorumGrafik from './yorumgrafik';
 
-// notistack'tan useSnackbar hook'unu import ediyoruz
+
 import { useSnackbar } from 'notistack';
 
-// Bu interface'ler ve tip tanımları aynı kalacak
+
 interface NutritionalContent {
     nutrition_facts: {
         portion_sizes: string;
@@ -96,7 +96,7 @@ const ProductDetail: React.FC = () => {
     const [viewedSlugs, setViewedSlugs] = useState<string[]>([]);
     const addItemToCart = useCartStore((state) => state.addItemToCart);
 
-    // useSnackbar hook'unu burada çağırıyoruz
+  
     const { enqueueSnackbar } = useSnackbar();
 
     useEffect(() => {
@@ -185,17 +185,17 @@ const ProductDetail: React.FC = () => {
 
         try {
             await addItemToCart(cartItem);
-            // Başarılı olduğunda notistack bildirimi göster
+           
             enqueueSnackbar('Ürün sepetinize eklendi!', { variant: 'success' });
         } catch (err: any) {
             setError('Sepete eklenirken bir hata oluştu. Lütfen tekrar deneyin.');
             console.error('Sepete eklerken hata:', err);
-            // Hata durumunda notistack bildirimi göster
+          
             enqueueSnackbar('Sepete eklenirken bir hata oluştu!', { variant: 'error' });
         } finally {
             setAddingToCart(false);
         }
-    }, [isLoggedIn, navigate, selectedVariant, product, pieces, addItemToCart, enqueueSnackbar]); // enqueueSnackbar bağımlılık olarak eklendi
+    }, [isLoggedIn, navigate, selectedVariant, product, pieces, addItemToCart, enqueueSnackbar]); 
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -224,13 +224,13 @@ const ProductDetail: React.FC = () => {
         return Aromas[aroma] || 'rgba(78, 78, 78, 1)';
     };
 
-    // Fetch recently viewed products
+  
     useEffect(() => {
         const fetchRecentlyViewed = async () => {
             if (viewedSlugs.length > 0) {
                 try {
                     const fetchedProducts: Product[] = [];
-                    // Ensure unique slugs to avoid redundant API calls for the same product
+                  
                     const uniqueSlugs = [...new Set(viewedSlugs)];
 
                     for (const viewedSlug of uniqueSlugs) {
@@ -252,7 +252,7 @@ const ProductDetail: React.FC = () => {
                 setLoading(false);
             }
         };
-        if (!loading) { // Sadece ürün detayları yüklendikten sonra çalıştır
+        if (!loading) { 
             fetchRecentlyViewed();
         }
     }, [viewedSlugs, loading]);

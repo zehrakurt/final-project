@@ -158,7 +158,7 @@ export interface PaymentMethodPayload {
 }
 
 export interface OrderItemPayload {
-  product_variant_id: number; // Backend'in beklediği ürün ID tipi (number olduğunu varsayıyoruz)
+  product_variant_id: number; 
   quantity: number;
 }
 

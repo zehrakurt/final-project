@@ -1,4 +1,4 @@
-// api.ts
+
 import axios from 'axios';
 
 const BASE_URL = 'https://fe1111.projects.academy.onlyjs.com/api/v1';

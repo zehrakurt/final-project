@@ -40,7 +40,7 @@ const Bestseller: React.FC = () => {
                 <div className="grid lg:grid-cols-6 gap-4 sm:grid-cols-3 md:grid-cols-3">
                     {products.map((product) => (
                         <ProductCard
-                            key={product.slug || product.id} // Benzersiz key
+                            key={product.slug || product.id} 
                             product={product}
                             baseURL={BASE_URL}
                         />

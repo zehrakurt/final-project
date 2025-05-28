@@ -1,4 +1,4 @@
-/* protein.css dosyanızın GÜNCEL HALİ */
+
 
 .prt-name{
     color: #000;
@@ -112,20 +112,3 @@
     text-decoration-line: underline;
     padding-bottom: 87px;
 }
-/* BURADAN AŞAĞISINDAKİ ".discount-box" TANIMI SİLİNDİ */
-/*
-.discount-box {
-    display: flex;
-    width: 60px;
-    padding: 9px 8.419px 9px 8.631px;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    background: #ed2727;
-    color: white;
-    position: absolute;
-    top: 10px !important;
-    right: 10px !important;
-    font-weight: bold;
-}
-*/

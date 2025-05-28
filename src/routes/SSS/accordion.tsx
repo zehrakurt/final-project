@@ -56,7 +56,7 @@ useEffect(() => {
                 {selectedCategory.toUpperCase()}
             </div>
             
-            <div className='container mx-auto accordion-wrapper'> {/* Yeni wrapper div */}
+            <div className='container mx-auto accordion-wrapper'> 
                 {filteredQuestions.map((question) => {
                     const isOpen = openQuestionId === question.id;
                     return (
@@ -90,7 +90,7 @@ useEffect(() => {
                 })}
             </div>
 
-            {/* İletişim Formu */}
+        
             <div className="input-container zll flex flex-col items-center gap-4">
                 <label htmlFor="name" className="label-align text-sm font-medium ff leading-6 text-gray-900 text-center mb-2">
                     Bize aşağıdaki iletişim ulaşabilirsiniz.

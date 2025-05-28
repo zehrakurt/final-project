@@ -1,34 +1,34 @@
-/* yorumgrafik.css */
+
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
 
 .yorumlar {
   display: flex;
-  width: 145.52px; /* Genişliği koruyabiliriz veya isterseniz daha esnek yapabilirsiniz */
-  /* height: 47px; */ /* Bu satırı yorum satırı yapın veya kaldırın */
-  padding: 16px 19.81px 17px 20px; /* Bu padding'i azaltabiliriz veya daha esnek bir değer verebiliriz */
+  width: 145.52px; 
+  
+  padding: 16px 19.81px 17px 20px; 
   justify-content: center;
-  align-items: center; /* Bu zaten doğru */
-  gap: 3.06px; /* Tek span kullandığımız için bu artık çok kritik değil, ama durabilir */
+  align-items: center; 
+  gap: 3.06px; 
   border-radius: 25px;
   background: linear-gradient(81deg, #387EC7 0%, #1F23AA 100%);
   margin-bottom: 20px;
   cursor: pointer; 
-  /* Eğer içindeki metin hala sığmıyorsa 'white-space: nowrap;' ekleyebiliriz. */
-  white-space: nowrap; /* Metnin tek satırda kalmasını sağlar */
-  overflow: hidden; /* Taşmayı gizler */
-  text-overflow: ellipsis; /* Taşma durumunda üç nokta gösterir */
+
+  white-space: nowrap; 
+  overflow: hidden;
+  text-overflow: ellipsis; 
 }
 
-/* Yorum metni için özel stil, tek span'e taşıdık */
-.yorumlar .yorum-text { /* `.yorumlar` içindeki `.yorum-text`'i hedefliyoruz */
+
+.yorumlar .yorum-text { 
   color: #FFF;
   text-align: center;
   font-family: Inter;
   font-size: 13.672px;
   font-style: normal;
   font-weight: 700;
-  line-height: 14px; /* Line-height'in metin yüksekliğine uygun olduğundan emin olun */
+  line-height: 14px; 
   text-transform: uppercase;
 }
 
@@ -49,7 +49,7 @@
 .yorum-satir {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start; /* Dikey hizalamayı üste aldım */
+  align-items: flex-start; 
 }
 
 .yorum-yildiz-kullanici {
@@ -63,8 +63,8 @@
     font-size: 19.063px;
     font-style: normal;
     font-weight: 700;
-    line-height: 20px; /* 104.918% */
-  margin-left: 10px; /* Yıldız ile kullanıcı adı arasına boşluk ekledim */
+    line-height: 20px; 
+  margin-left: 10px; 
 }
 
 .yorum-tarih {
@@ -73,9 +73,9 @@
     font-size: 16px;
     font-style: normal;
     font-weight: 700;
-    line-height: 17px; /* 106.25% */
+    line-height: 17px; 
     text-transform: uppercase;
-  align-self: flex-end; /* Tarihi en sağa aldım */
+  align-self: flex-end; 
 }
 
 .yorum-yildiz {
@@ -89,7 +89,7 @@
     font-size: 15.214px;
     font-style: normal;
     font-weight: 400;
-    line-height: 23.66px; /* 155.514% */
+    line-height: 23.66px;
   margin-bottom: 5px;
 }
 
@@ -99,7 +99,7 @@
     font-size: 22.87px;
     font-style: normal;
     font-weight: 700;
-    line-height: 30.94px; /* 135.285% */
+    line-height: 30.94px; 
   margin-top: 5px;
 }
 .pagination {
@@ -123,7 +123,7 @@
   .pagination span {
     padding: 8px 16px;
     margin: 0 5px;
-    color: #1F23AA; /* Renk güncellendi */
+    color: #1F23AA; 
     font-weight: bold;
     font-size: 16px;
   }

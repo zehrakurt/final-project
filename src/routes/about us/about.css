@@ -79,7 +79,7 @@ margin-bottom: 16px;
 .card-2{
     border-radius: 30px;
 background: #F7F7F7;
-/* height: 201.58px; otomatik yüksekliğe bırakılabilir */
+
 }
 .comments-text-1{
     color: #1F23AA;
@@ -94,7 +94,7 @@ line-height: 17px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 8px; /* Üst boşluk */
+    margin-top: 8px; 
 }
 .name-4{
     color: #000;
@@ -123,7 +123,7 @@ line-height: 25px;
 text-transform: uppercase;
 margin-left: 21px;
 }
-/* .title-4 class'ı artık yorumun altında */
+
 .starss{
 font-size: 30px;
 color: yellow;
@@ -134,7 +134,7 @@ font-family: Inter;
 font-size: 8.906px;
 font-style: normal;
 font-weight: 400;
-line-height: 17px; /* 190.877% */
+line-height: 17px; 
 text-transform: uppercase;
 padding-left: 187px;
 margin-top: 21px;
@@ -145,20 +145,20 @@ font-family: Inter;
 font-size: 16px;
 font-style: normal;
 font-weight: 700;
-line-height: 17px; /* 106.25% */
+line-height: 17px; 
 text-transform: uppercase;
-margin-right: 42px; /* Sağdan biraz boşluk bırakılabilir */
+margin-right: 42px; 
 }
-/* Yeni başlık stili */
+
 .title-yeni{
     color: #111;
 font-family: Inter;
 font-size: 19px;
 font-style: normal;
 font-weight: 700;
-line-height: 30.94px; /* 131.024% */
-margin-bottom: 5px; /* Başlıkla diğer bilgiler arasına boşluk */
-display: block; /* Satırı kaplaması için */
+line-height: 30.94px; 
+margin-bottom: 5px; 
+display: block; 
 margin-top: 13px;
 }
 
@@ -182,25 +182,25 @@ font-weight: 700;
 line-height: 48px;
     }
     .yorum-ust{
-        flex-direction: column; /* Mobil ekranda alt alta sırala */
-        align-items: flex-start; /* Sola hizala */
+        flex-direction: column; 
+        align-items: flex-start; 
         margin-top: 5px;
     }
     .tarih-yorum{
-        margin-left: 0; /* Mobil ekranda sola yasla */
-        margin-top: 3px; /* Tarihi biraz aşağıya al */
+        margin-left: 0; 
+        margin-top: 3px; 
     }
     .name-4{
-        margin-left: 0; /* Mobil ekranda sola yasla */
+        margin-left: 0; 
     }
     .all-7{
-        margin-left: 0; /* Mobil ekranda sola yasla */
+        margin-left: 0; 
     }
     .link-5{
-        padding-left: 24px; /* Mobil ekranda sola yasla */
+        padding-left: 24px; 
     }
     .title-yeni{
-        font-size: 20px; /* Mobil ekranda başlık boyutu küçültülebilir */
+        font-size: 20px; 
         margin-bottom: 3px;
     }
 }
@@ -257,7 +257,7 @@ line-height: 48px;
     }
     .card-2{
         width: 338px;
-height: auto; /* Yüksekliği içeriğe göre ayarla */
+height: auto; 
 margin-left: 24px;
     }
     .all-7{
@@ -270,7 +270,7 @@ vertical-align: middle;
     }
     .name-4 {
         display: inline-block;
-        margin-top: 0px; /* Yazar adını aşağıya indirir */
+        margin-top: 0px; 
         margin-left: 0;
         vertical-align: middle;
     }
@@ -282,31 +282,31 @@ vertical-align: middle;
         vertical-align: middle;
     }
 
-    /* .title-4 class'ı artık yorumun altında */
+    
     .ayr-5{
         margin-top: 5px;
         margin-left: 15px;
     }
     .yorum-ust{
-        flex-direction: column; /* Mobil ekranda alt alta sırala */
-        align-items: flex-start; /* Sola hizala */
+        flex-direction: column; 
+        align-items: flex-start; 
         margin-top: 5px;
     }
     .tarih-yorum{
-        margin-left: 0; /* Mobil ekranda sola yasla */
-        margin-top: 3px; /* Tarihi biraz aşağıya al */
+        margin-left: 0; 
+        margin-top: 3px; 
     }
     .name-4{
-        margin-left: 0; /* Mobil ekranda sola yasla */
+        margin-left: 0; 
     }
     .all-7{
-        margin-left: 0; /* Mobil ekranda sola yasla */
+        margin-left: 0; 
     }
     .link-5{
-        padding-left: 24px; /* Mobil ekranda sola yasla */
+        padding-left: 24px; 
     }
     .title-yeni{
-        font-size: 18px; /* Daha küçük mobil ekranlar için başlık boyutu */
+        font-size: 18px; 
         margin-bottom: 2px;
     }
 }

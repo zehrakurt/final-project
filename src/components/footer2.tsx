@@ -1,4 +1,4 @@
-import React from 'react';
+
 import './footer2.css';
 
 export default function Footer2() {

@@ -59,7 +59,7 @@
 .accordion-wrapper {
     display: flex;
     flex-direction: column;
-    gap: 0; /* Öğeler arasındaki boşluğu kaldır */
+    gap: 0; 
 }
 
 .cn {
@@ -95,7 +95,7 @@ font-family: Inter;
 font-size: 14.18px;
 font-style: normal;
 font-weight: 700;
-line-height: 20px; /* 141.047% */
+line-height: 20px; 
 }
 .faq-arrow {
     width: 24px;
@@ -110,7 +110,7 @@ line-height: 20px; /* 141.047% */
 }
 
 .cn.open > div {
-    max-height: 500px; /* İçeriğe göre ayarlanabilir */
+    max-height: 500px; 
 }
 
 .cn > div > p {

@@ -17,12 +17,12 @@
 .card-container {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between; /* Kartlar arasında eşit boşluk bırakmak için */
-    gap: 10px; /* Kartlar arasındaki boşluk */
+    justify-content: space-between; 
+    gap: 10px; 
 }
 
 .card {
-    width: calc(100% / 6 - 10px); /* 6 kartın yan yana sığması için hesaplama */
+    width: calc(100% / 6 - 10px); 
     padding: 16px;
     margin: 10px 0;
     height: 365px;
@@ -96,7 +96,7 @@
     gap: 8px;
     position: relative;
     top: 0;
-    right: 10px; /* sola yaklaştırmak için ayar */
+    right: 10px; 
 }
 
 .nav-btn {
@@ -131,21 +131,21 @@
 
 @media (max-width: 1200px) {
     .card {
-        width: calc(100% / 3 - 10px); /* Orta ekranlar için 3 kart sığacak şekilde ayarlama */
+        width: calc(100% / 3 - 10px); 
     }
 }
 
 @media (max-width: 900px) {
     .card {
-        width: calc(100% / 2 - 10px); /* Küçük ekranlar için 2 kart sığacak şekilde ayarlama */
+        width: calc(100% / 2 - 10px); 
     }
 }
 
 @media (max-width: 600px) {
     .card {
-        width: calc(100% / 2 - 10px); /* Mobilde her satıra 2 kart sığacak şekilde */
+        width: calc(100% / 2 - 10px); 
     }
     .ortimg {
-        display: none; /* Mobilde ortimg'i gizlemek için */
+        display: none; 
     }
 }

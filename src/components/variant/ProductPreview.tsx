@@ -1,6 +1,6 @@
-// ProductPreview.tsx
 
-import React from 'react';
+
+
 import { Product } from "./types.ts";
 import { HStack, VStack } from "../../styled-system/jsx";
 import { useProductVariants } from "../../hooks/use-product-variants.ts";

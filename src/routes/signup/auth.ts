@@ -12,20 +12,15 @@ import { OrderToProductsPayload } from "./address-types";
 import { FetchWithAuth } from "./api-client";
 const BASE_URL = "https://fe1111.projects.academy.onlyjs.com/api/v1";
 
-/**
- * API yanıtlarını işler ve hata durumunda uygun bir hata mesajı döndürür.
- * @param response Axios yanıt nesnesi.
- * @returns Başarılı yanıtın verisi.
- * @throws Hata durumunda bir hata nesnesi.
- */
+
 async function handleResponse<T>(response: AxiosResponse<T>): Promise<T> {
   if (response.status < 200 || response.status >= 300) {
-    const errorData = response.data as any; // Tip dönüşümü
+    const errorData = response.data as any; 
     let errorMessage = 'API isteği başarısız oldu';
     if (errorData?.message) {
       errorMessage = errorData.message;
-    } else if (errorData?.reason) { // Backend'den gelen 'reason' alanını kontrol et
-      errorMessage = JSON.stringify(errorData.reason); // 'reason' objesini stringe çevirerek göster
+    } else if (errorData?.reason) { 
+      errorMessage = JSON.stringify(errorData.reason); 
     } else if (typeof response.data === 'string') {
       errorMessage = response.data;
     } else {
@@ -40,11 +35,7 @@ async function handleResponse<T>(response: AxiosResponse<T>): Promise<T> {
 let isRefreshing = false;
 let failedQueue: { resolve: (value: any) => void; reject: (reason?: any) => void; config: AxiosRequestConfig }[] = [];
 
-/**
- * Bekleyen tüm istekleri işler.
- * @param error Hata nesnesi (isteğe bağlı).
- * @param token Yeni erişim token'ı (isteğe bağlı).
- */
+
 const processQueue = (error: any, token: string | null = null) => {
   failedQueue.forEach(prom => {
     if (error) {
@@ -56,10 +47,7 @@ const processQueue = (error: any, token: string | null = null) => {
   failedQueue = [];
 };
 
-/**
- * Erişim token'ını yeniler.
- * @returns Yeni erişim token'ı veya null.
- */
+
 export const refreshAccessToken = async (): Promise<string | null> => {
   if (isRefreshing) {
     return new Promise((resolve, reject) => {
@@ -120,9 +108,9 @@ const api: AxiosInstance = axios.create({
 api.interceptors.request.use(
   (config: AxiosRequestConfig) => {
     const token = getAccessToken();
-    if (token && !config.headers?.['Authorization']) { // Check if Authorization header already exists
+    if (token && !config.headers?.['Authorization']) { 
       config.headers = {
-        ...config.headers, // Spread existing headers to avoid overwriting
+        ...config.headers, 
         'Authorization': `Bearer ${token}`,
       };
     }
@@ -179,11 +167,7 @@ api.interceptors.response.use(
   },
 );
 
-/**
- * Kullanıcının profil bilgilerini getirir.
- * @returns Profil bilgileri.
- * @throws Hata durumunda bir hata nesnesi.
- */
+
 export const getMyProfile = async (): Promise<any> => {
   try {
     const response = await api.get("/users/my-account");
@@ -213,11 +197,7 @@ export const CreateNewAddress = async (data: any): Promise<any> => {
   }
 };
 
-/**
- * Kullanıcının tüm adreslerini getirir.
- * @returns Adreslerin listesi.
- * @throws Hata durumunda bir hata nesnesi.
- */
+
 export const GetAllMyAddress = async (): Promise<any> => {
   console.log("GetAllMyAddress çağrıldı");
   try {
@@ -231,12 +211,7 @@ export const GetAllMyAddress = async (): Promise<any> => {
 };
 
 
-/**
- * Kullanıcının bir adresini siler.
- * @param addressId Silinecek adresin ID'si.
- * @returns Silme işleminin sonucu.
- * @throws Hata durumunda bir hata nesnesi.
- */
+
 export const DeleteMyAddress = async (addressId: string): Promise<any> => {
   try {
     const response = await api.delete(`/users/addresses/${addressId}`);
@@ -251,12 +226,7 @@ export const DeleteMyAddress = async (addressId: string): Promise<any> => {
   }
 };
 
-/**
- * Kullanıcının bir adresini düzenler.
- * @param data Yeni adres verileri.
- * @returns Düzenlenen adresin bilgileri.
- * @throws Hata durumunda bir hata nesnesi.
- */
+
 export const EditMyAddress = async (data: { addressId: string, data: any }): Promise<any> => {
   try {
     const response = await api.put(`/users/addresses/${data.addressId}`, data.data);
@@ -271,10 +241,7 @@ export const EditMyAddress = async (data: { addressId: string, data: any }): Pro
   }
 };
 
-/**
- * Ülkelerin listesini getirir.
- * @returns Ülkelerin listesi.
- */
+
 export const GetCountries = async () => {
   try {
     const response = await axios.get(`${BASE_URL}/world/countries?limit=300`);
@@ -289,11 +256,7 @@ export const GetCountries = async () => {
   }
 };
 
-/**
- * Bir ülkeye ait bölgelerin listesini getirir.
- * @param countryName Ülke adı.
- * @returns Bölgelerin listesi.
- */
+
 export const GetRegionsByCountry = async (countryName: string) => {
   try {
     const response = await axios.get(`${BASE_URL}/world/region?limit=1000&country-name=${countryName}`);
@@ -308,11 +271,6 @@ export const GetRegionsByCountry = async (countryName: string) => {
   }
 };
 
-/**
- * Bir bölgeye ait alt bölgelerin listesini getirir.
- * @param regionName Bölge adı.
- * @returns Alt bölgelerin listesi.
- */
 export const GetSubRegionsByRegion = async (regionName: string) => {
   try {
     const response = await axios.get(`${BASE_URL}/world/subregion?limit=1000&region-name=${regionName}`);
@@ -327,11 +285,7 @@ export const GetSubRegionsByRegion = async (regionName: string) => {
   }
 };
 
-/**
- * Kullanıcının sepet içeriğini getirir.
- * @returns Sepet içeriği.
- * @throws Hata durumunda bir hata nesnesi.
- */
+
 export const getCart = async (): Promise<any> => {
   try {
     const response = await api.get("/users/cart");
@@ -346,12 +300,7 @@ export const getCart = async (): Promise<any> => {
   }
 };
 
-/**
- * Sepete ürün ekler.
- * @param data Eklenilecek ürün bilgileri.
- * @returns Ekleme işleminin sonucu.
- * @throws Hata durumunda bir hata nesnesi.
- */
+
 export const AddBasketToProduct = async (data: { product_id: number; product_variant_id?: string; pieces: number }) => {
   try {
     const response = await api.post("/users/cart", data);
@@ -366,12 +315,7 @@ export const AddBasketToProduct = async (data: { product_id: number; product_var
   }
 };
 
-/**
- * Sepetten ürün siler.
- * @param payload Silinecek ürün bilgileri.
- * @returns Silme işleminin sonucu.
- * @throws Hata durumunda bir hata nesnesi.
- */
+
 export const deleteFromCart = async (payload: { product_id: number; product_variant_id: string; pieces: number }) => {
   try {
     const response = await api.delete("/users/cart", { data: payload }); // Body ile DELETE isteği
@@ -386,13 +330,7 @@ export const deleteFromCart = async (payload: { product_id: number; product_vari
   }
 };
 
-/**
- * Kullanıcı girişi yapar.
- * @param username Kullanıcı adı.
- * @param password Şifre.
- * @returns Giriş işleminin sonucu.
- * @throws Hata durumunda bir hata nesnesi.
- */
+
 export const login = async (username: string, password: string): Promise<any> => {
   try {
     const response = await axios.post(`${BASE_URL}/auth/login`, { username, password, api_key: import.meta.env.VITE_API_KEY });
@@ -408,12 +346,6 @@ export const login = async (username: string, password: string): Promise<any> =>
   }
 };
 
-/**
- * Yeni bir kullanıcı kaydeder.
- * @param userData Kullanıcı kayıt verileri.
- * @returns Kayıt işleminin sonucu.
- * @throws Hata durumunda bir hata nesnesi.
- */
 export const register = async (userData: any): Promise<any> => {
   try {
     const response = await axios.post(`${BASE_URL}/auth/register`, userData);
@@ -428,11 +360,6 @@ export const register = async (userData: any): Promise<any> => {
   }
 };
 
-/**
- * Kullanıcının tüm siparişlerini getirir.
- * @returns Siparişlerin listesi.
- * @throws Hata durumunda bir hata nesnesi.
- */
 export const GetMyAllOrder = async (): Promise<any> => {
   try {
     const response = await api.get("/orders");
@@ -447,12 +374,7 @@ export const GetMyAllOrder = async (): Promise<any> => {
   }
 };
 
-/**
- * Kullanıcının belirli bir siparişinin detaylarını getirir.
- * @param order_id Sipariş ID'si.
- * @returns Sipariş detayları.
- * @throws Hata durumunda bir hata nesnesi.
- */
+
 export const GetMyOrderDetails = async (order_id: string): Promise<any> => {
   try {
     const response = await api.get(`/orders/${order_id}`);
@@ -467,12 +389,7 @@ export const GetMyOrderDetails = async (order_id: string): Promise<any> => {
   }
 };
 
-// Ödeme Metotları ve Kredi Kartı İşlemleri
-/**
- * Kullanıcının kredi kartlarını getirir.
- * @returns Kredi kartlarının listesi.
- * @throws Hata durumunda bir hata nesnesi.
- */
+
 export const GetMyCreditCards = async (): Promise<any> => {
   try {
     const response = await api.get("/users/credit-cards");
@@ -487,12 +404,7 @@ export const GetMyCreditCards = async (): Promise<any> => {
   }
 };
 
-/**
- * Kullanıcının kredi kartını ekler.
- * @param data Kredi kartı bilgileri.
- * @returns Eklenen kredi kartının bilgileri.
- * @throws Hata durumunda bir hata nesnesi.
- */
+
 export const AddMyCreditCard = async (data: any): Promise<any> => {
   try {
     const response = await api.post("/users/credit-cards", data);
@@ -507,12 +419,7 @@ export const AddMyCreditCard = async (data: any): Promise<any> => {
   }
 };
 
-/**
- * Kullanıcının kredi kartını siler.
- * @param cardId Silinecek kredi kartının ID'si.
- * @returns Silme işleminin sonucu.
- * @throws Hata durumunda bir hata nesnesi.
- */
+
 export const DeleteMyCreditCard = async (cardId: string): Promise<any> => {
   try {
     const response = await api.delete(`/users/credit-cards/${cardId}`);
@@ -527,11 +434,6 @@ export const DeleteMyCreditCard = async (cardId: string): Promise<any> => {
   }
 };
 
-/**
- * Ödeme yöntemlerini listeler.
- * @returns Ödeme yöntemlerinin listesi.
- * @throws Hata durumunda bir hata nesnesi.
- */
 export const GetPaymentMethods = async (): Promise<any> => {
   console.log("GetPaymentMethods çağrıldı");
   try {
@@ -544,11 +446,7 @@ export const GetPaymentMethods = async (): Promise<any> => {
   }
 };
 
-/**
- * Kargo ücretini hesaplar.
- * @returns Kargo ücreti.
- * @throws Hata durumunda bir hata nesnesi.
- */
+
 export const CalculateShipmentFee = async (): Promise<any> => {
   console.log("CalculateShipmentFee çağrıldı");
   try {
@@ -561,7 +459,7 @@ export const CalculateShipmentFee = async (): Promise<any> => {
   }
 };
 
-// auth.ts içinde
+
 export interface OrderToProductsPayload {
   address_id: string | null;
   payment_type: 'credit_cart' | 'credit_cart_at_door' | 'cash_at_door';
@@ -569,15 +467,15 @@ export interface OrderToProductsPayload {
   card_expiration_date?: string;
   card_security_code?: string;
   card_type?: string;
-  // ... diğer olası payload alanları
+
 }
 
 export async function OrderToProducts(data: OrderToProductsPayload): Promise<any> {
     console.log('Gönderilen Sipariş Verisi:', data);
     try {
-        // FetchWithAuth yerine api.post kullanıyoruz
+    
         const response = await api.post("/orders/complete-shopping", data);
-        return handleResponse(response); // handleResponse ile yanıtı işle
+        return handleResponse(response); 
     } catch (error) {
         console.error("OrderToProducts hatası:", error);
         throw error;
@@ -643,14 +541,10 @@ export interface UsersType {
     phone_number: string;
   };
   message?: string;
-  error?: string; // Olası hata alanı
+  error?: string; 
 }
 
-// Yeni Eklenen Fonksiyonlar
-/**
- * Ülkelerin listesini getirir.
- * @returns Ülkelerin listesi.
- */
+
 export const getCountries = async () => {
   try {
     const response = await axios.get(`${BASE_URL}/world/countries?limit=300`);
@@ -665,11 +559,6 @@ export const getCountries = async () => {
   }
 };
 
-/**
- * Bir ülkeye ait şehirlerin listesini getirir.
- * @param countryId Ülke ID'si.
- * @returns Şehirlerin listesi.
- */
 export const getCitiesByCountryId = async (countryId: number) => {
   try {
     const response = await axios.get(`${BASE_URL}/world/region?country-id=${countryId}&limit=1000`);
@@ -684,11 +573,7 @@ export const getCitiesByCountryId = async (countryId: number) => {
   }
 };
 
-/**
-* Bir şehire ait ilçelerin listesini getirir.
-* @param regionId Şehir ID'si.
-* @returns İlçelerin listesi.
-*/
+
 export const getDistrictsByCityId = async (regionId: number) => {
   try {
     const response = await axios.get(`${BASE_URL}/world/subregion?region-id=${regionId}&limit=1000`);
@@ -706,7 +591,7 @@ export const getDistrictsByCityId = async (regionId: number) => {
 export const postProductComment = async (productSlug: string, payload: { stars: number; title: string; comment: string }) => {
     try {
         const response = await api.post(`/products/${productSlug}/comments`, payload);
-        return handleResponse(response); // handleResponse ile yanıtı işle
+        return handleResponse(response); 
     } catch (error: any) {
         let errorMessage = "Yorum gönderilirken hata oluştu: Bilinmeyen bir hata oluştu";
         if (error?.response?.data?.message) {

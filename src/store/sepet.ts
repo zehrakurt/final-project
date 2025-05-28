@@ -1,6 +1,6 @@
 import { create } from 'zustand';
-import { AddBasketToProduct, deleteFromCart, getCart } from '../routes/signup/auth'; //Relatif yol
-import { getAccessToken } from '../routes/signup/storage'; // Import getAccessToken
+import { AddBasketToProduct, deleteFromCart, getCart } from '../routes/signup/auth'; 
+import { getAccessToken } from '../routes/signup/storage'; 
 
 interface Size {
     gram?: number;
@@ -9,17 +9,17 @@ interface Size {
 }
 
 interface CartItem {
-    id: string; // Backend'den gelen product_variant_id'yi tutacak
-    name: string; // Backend'den gelen product adı
+    id: string; 
+    name: string; 
     aroma?: string;
     size?: Size;
-    price: number; // Backend'den gelen unit_price'ı tutacak
-    count: number; // Local state için adet, backend'e giden adetle senkronize
-    image?: string; // Backend'den gelen product_variant_detail.photo_src
-    total_price?: number; // price * count
-    product_variant_id?: string; // Backend'den gelen product_variant_id
-    product_id?: string; // Backend'den gelen product_id
-    product_slug?: string; // Backend'den gelen product_slug (isteğe bağlı)
+    price: number; 
+    count: number; 
+    image?: string; 
+    total_price?: number; 
+    product_variant_id?: string; 
+    product_id?: string; 
+    product_slug?: string; 
 }
 
 interface CartStore {
@@ -30,7 +30,7 @@ interface CartStore {
     totalItems: () => number;
     addBear: (bear: CartItem) => Promise<void>;
     clearCart: () => void;
-    removeBear: (itemToRemove: CartItem) => Promise<void>; // Parametre olarak tüm CartItem'ı alacak
+    removeBear: (itemToRemove: CartItem) => Promise<void>; 
     increaseBearCount: (item: CartItem) => Promise<void>;
     decreaseBearCount: (item: CartItem) => Promise<void>;
     syncCartWithBackend: () => Promise<void>;
@@ -53,11 +53,11 @@ const useCartStore = create<CartStore>((set, get) => ({
     addItemToCart: async (item) => {
         const { isLoggedIn } = get();
         const existingItemIndex = get().bears.findIndex((b) => b.product_variant_id === item.product_variant_id);
-        const access_token = getAccessToken(); // Get the access token
+        const access_token = getAccessToken(); 
 
-        if (access_token) { // Use access_token instead of isLoggedIn
+        if (access_token) { 
             const cartItemToSend = {
-                product_id: parseInt(item.product_id!, 10), // Use non-null assertion since product_id is checked in if
+                product_id: parseInt(item.product_id!, 10),
                 product_variant_id: item.product_variant_id,
                 pieces: item.count || 1,
             };
@@ -65,16 +65,17 @@ const useCartStore = create<CartStore>((set, get) => ({
             try {
                 const response = await AddBasketToProduct(cartItemToSend);
                 if (response?.status === 'success') {
-                    // Backend'e başarıyla eklendikten sonra Zustand'ı güncelle
-                    await get().getCartFromBackend(); // Refresh cart from backend to reflect changes
+                 
+                    await get().getCartFromBackend(); 
 
                 } else {
                     console.error('Backend sepete ekleme hatası:', response);
-                    // Handle the error appropriately, perhaps show a message to the user
+                    
                 }
             } catch (error: any) {
                 console.error('Backend sepete ekleme hatası:', error);
-                // Handle the error, maybe show a user-friendly message
+              
+                
             }
         } else {
             set((state) => {
@@ -105,7 +106,7 @@ const useCartStore = create<CartStore>((set, get) => ({
         set((state) => ({
             bears: state.bears.filter(
                 (bear) =>
-                    bear.product_variant_id !== itemToRemove.product_variant_id // Sadece product_variant_id'ye göre filtrele
+                    bear.product_variant_id !== itemToRemove.product_variant_id 
             ),
         }));
         console.log('Silme sonrası local state:', get().bears);
@@ -115,7 +116,7 @@ const useCartStore = create<CartStore>((set, get) => ({
                 const payload = {
                     product_id: parseInt(itemToRemove.product_id, 10),
                     product_variant_id: itemToRemove.product_variant_id,
-                    pieces: 1, // TEK ADET SİLME VARSAYIMI (Backend'in beklentisine göre ayarlanabilir)
+                    pieces: 1, 
                 };
                 const response = await deleteFromCart(payload);
                 if (response?.status !== 'success') {
@@ -180,7 +181,7 @@ const useCartStore = create<CartStore>((set, get) => ({
                 const payload = {
                     product_id: parseInt(item.product_id, 10),
                     product_variant_id: item.product_variant_id,
-                    pieces: -1, // AZALTMA İÇİN NEGATİF DEĞER GÖNDERİLİYOR
+                    pieces: -1, 
                 };
                 const response = await AddBasketToProduct(payload);
                 if (response?.status !== 'success') {

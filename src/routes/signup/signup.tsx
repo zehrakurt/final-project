@@ -1,18 +1,14 @@
-// src/components/signup/Signup.tsx
+
 
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './signup.css';
 import '../log in/login.css';
-import { register } from "./auth"; // Doğru import yolu
+import { register } from "./auth"; 
 
-// Buradaki "toast" import'unu kaldırıyoruz!
-// import { toast } from 'react-toastify'; 
-
-// notistack'tan useSnackbar hook'unu import ediyoruz
 import { useSnackbar } from 'notistack';
 
-const api_key = import.meta.env.VITE_API_KEY; // Ortam değişkeninden API anahtarını al
+const api_key = import.meta.env.VITE_API_KEY; 
 
 export default function Signup() {
     const navigate = useNavigate();
@@ -26,7 +22,7 @@ export default function Signup() {
 
     const [loading, setLoading] = useState(false);
 
-    // useSnackbar hook'unu burada çağırıyoruz
+    
     const { enqueueSnackbar } = useSnackbar();
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -37,16 +33,16 @@ export default function Signup() {
         e.preventDefault();
         setLoading(true);
 
-        // 🔥 Eksik veya yanlış veri var mı kontrol et
+       
         if (!formData.first_name || !formData.last_name || !formData.email || !formData.password || !formData.password2) {
-            // notistack ile hata bildirimi
+            
             enqueueSnackbar("Lütfen tüm alanları doldurun.", { variant: 'error' });
             setLoading(false);
             return;
         }
 
         if (formData.password !== formData.password2) {
-            // notistack ile hata bildirimi
+        
             enqueueSnackbar("Şifreler uyuşmuyor.", { variant: 'error' });
             setLoading(false);
             return;
@@ -60,12 +56,12 @@ export default function Signup() {
 
         const result = await register(registerData);
 
-        if (result?.status === "success") { // API'nizin yanıt yapısına göre kontrol edin
-            // notistack ile başarı bildirimi
+        if (result?.status === "success") { 
+          
             enqueueSnackbar("Kayıt başarılı! Giriş sayfasına yönlendiriliyorsunuz.", { variant: 'success' });
             setTimeout(() => navigate('/login'), 2000);
         } else {
-            // notistack ile hata bildirimi
+            
             enqueueSnackbar(result?.message || "Kayıt başarısız.", { variant: 'error' });
         }
 

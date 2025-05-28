@@ -6,7 +6,7 @@ export interface Question {
 }
 
 export const fakeQuestionsData: Question[] = [
-    // Genel (10 soru)
+  
     { id: 1, question: 'Sitenize nasıl üye olabilirim?', answer: 'Sağ üst köşedeki "Üye Ol" bağlantısına tıklayarak adımları takip edebilirsiniz.', category: 'genel' },
     { id: 2, question: 'Şifremi unuttum, ne yapmalıyım?', answer: '"Giriş Yap" sayfasındaki "Şifremi Unuttum" bağlantısını kullanabilirsiniz.', category: 'genel' },
     { id: 3, question: 'İletişim bilgileriniz nelerdir?', answer: 'Bize info@example.com adresinden veya 0212 XXX XX XX numarasından ulaşabilirsiniz.', category: 'genel' },
@@ -17,7 +17,7 @@ export const fakeQuestionsData: Question[] = [
     { id: 8, question: 'Site haritanız var mı?', answer: 'Evet, site haritamıza en alt kısımdaki bağlantıdan erişebilirsiniz.', category: 'genel' },
     { id: 9, question: 'Hakkınızda daha fazla bilgi nerede bulabilirim?', answer: '"Hakkımızda" sayfamızı ziyaret edebilirsiniz.', category: 'genel' },
     { id: 10, question: 'Sitemizde hangi diller destekleniyor?', answer: 'Şu anda Türkçe ve İngilizce dillerini destekliyoruz.', category: 'genel' },
-    // Ürünler (10 soru)
+
     { id: 11, question: 'Ürünlerinizde hangi malzemeler kullanılıyor?', answer: 'Ürün detay sayfalarında kullanılan malzemeler hakkında bilgi bulabilirsiniz.', category: 'ürünler' },
     { id: 12, question: 'Stokta olmayan ürünler ne zaman tekrar satışa sunulur?', answer: 'Stokta olmayan ürünlerin yeniden stok tarihi belirsizdir, lütfen takipte kalın.', category: 'ürünler' },
     { id: 13, question: 'Ürün iadesi nasıl yapılır?', answer: '"İade ve Değişim" politikamızı inceleyerek iade adımlarını öğrenebilirsiniz.', category: 'ürünler' },
@@ -28,7 +28,7 @@ export const fakeQuestionsData: Question[] = [
     { id: 18, question: 'Özel sipariş alıyor musunuz?', answer: 'Şu anda özel sipariş alamıyoruz.', category: 'ürünler' },
     { id: 19, question: 'Hediye paketi seçeneğiniz var mı?', answer: 'Evet, siparişiniz sırasında hediye paketi seçeneğini işaretleyebilirsiniz.', category: 'ürünler' },
     { id: 20, question: 'Ürün karşılaştırma özelliği var mı?', answer: 'Evet, ürün detay sayfalarındaki "Karşılaştır" butonunu kullanarak ürünleri karşılaştırabilirsiniz.', category: 'ürünler' },
-    // Kargo (10 soru)
+
     { id: 21, question: 'Kargo ücreti ne kadar?', answer: 'Kargo ücreti, sipariş tutarınıza ve teslimat adresinize göre değişiklik göstermektedir.', category: 'kargo' },
     { id: 22, question: 'Siparişimin kargoya verildiğini nasıl anlarım?', answer: 'Siparişiniz kargoya verildiğinde size bir e-posta ile takip numarası gönderilecektir.', category: 'kargo' },
     { id: 23, question: 'Tahmini teslimat süresi ne kadar?', answer: 'Tahmini teslimat süresi, teslimat adresinize bağlı olarak 1-5 iş günü arasında değişmektedir.', category: 'kargo' },

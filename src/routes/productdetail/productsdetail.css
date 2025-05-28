@@ -164,14 +164,13 @@ text-transform: capitalize;
     justify-content: space-between;
 }
 .aromas-container {
-    display: flex; /* Flexbox kullanıyoruz */
-    gap: 15px; /* Butonlar arasında 15 piksel boşluk */
-    flex-wrap: wrap; /* Gerekirse butonları alt satıra kaydır */
+    display: flex; 
+    gap: 15px; 
+    flex-wrap: wrap; 
 }
-
 .flv-1 {
-    /* ... diğer flv-1 stilleri ... */
-    margin: 0; /* Butonların kendi margin'lerini kaldırıyoruz */
+    
+    margin: 0; 
 }
 .same-1{
     color: #000;
@@ -229,16 +228,16 @@ margin-left:17px ;
 .fd-1{
     margin-top: 21px;
     display: flex;
-    justify-content: space-around; /* Boşlukları eşit dağıtarak ortalama */
-    align-items: center; /* Dikeyde ortalama */
+    justify-content: space-around; 
+    align-items: center; 
 }
 .fd-1 .flex {
     display: flex;
-    align-items: center; /* İçeriği yatayda ortalama */
-    text-align: left; /* Metni ortalama */
+    align-items: center; 
+    text-align: left; 
 }
 .free-1 span {
-    display: block; /* Metni alt satıra geçirme */
+    display: block; 
 }
 .in-2{
     background: #F7F7F7;
@@ -295,7 +294,7 @@ font-family: Inter;
 font-size: 21.563px;
 font-style: normal;
 font-weight: 600;
-line-height: 32px; /* 148.406% */
+line-height: 32px; 
 margin-top: 130px;
 }
 .count{
@@ -314,7 +313,7 @@ background: #FFF;
 }
 .discount-badge {
     position: absolute;
-    top: -10px; /* Kutunun biraz yukarısında konumlandır */
+    top: -10px; 
    
     display: flex;
     width: 81.09px;
@@ -323,19 +322,19 @@ background: #FFF;
     justify-content: center;
     align-items: center;
     flex-shrink: 0;
-    background: #ED2727; /* Kırmızı arka plan */
-    color: #FFF; /* Beyaz metin rengi */
+    background: #ED2727;
+    color: #FFF; 
     text-align: center;
     font-family: Inter;
     font-size: 12.391px;
     font-style: normal;
     font-weight: 600;
-    line-height: 20px; /* 161.412% */
-    border-radius: 4px; /* Köşeleri biraz yuvarla */
-    z-index: 10; /* Diğer elementlerin önüne geçmesini sağla */
-    white-space: nowrap; /* Metnin tek satırda kalmasını sağlar */
+    line-height: 20px; 
+    border-radius: 4px; 
+    z-index: 10; 
+    white-space: nowrap; 
  
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Hafif gölge ekle */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); 
 }
 .discounted-price {
     color: red;
@@ -358,5 +357,5 @@ background: #FFF;
   }
   
 .free-1 br {
-    display: block; /* br etiketinin alt satıra geçmesini sağlar */
+    display: block; 
 }

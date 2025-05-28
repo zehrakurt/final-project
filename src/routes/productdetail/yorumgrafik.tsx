@@ -1,11 +1,11 @@
-// src/components/YorumGrafik/YorumGrafik.tsx
+
 
 import React, { useEffect, useState } from 'react';
 import { getProductComments } from './api';
 import './yorumgrafik.css';
 import RatingStars from './RatingStars';
 import Bestseller from '../../components/bestseller';
-import CommentForm from '../../components/CommentForm'; // CommentForm'u import etmeyi unutmayın
+import CommentForm from '../../components/CommentForm'; 
 
 interface Comment {
   stars: string;
@@ -39,8 +39,7 @@ const YorumGrafik: React.FC<YorumGrafikProps> = ({ slug }) => {
   const [offset, setOffset] = useState(0);
   const limit = 10;
   const [currentPage, setCurrentPage] = useState(1);
-  const [showCommentForm, setShowCommentForm] = useState(false); // Yorum formunun görünürlüğünü kontrol eden state
-
+  const [showCommentForm, setShowCommentForm] = useState(false); 
   const fetchComments = async () => {
     if (!slug) {
       setError('Ürün slug bilgisi eksik.');
@@ -75,12 +74,12 @@ const YorumGrafik: React.FC<YorumGrafikProps> = ({ slug }) => {
     fetchComments();
   }, [slug, offset]);
 
-  // Yorum başarıyla gönderildiğinde çağrılacak callback
+ 
   const handleCommentSubmitted = () => {
-    setShowCommentForm(false); // Formu kapat
-    setOffset(0); // İlk sayfaya dön
-    setCurrentPage(1); // Sayfalamayı sıfırla
-    fetchComments(); // Yorumları yeniden çek (yeni yorumu görmek için)
+    setShowCommentForm(false); 
+    setOffset(0); 
+    setCurrentPage(1); 
+    fetchComments();
   };
 
   const handleNextPage = () => {
@@ -100,19 +99,19 @@ const YorumGrafik: React.FC<YorumGrafikProps> = ({ slug }) => {
 
   return (
     <div className="container mx-auto">
-      {/* Bu div'e onClick eklendi ve cursor pointer yapıldı */}
+     
       <div className="yorumlar" onClick={() => setShowCommentForm(!showCommentForm)}>
-        {/* İki ayrı span yerine tek bir span kullanılarak hizalama sorunu çözüldü */}
+        
         <span className="yorum-text">
           YORUM YAP ({commentCount})
         </span>
-        {/* Yorum Formu görünür olduğunda "Kapat" ibaresi ekleyebilirsiniz */}
+       
         {showCommentForm && <span className="close-form-indicator"></span>}
       </div>
 
-      {/* Yorum yapma formu sadece showCommentForm true olduğunda gösterilecek */}
+  
       {showCommentForm && (
-        <div className="comment-form-section"> {/* Yeni bir sınıf ekledim, isterseniz yorum-form-bolumu kullanabilirsiniz */}
+        <div className="comment-form-section"> 
           <CommentForm productSlug={slug} onCommentSubmitted={handleCommentSubmitted} />
         </div>
       )}

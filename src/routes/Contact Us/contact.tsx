@@ -4,10 +4,9 @@ import { useEffect } from "react";
 export default function Contact() {
 
  useEffect(() => {
-    // Sayfa yüklendiğinde (component mount edildiğinde) en üste kaydır
-    window.scrollTo(0, 0);
-  }, []); // Boş bağımlılık dizisi, bu etkinin sadece bir kere, component yüklendiğinde çalışmasını sağlar
 
+    window.scrollTo(0, 0);
+  }, []); 
 
 
 

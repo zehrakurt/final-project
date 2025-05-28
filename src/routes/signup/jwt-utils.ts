@@ -1,6 +1,6 @@
 export function isTokenExpired(token: string): boolean {
   if (!token) {
-      return true; // Token yoksa süresi dolmuş kabul et
+      return true;
   }
   try {
       const Payload = decodeToken(token);
@@ -9,7 +9,7 @@ export function isTokenExpired(token: string): boolean {
       return expDate < currentDate;
   } catch (error) {
       console.error("Token çözümlenirken hata:", error);
-      return true; // Hata durumunda da süresi dolmuş kabul et (güvenlik için)
+      return true; 
   }
 }
 

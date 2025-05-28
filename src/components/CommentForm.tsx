@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { useCartStore } from '../store/sepet'; // isLoggedIn bilgisini almak için
-import { GetMyAllOrder,postProductComment } from '../routes/signup/auth'; // Kullanıcının siparişlerini çekmek için
-import './CommentForm.css'; // Stil dosyası için
+import { useCartStore } from '../store/sepet'; 
+import { GetMyAllOrder,postProductComment } from '../routes/signup/auth'; 
+import './CommentForm.css'; 
 
 interface CommentFormProps {
     productSlug: string;
-    onCommentSubmitted: () => void; // Yorum başarıyla gönderildiğinde çağrılacak callback
+    onCommentSubmitted: () => void; 
 }
 
 const CommentForm: React.FC<CommentFormProps> = ({ productSlug, onCommentSubmitted }) => {
@@ -16,7 +15,7 @@ const CommentForm: React.FC<CommentFormProps> = ({ productSlug, onCommentSubmitt
     const [submitting, setSubmitting] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [success, setSuccess] = useState<string | null>(null);
-    const [hasPurchased, setHasPurchased] = useState(false); // Ürünü satın alıp almadığını tutar
+    const [hasPurchased, setHasPurchased] = useState(false); 
     const isLoggedIn = useCartStore((state) => state.isLoggedIn);
 
     useEffect(() => {
@@ -39,15 +38,14 @@ const CommentForm: React.FC<CommentFormProps> = ({ productSlug, onCommentSubmitt
             } catch (err) {
                 console.error("Sipariş geçmişi kontrol edilirken hata:", err);
                 setError("Sipariş geçmişiniz kontrol edilirken bir sorun oluştu.");
-                setHasPurchased(false); // Hata durumunda yorum yapmayı engelle
+                setHasPurchased(false); 
             }
         };
 
         checkPurchaseStatus();
     }, [isLoggedIn, productSlug]);
 
-   // src/components/CommentForm/CommentForm.tsx içinde
-
+  
 const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
@@ -73,8 +71,7 @@ const handleSubmit = async (e: React.FormEvent) => {
     }
 
     try {
-        // Token'ı manuel olarak localStorage'dan alıp axios'a vermek yerine,
-        // merkezi API fonksiyonumuzu kullanıyoruz:
+       
         const response = await postProductComment(productSlug, {
             stars,
             title,
@@ -86,14 +83,13 @@ const handleSubmit = async (e: React.FormEvent) => {
             setStars(0);
             setTitle('');
             setComment('');
-            onCommentSubmitted(); // Parent bileşeni bilgilendir
+            onCommentSubmitted(); 
         } else {
-            // Backend'den gelen hata mesajını doğrudan kullanabiliriz
+           
             setError(response.message || 'Yorum gönderilirken bir hata oluştu.');
         }
     } catch (err: any) {
-        // Hata yakalama FetchWithAuth'tan geldiği için err.response olmayabilir.
-        // Doğrudan err.message'ı kullanmak daha güvenli.
+       
         setError(err.message || 'Yorum gönderilirken beklenmedik bir hata oluştu.');
         console.error('Yorum gönderme hatası:', err);
     } finally {

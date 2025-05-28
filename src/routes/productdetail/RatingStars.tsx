@@ -1,4 +1,4 @@
-// RatingStars.tsx
+
 
 import React from 'react';
 

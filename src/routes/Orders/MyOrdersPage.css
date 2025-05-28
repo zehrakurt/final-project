@@ -77,7 +77,7 @@
     font-size: 13.875px;
     font-style: normal;
     font-weight: 400;
-    line-height: 24px; /* 172.973% */
+    line-height: 24px; 
 }
 
 .order-total {
@@ -198,7 +198,7 @@ font-family: Inter;
 font-size: 13.25px;
 font-style: normal;
 font-weight: 400;
-line-height: 24px; /* 181.132% */
+line-height: 24px; 
 }
 
 @media (max-width: 768px) {
@@ -254,7 +254,7 @@ line-height: 24px; /* 181.132% */
 .product-item {
     display: flex;
     flex-direction: column;
-    align-items: flex-start; /* Ürün detaylarını sola hizalar */
+    align-items: flex-start; 
 }
 
 .product-info-container {

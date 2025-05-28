@@ -11,7 +11,7 @@ function redirectToLogin() {
   }
 }
 
-// Yardımcı fonksiyon: Hata mesajını ayrıştırmaya çalışır
+
 async function parseErrorMessage(response: Response, defaultMessage: string): Promise<string> {
   try {
     const errorJson = await response.json();
@@ -69,7 +69,7 @@ export async function FetchWithAuth<T = any>(
     let data: any;
 
     if (contentType && contentType.includes("application/json")) {
-      // Önce response nesnesinin json metodu olup olmadığını kontrol et
+
       if (typeof response.json === 'function') {
         data = await response.json();
       } else {
@@ -77,7 +77,7 @@ export async function FetchWithAuth<T = any>(
         throw new Error("Beklenen JSON yanıtı alınamadı.");
       }
     } else {
-      // Önce response nesnesinin text metodu olup olmadığını kontrol et
+     
       if (typeof response.text === 'function') {
         data = await response.text();
         console.warn("API yanıtı JSON değil. Dönen değer:", data);
@@ -93,7 +93,7 @@ export async function FetchWithAuth<T = any>(
   }
 }
 
-// HTTP Metotlarına Özel Yardımcı Fonksiyonlar
+
 export const postWithAuth = <T>(url: string, body: any) =>
   FetchWithAuth<T>(url, { method: 'POST', body: JSON.stringify(body) });
 
@@ -111,27 +111,21 @@ export const deleteWithAuth = <T>(url: string, body?: any) => {
   return FetchWithAuth<T>(url, options);
 };
 
-// Yardımcı fonksiyonlar (aynı kalabilir)
 const getCountryId = (country: string) => (country === "Turkey" ? 226 : 0);
 const getRegionId = (city: string) => (city === "Bartın" ? 3495 : 0);
 const getSubregionId = (subregion: string) => (subregion === "Kurucaşile İlçesi" ? 39395 : 0);
 const formatPhoneNumber = (phoneNumber: string) =>
   phoneNumber?.replace(/^(\d{1})(\d{3})(\d{3})(\d{4})$/, "+90 ($2) $3-$4") || phoneNumber;
 
-// Sepet İşlemleri İçin Özel Fonksiyonlar
-export const addToCart = async (payload: any) => { // Burada body tipini any olarak bıraktım, BasketProductsPayload importunu kaldırdım
+export const addToCart = async (payload: any) => { 
   return await postWithAuth<{ status: string; data: {} }>('/users/cart', payload);
 };
 
 export const getBasketData = async () => {
-  return await getWithAuth<any>('/users/cart');   // Burada dönüş tipini any yaptım, BasketProductType importunu kaldırdım
+  return await getWithAuth<any>('/users/cart');   
 };
 
-// export const deleteFromCart = async (payload: BasketProductsPayload) => { //Silme fonksiyonu yoruma alındı.
-//  return await deleteWithAuth<{ status: string; data: {} }>('/users/cart', payload);
-// };
 
-// Diğer API fonksiyonlarınız (örnek olarak bırakılmıştır)
 export const getBasket = async () => {
   try {
     const response = await getWithAuth("/baskets/");
@@ -163,11 +157,7 @@ export const getSubRegionsByRegionId = async (regionId: number | null) => {
     throw error;
   }
 };
-// Yeni Eklenen Fonksiyonlar
-/**
- * Ülkelerin listesini getirir.
- * @returns Ülkelerin listesi.
- */
+
 export const getCountries = async () => {
   try {
     const response = await fetch(`${BASE_URL}/world/countries?limit=300`);
@@ -179,11 +169,7 @@ export const getCountries = async () => {
   }
 };
 
-/**
- * Bir ülkeye ait şehirlerin listesini getirir.
- * @param countryId Ülke ID'si.
- * @returns Şehirlerin listesi.
- */
+
 export const getCitiesByCountryId = async (countryId: number) => {
   try {
     const response = await fetch(`${BASE_URL}/world/region?country-id=${countryId}&limit=1000`);
@@ -195,11 +181,7 @@ export const getCitiesByCountryId = async (countryId: number) => {
   }
 };
 
-/**
-* Bir şehire ait ilçelerin listesini getirir.
-* @param regionId Şehir ID'si.
-* @returns İlçelerin listesi.
-*/
+
 export const getDistrictsByCityId = async (regionId: number) => {
   try {
     const response = await fetch(`${BASE_URL}/world/subregion?region-id=${regionId}&limit=1000`);

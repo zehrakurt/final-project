@@ -117,14 +117,12 @@ export default function Firstnavbar() {
             const response = await axios.get(`${BASE_URL}/api/v1/products?search=${query}`);
             console.log("API Yanıtı:", response.data);
 
-            // Buradaki kontrol ve atama satırını değiştiriyoruz
-            // response.data.data direkt olarak ürün dizisini içeriyorsa:
             if (response.data.status === 'success' && Array.isArray(response.data.data)) {
-                setSearchResults(response.data.data); // data.results yerine doğrudan data'yı atıyoruz
+                setSearchResults(response.data.data); 
                 console.log("Arama sonuçları başarıyla çekildi:", response.data.data.length, "ürün bulundu.");
             } else {
                 setSearchResults([]);
-                // Hata mesajını daha açıklayıcı hale getirebiliriz
+             
                 console.log("Arama sonuçları boş veya beklenen format (response.data.data bir dizi değil) uygun değil.");
             }
         } catch (error) {
