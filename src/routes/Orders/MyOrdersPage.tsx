@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { GetMyAllOrder, GetMyOrderDetails } from '../signup/auth';
 import { NavLink } from 'react-router-dom';
 import '../../routes/Profile/Profile.css';
-import './MyOrdersPage.css';
+import './MyOrdersPage.css'; // Yeni CSS dosyasını dahil edin
 
 interface Size {
     gram: number;
@@ -83,20 +83,21 @@ const translateOrderStatus = (status: string): string => {
     switch (status) {
         case 'delivered':
         case 'Delivered':
-            return ' Sipariş Teslim Edildi';
+            return 'Sipariş Teslim Edildi';
         case 'in_cargo':
-        case 'Shipped': 
-            return ' Sipariş Kargoda';
+        case 'Shipped':
+            return 'Sipariş Kargoda';
         case 'getting_ready':
-        case 'Processing': 
-            return ' Sipariş Hazırlanıyor';
+        case 'Processing':
+            return 'Sipariş Hazırlanıyor';
         default:
-            return ''; 
+            return '';
     }
 };
 
 const getImageUrl = (src: string) => {
     if (!src) return '';
+    // BASE_URL'yi kendi projenizin API base URL'si ile değiştirin
     return src.startsWith('/') ? `https://fe1111.projects.academy.onlyjs.com${src}` : `https://fe1111.projects.academy.onlyjs.com/${src}`;
 };
 
@@ -149,12 +150,12 @@ const MyOrdersPage: React.FC = () => {
         setExpandedOrderId(null);
     };
 
-    const toggleOrderDetails = (orderId: string) => {
-        if (expandedOrderId === orderId) {
+    const toggleOrderDetails = (orderNo: string) => {
+        if (expandedOrderId === orderNo) {
             setExpandedOrderId(null);
         } else {
-            setExpandedOrderId(orderId);
-            handleViewDetails(orderId);
+            setExpandedOrderId(orderNo);
+            handleViewDetails(orderNo); // Detayları getir
         }
     };
 
@@ -172,7 +173,7 @@ const MyOrdersPage: React.FC = () => {
 
     return (
         <div className="container mx-auto">
-            <div className="grid grid-cols-[2fr_10fr]">
+            <div className="profile-main-layout"> {/* Yeni eklenen sınıf */}
                 {/* Sol Menü */}
                 <div className="profile-header-container">
                     <div className="profile-links-container">
@@ -202,12 +203,13 @@ const MyOrdersPage: React.FC = () => {
                         </NavLink>
                     </div>
                 </div>
-x
+
+                {/* Sipariş Listesi */}
                 <div className="order-list-container">
                     <h1 className='a2'>Siparişlerim ({orders ? orders.data.length : 0})</h1>
                     <ul className="order-list">
                         {orders.data.map((order) => (
-                            <li key={order.order_no} className="order-item">
+                            <li key={order.order_no} className={`order-item ${expandedOrderId === order.order_no ? 'expanded' : ''}`}>
                                 <div className="order-header">
                                     {order.cart_detail.length > 0 && order.cart_detail[0].photo_src && (
                                         <div className="order-image-container">
@@ -219,19 +221,18 @@ x
                                         </div>
                                     )}
                                     <div className="order-header-details">
-                                     
-                                        <div className={`order-status ${translateOrderStatus(order.order_status) === 'Teslim Edildi' ? 'delivered' : ''}`}>
+                                        <div className={`order-status ${translateOrderStatus(order.order_status) === 'Sipariş Teslim Edildi' ? 'delivered' : ''}`}>
                                             <p className='sssss'>{translateOrderStatus(order.order_status)}</p>
                                         </div>
                                         {order.cart_detail.length > 0 && (
-                                            <div >
+                                            <div>
                                                 <strong className="product-name">{order.cart_detail[0].name}</strong>
                                             </div>
                                         )}
-                                        <div >
+                                        <div>
                                             <strong className="order-date" > {new Date(order.created_at).toLocaleDateString()} Tarihinde Sipariş Verildi</strong>
                                         </div>
-                                        <div >
+                                        <div>
                                             <strong className="order-number">{order.order_no} numaralı sipariş </strong>
                                         </div>
                                     </div>
@@ -242,29 +243,29 @@ x
                                         Detayları Gör
                                     </button>
                                 </div>
-                                {expandedOrderId === order.order_no && (
+                                {expandedOrderId === order.order_no && selectedOrderDetails && selectedOrderDetails.data.order_no === order.order_no && (
                                     <div className="order-details">
                                         <div className="order-total">
-                                            <strong>Toplam Tutar:</strong> {order.total_price} TL
+                                            <strong>Toplam Tutar:</strong> {selectedOrderDetails.data.payment_detail.final_price} TL
                                         </div>
                                         <div className="order-products">
                                             <strong>Ürünler:</strong>
                                             <ul className="product-list">
-                                                {order.cart_detail.map((item: CartDetail) => (
-                                                    <li key={item.variant_id} className="product-item">
+                                                {selectedOrderDetails.data.shopping_cart.items.map((item: any) => (
+                                                    <li key={item.product_id} className="product-item">
                                                         <div className="product-image-container">
                                                             <img
-                                                                src={getImageUrl(item.photo_src)}
-                                                                alt={item.name}
+                                                                src={getImageUrl(item.product_variant_detail.photo_src)}
+                                                                alt={item.product}
                                                                 className="product-image"
                                                             />
                                                         </div>
                                                         <div className="product-details">
-                                                            <div className="product-name"> {item.name}</div>
-                                                            <div><strong>Adet:</strong> {item.pieces}</div>
-                                                            
-                                                            <div><strong>Toplam Fiyat:</strong> {item.total_price} TL</div>
-                                                            <NavLink to={`/product/${item.slug}`} className="product-link">
+                                                            <div className="product-name"> {item.product} ({item.product_variant_detail.aroma} - {item.product_variant_detail.size.pieces ? `${item.product_variant_detail.size.pieces} Adet` : `${item.product_variant_detail.size.gram} gr`})</div>
+                                                            <div><strong>Adet:</strong> <span>{item.pieces}</span></div>
+                                                            <div><strong>Birim Fiyat:</strong> <span>{item.unit_price} TL</span></div>
+                                                            <div><strong>Toplam Fiyat:</strong> <span>{item.total_price} TL</span></div>
+                                                            <NavLink to={`/product/${item.product_slug}`} className="product-link">
                                                                 Ürünü Gör
                                                             </NavLink>
                                                         </div>
@@ -272,6 +273,7 @@ x
                                                 ))}
                                             </ul>
                                         </div>
+                                        {/* Adres ve Ödeme Detayları sadece modalda gösterilecek, burada değil */}
                                     </div>
                                 )}
                             </li>
@@ -284,31 +286,56 @@ x
                 <div className="modal">
                     <h2 className="modal-title">Sipariş Detayları ({selectedOrderDetails.data.order_no})</h2>
                     <div className="order-info">
-                        
                         <p><strong>Sipariş Durumu:</strong> <span>{translateOrderStatus(selectedOrderDetails.data.order_status)}</span></p>
-                        <p><strong>Kargo Takip No:</strong> <span>{selectedOrderDetails.data.shipment_tracking_number}</span></p>
+                        <p><strong>Kargo Takip No:</strong> <span>{selectedOrderDetails.data.shipment_tracking_number || 'Mevcut Değil'}</span></p>
                     </div>
 
                     <div className="address-info">
                         <h3 className="section-title">Adres Bilgileri:</h3>
+                        <p><strong>Adres Başlığı:</strong> <span>{selectedOrderDetails.data.address.title}</span></p>
                         <p><strong>Adres:</strong> <span>{selectedOrderDetails.data.address.full_address}, {selectedOrderDetails.data.address.subregion}, {selectedOrderDetails.data.address.region}, {selectedOrderDetails.data.address.country}</span></p>
                         <p><strong>Telefon:</strong> <span>{selectedOrderDetails.data.address.phone_number}</span></p>
                     </div>
 
                     <div className="payment-info">
                         <h3 className="section-title">Ödeme Detayları:</h3>
-                        <p><strong>Ödeme Türü:</strong> <span>{selectedOrderDetails.data.payment_detail.payment_type} - {selectedOrderDetails.data.payment_detail.card_type}</span></p>
+                        <p><strong>Ödeme Türü:</strong> <span>{selectedOrderDetails.data.payment_detail.payment_type}</span></p>
+                        {selectedOrderDetails.data.payment_detail.card_type && (
+                            <p><strong>Kart Tipi:</strong> <span>{selectedOrderDetails.data.payment_detail.card_type}</span></p>
+                        )}
+                        {selectedOrderDetails.data.payment_detail.card_digits && (
+                            <p><strong>Kart Numarası:</strong> <span>**** **** **** {selectedOrderDetails.data.payment_detail.card_digits.slice(-4)}</span></p>
+                        )}
+                        <p><strong>Taban Fiyat:</strong> <span>{selectedOrderDetails.data.payment_detail.base_price} TL</span></p>
+                        <p><strong>Kargo Ücreti:</strong> <span>{selectedOrderDetails.data.payment_detail.shipment_fee} TL</span></p>
+                        <p><strong>Ödeme Ücreti:</strong> <span>{selectedOrderDetails.data.payment_detail.payment_fee} TL</span></p>
+                        {selectedOrderDetails.data.payment_detail.discount_amount > 0 && (
+                            <p><strong>İndirim Tutarı:</strong> <span>{selectedOrderDetails.data.payment_detail.discount_amount} TL ({selectedOrderDetails.data.payment_detail.discount_ratio * 100}%)</span></p>
+                        )}
+                        <p><strong>Son Fiyat:</strong> <span>{selectedOrderDetails.data.payment_detail.final_price} TL</span></p>
                     </div>
 
                     <div className="order-items">
-                        <h3 className="section-title">Siparişler</h3>
+                        <h3 className="section-title">Sipariş Edilen Ürünler</h3>
                         <ul className="product-list">
                             {selectedOrderDetails.data.shopping_cart.items.map((item: any) => (
                                 <li key={item.product_id} className="product-item">
-                                    <div><strong>Ürün:</strong> <span>{item.product} ({item.product_variant_detail.aroma} - {item.product_variant_detail.size.pieces} {item.product_variant_detail.size.gram} gr)</span></div>
-                                    <div><strong>Adet:</strong> <span>{item.pieces}</span></div>
-                                    
-                                    <div><strong>Toplam Fiyat:</strong> <span>{item.total_price} TL</span></div>
+                                    <div className="product-image-container">
+                                        <img
+                                            src={getImageUrl(item.product_variant_detail.photo_src)}
+                                            alt={item.product}
+                                            className="product-image"
+                                        />
+                                    </div>
+                                    <div className="product-details">
+                                        <div className="product-name"> {item.product} ({item.product_variant_detail.aroma} - {item.product_variant_detail.size.pieces ? `${item.product_variant_detail.size.pieces} Adet` : `${item.product_variant_detail.size.gram} gr`})</div>
+                                        <div><strong>Adet:</strong> <span>{item.pieces}</span></div>
+                                        <div><strong>Birim Fiyat:</strong> <span>{item.unit_price} TL</span></div>
+                                        <div><strong>Toplam Fiyat:</strong> <span>{item.total_price} TL</span></div>
+                                        <NavLink to={`/product/${item.product_slug}`} className="product-link">
+                                            Ürünü Gör
+                                        </NavLink>
+                                    </div>
                                 </li>
                             ))}
                         </ul>

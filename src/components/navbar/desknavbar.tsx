@@ -6,7 +6,7 @@ import "./desknavbar.css";
 export default function Desknavbar() {
     const [categories, setCategories] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+    const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
         const fetchCategories = async () => {
@@ -21,6 +21,7 @@ export default function Desknavbar() {
                 const data = await response.json();
                 if (data?.data?.data) {
                     setCategories(data.data.data);
+                    console.log('Kategoriler:', data.data.data.map((cat: any) => ({ name: cat.name, slug: cat.slug })));
                 } else {
                     setError("Kategoriler yüklenemedi.");
                 }
@@ -34,6 +35,18 @@ export default function Desknavbar() {
         fetchCategories();
     }, []);
 
+    const desiredCategories = [
+        "PROTEİN",
+        "SPOR GIDALARI",
+        "GIDA",
+        "SAĞLIK",
+        "VİTAMİN"
+    ];
+
+    const filteredCategories = desiredCategories
+        .map((name) => categories.find((cat: any) => cat.name === name))
+        .filter(Boolean);
+
     if (loading) return <div>Yükleniyor...</div>;
     if (error) return <div>{error}</div>;
 
@@ -41,7 +54,7 @@ export default function Desknavbar() {
         <div className="kef">
             <nav>
                 <ul className="navbar-menu">
-                    {categories.map((category) => (
+                    {filteredCategories.map((category: any) => (
                         <li key={`category-${category.slug}`}>
                             <HoverCard width="80%" shadow="md">
                                 <HoverCard.Target>
@@ -52,7 +65,7 @@ export default function Desknavbar() {
                                 <HoverCard.Dropdown className="aa">
                                     <div className="hover-dropdown-content">
                                         <div className="category-columns">
-                                            {category.children?.map((sub) => (
+                                            {category.children?.map((sub: any) => (
                                                 <div key={`sub-${sub.slug}`} className="category-column">
                                                     <ul>
                                                         <li>
@@ -61,7 +74,7 @@ export default function Desknavbar() {
                                                             </Link>
                                                             {sub.sub_children?.length > 0 && (
                                                                 <ul className="sub-children">
-                                                                    {sub.sub_children.map((sub2, index) => (
+                                                                    {sub.sub_children.map((sub2: any, index: number) => (
                                                                         <li
                                                                             key={`sub2-${sub2.slug}-${index}`}
                                                                         >

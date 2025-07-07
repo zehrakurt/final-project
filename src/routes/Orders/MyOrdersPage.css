@@ -298,4 +298,18 @@ line-height: 24px;
     background-color: #2980b9;
 }
 
+.profile-main-layout {
+  display: flex;
+  gap: 32px; /* iki sütun arası boşluk */
+}
+
+.profile-header-container {
+  width: 250px;
+  min-width: 200px;
+}
+
+.order-list-container {
+  flex: 1;
+}
+
 
