@@ -19,20 +19,20 @@ export default function Mobilenavbar({ openMainDrawer }) {
           <div className="flex flex-col ...">
             <div> 
               <ul className='kuu'>
-                <Link to={`protein`}>Protein</Link>
-                <img src="images/right-caret.svg.png" className='tyr-7' alt="" />
-                <li>Spor Gıdaları  <img src="images/right-caret.svg.png" className='tyr-7' alt="" /></li>
+                <li>Protein     <img src="images/right-caret.svg.png" className='tyr-7' alt="" /></li>
+            
+                <li>Spor Gıdaları <img src="images/right-caret.svg.png" className='tyr-7' alt="" /></li>
                 <li>Sağlık  <img src="images/right-caret.svg.png" className='tyr-7' alt="" /></li>
                 <li>Gıda  <img src="images/right-caret.svg.png" className='tyr-7' alt="" /></li>
                 <li>Vitamin  <img src="images/right-caret.svg.png" className='tyr-7' alt="" /></li>
-                <li>Tüm Ürünler </li>
+                <Link to="products/all-products">Tüm Ürünler  <img src="images/right-caret.svg.png" className='tyr-7' alt="" /> </Link>
               </ul>
             </div>
             <div className='alt-5'>
               <ul>
                 <li className='mtt'>HESABIM</li>
                 <li>MÜŞTERİ YORUMLARI</li>
-                <li>İLETİŞİM</li>
+                <Link to="contact">İLETİŞİM </Link>
               </ul>
             </div>
           </div>

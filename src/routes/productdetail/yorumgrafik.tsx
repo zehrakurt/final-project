@@ -98,7 +98,7 @@ const YorumGrafik: React.FC<YorumGrafikProps> = ({ slug }) => {
   if (error && comments.length === 0) return <p>Hata: {error}</p>;
 
   return (
-    <div className="container mx-auto">
+    <div className="container mx-auto px-4 sm:px-6">
      
       <div className="yorumlar" onClick={() => setShowCommentForm(!showCommentForm)}>
         

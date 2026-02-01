@@ -28,7 +28,7 @@ export default function Bfooter() {
           <div>
             <ul className="footer-menu">
               <li className="footer-menu-title">Kategoriler</li>
-              <li className="footer-menu-item"><Link to="protein">Protein</Link></li>
+              <li className="footer-menu-item"><Link to="">Protein</Link></li>
               <li className="footer-menu-item">Spor Gıdaları</li>
               <li className="footer-menu-item">Sağlık</li>
               <li className="footer-menu-item">Gıda</li>
@@ -44,7 +44,7 @@ export default function Bfooter() {
             <ul className="footer-menu">
               <li className="footer-menu-title">Popüler Ürünler</li>
               <li className="footer-menu-item">
-                <Link to={`/products/${product.slug}`}>Whey Protein</Link>
+                <li >Whey Protein</li>
               </li>
               <li className="footer-menu-item">Cream of Rice</li>
               <li className="footer-menu-item">Creatine</li>

@@ -294,9 +294,9 @@ const ProductDetail: React.FC = () => {
 
     return (
         <div>
-            <div className="container mx-auto cc">
-                <div className="grid grid-cols-2 gap-4">
-                    <div>
+            <div className="container mx-auto cc px-4 md:px-6">
+                <div className="product-detail-layout">
+                    <div className="flex justify-center md:justify-start order-1">
                         {selectedVariant && (
                             <img
                                 className="ürün-img"
@@ -305,7 +305,7 @@ const ProductDetail: React.FC = () => {
                             />
                         )}
                     </div>
-                    <div>
+                    <div className="order-2">
                         <h1 className="why-1">{product.name}</h1>
                         <p className="best-1">{product.short_explanation}</p>
                         <div className="flex items-center">
@@ -340,7 +340,7 @@ const ProductDetail: React.FC = () => {
                         </div>
 
                         <h2 className="arm-1">BOYUT:</h2>
-                        <div className="sizes-container flex gap-4">
+                        <div className="sizes-container flex flex-wrap gap-3 sm:gap-4">
                             {productSizes.map((size, index) => {
                                 const currentVariant = product.variants.find(
                                     (v) =>
@@ -385,7 +385,7 @@ const ProductDetail: React.FC = () => {
                             })}
                         </div>
                         {selectedVariant && (
-                            <div className="selected-variant grid grid-cols-2 gap-4 res-tex">
+                            <div className="selected-variant grid grid-cols-1 sm:grid-cols-2 gap-4 res-tex">
                                 <div className="flex items-center">
                                     {selectedVariant.price.discounted_price !== null ? (
                                         <>
@@ -406,9 +406,9 @@ const ProductDetail: React.FC = () => {
                                     </p>
                                 </div>
                             </div>)}
-                        <div className="adet-secim flex items-center gap-4 mt-4">
+                        <div className="adet-secim flex flex-col sm:flex-row items-stretch sm:items-center gap-4 mt-4">
 
-                            <div className="adet-kontrol flex items-center">
+                            <div className="adet-kontrol flex flex-wrap items-center justify-center sm:justify-start gap-3">
                                 <button
                                     className="in-2"
                                     onClick={() => setPieces(Math.max(1, pieces - 1))}
@@ -425,28 +425,28 @@ const ProductDetail: React.FC = () => {
                                 >
                                     +
                                 </button>
-                                <button className='ekle-btn ml-4' disabled={addingToCart} onClick={addToCart}>
+                                <button className='ekle-btn sm:ml-4 w-full sm:w-auto' disabled={addingToCart} onClick={addToCart}>
                                     {addingToCart ? "Ekleniyor..." : "Sepete Ekle"}
                                 </button>
                             </div>
                         </div>
 
-                        <div className="grid grid-cols-3 fd-1">
-                            <div className="flex">
+                        <div className="fd-1">
+                            <div className="fd-item flex">
                                 <img className="img-two" src="/images/car.png" alt="Ücretsiz Kargo" />
                                 <p className="free-1">
                                     <span>Aynı Gün</span>
                                     <span>Ücretsiz Kargo</span>
                                 </p>
                             </div>
-                            <div className="flex">
+                            <div className="fd-item flex">
                                 <img className="img-two" src="/images/t.png" alt="Kolay İade" />
                                 <p className="free-1">
                                     <span>750.000+</span>
                                     <span>Mutlu Müşteri</span>
                                 </p>
                             </div>
-                            <div className="flex">
+                            <div className="fd-item flex">
                                 <img className="img-two" src="/images/100.png" alt="Güvenli Alışveriş" />
                                 <p className="free-1">
                                     <span>Memnuniyet</span>

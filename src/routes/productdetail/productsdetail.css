@@ -1,10 +1,27 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+.product-detail-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+@media (min-width: 768px) {
+    .product-detail-layout {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+    }
+}
+
 .cc{
     margin-bottom: 200px;
 }
 .ürün-img{
-    width: 588px;
-height: 588px;
+    width: 100%;
+    max-width: 588px;
+    height: auto;
+    aspect-ratio: 1;
+    object-fit: contain;
 }
 .why-1{
     color: #000;
@@ -209,32 +226,47 @@ margin-bottom:20px ;
 }
 .ekle-btn{
     display: flex;
-width: 350.27px;
-padding: 11.5px 92.75px 11.5px 92.96px;
-justify-content: center;
-align-items: center;
-gap: 10px;
-border-radius: 4px;
-background: #000;
-color: #FFF;
-text-align: center;
-font-family: Inter;
-font-size: 19.5px;
-font-style: normal;
-font-weight: 600;
-line-height: 32px;
-margin-left:17px ;
+    width: 100%;
+    max-width: 350.27px;
+    padding: 11.5px 92.75px 11.5px 92.96px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border-radius: 4px;
+    background: #000;
+    color: #FFF;
+    text-align: center;
+    font-family: Inter;
+    font-size: 19.5px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 32px;
+    margin-left: 0;
 }
 .fd-1{
     margin-top: 21px;
-    display: flex;
-    justify-content: space-around; 
-    align-items: center; 
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+    align-items: stretch;
 }
-.fd-1 .flex {
+.fd-item {
     display: flex;
-    align-items: center; 
-    text-align: left; 
+    align-items: center;
+    text-align: left;
+    min-width: 0;
+}
+@media (min-width: 640px) {
+    .fd-1 {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+    }
+}
+@media (min-width: 1024px) {
+    .fd-1 {
+        grid-template-columns: repeat(3, 1fr);
+        justify-items: start;
+    }
 }
 .free-1 span {
     display: block; 
@@ -278,14 +310,15 @@ letter-spacing: 0.4px !important;
 }
 .free-1 {
     color: #000;
-    text-align: center;
+    text-align: left;
     font-family: Inter;
     font-size: 11.703px;
     font-style: normal;
     font-weight: 400;
     line-height: 20px;
-    margin: 0; 
-    white-space: nowrap;
+    margin: 0;
+    white-space: normal;
+    word-wrap: break-word;
 }
 .ass{
     color: #222;
@@ -358,4 +391,111 @@ background: #FFF;
   
 .free-1 br {
     display: block; 
+}
+
+/* Responsive - Tablet ve mobil */
+@media (max-width: 767px) {
+    .cc {
+        margin-bottom: 80px;
+    }
+    .why-1 {
+        font-size: 22px;
+        line-height: 30px;
+    }
+    .best-1 {
+        font-size: 13px;
+        line-height: 22px;
+    }
+    .tags-container {
+        flex-wrap: wrap;
+    }
+    .kg-box {
+        width: 100%;
+        min-width: 110px;
+        flex: 1 1 calc(50% - 8px);
+    }
+    .sizes-container {
+        gap: 10px;
+    }
+    .price-1,
+    .discounted-price {
+        font-size: 28px;
+        line-height: 34px;
+    }
+    .original-price {
+        font-size: 20px;
+    }
+    .servs {
+        font-size: 14px;
+    }
+    .adet-kontrol {
+        flex-wrap: wrap;
+    }
+    .ekle-btn {
+        margin-left: 0;
+        padding: 12px 24px;
+        font-size: 16px;
+    }
+    .img-two {
+        width: 36px;
+        height: 36px;
+    }
+    .ass {
+        font-size: 18px;
+        margin-top: 60px;
+        padding: 0 16px;
+    }
+}
+
+/* Çok küçük ekranlar */
+@media (max-width: 480px) {
+    .cc {
+        margin-bottom: 60px;
+    }
+    .why-1 {
+        font-size: 20px;
+        line-height: 28px;
+    }
+    .fd-1 {
+        gap: 10px;
+    }
+    .fd-item .img-two {
+        width: 32px;
+        height: 32px;
+        margin-right: 8px;
+    }
+    .fd-item .free-1 {
+        font-size: 10px;
+        line-height: 16px;
+    }
+    .arm-1 {
+        font-size: 14px;
+    }
+    .flv-1 {
+        font-size: 11px;
+        padding: 3px 0 3px 16px;
+    }
+    .color-box {
+        width: 16px;
+        height: 24px;
+    }
+    .kg-box {
+        min-width: 90px;
+        height: 56px;
+    }
+    .kg-text {
+        font-size: 13px;
+    }
+    .kg-text.srv {
+        font-size: 9px;
+    }
+    .discount-badge {
+        font-size: 10px;
+        padding: 0 4px;
+        width: auto;
+    }
+    .ass {
+        font-size: 16px;
+        margin-top: 40px;
+    }
 }

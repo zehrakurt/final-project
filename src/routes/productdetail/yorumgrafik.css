@@ -127,3 +127,24 @@
     font-weight: bold;
     font-size: 16px;
   }
+
+/* Responsive - Ürün detay yorum bölümü */
+@media (max-width: 480px) {
+  .yorum-satir {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .yorum-tarih {
+    align-self: flex-start;
+  }
+  .yorum-kullanici {
+    font-size: 16px;
+  }
+  .yorum-baslik {
+    font-size: 18px;
+  }
+  .yorum-metin {
+    font-size: 14px;
+  }
+}
