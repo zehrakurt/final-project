@@ -1,4 +1,4 @@
-import  { useEffect, useState,useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 import "./Addaddress.css";
 import '../Profile/Profile.css';
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
@@ -12,9 +12,9 @@ import {
     GetSubRegionsByRegion,
 } from "../signup/auth.ts";
 import {
-    RegionType,
+    RegionResponseType,
     CountriesType,
-    SubRegionType,
+    SubRegionResponseType,
     AllAddressType,
     AddressPayloadType,
 } from "../signup/address-types.ts";
@@ -26,34 +26,34 @@ import { getAccessToken } from "../signup/storage.ts";
 export default function MyAccount() {
     const access_token = getAccessToken();
     if (!access_token) {
-     
+
         throw new Error("Access token is invalid");
     }
-     const addressWrapperRef = useRef<HTMLDivElement>(null); 
+    const addressWrapperRef = useRef<HTMLDivElement>(null);
 
- useEffect(() => {
-   
-    const scrollToTop = () => {
-        window.scrollTo(0, 0);
-        if (addressWrapperRef.current) {
-            addressWrapperRef.current.scrollTop = 0;
-        }
-    };
+    useEffect(() => {
 
-  
-    const timeoutId = setTimeout(scrollToTop, 100); 
-    return () => clearTimeout(timeoutId); 
-}, []);
+        const scrollToTop = () => {
+            window.scrollTo(0, 0);
+            if (addressWrapperRef.current) {
+                addressWrapperRef.current.scrollTop = 0;
+            }
+        };
+
+
+        const timeoutId = setTimeout(scrollToTop, 100);
+        return () => clearTimeout(timeoutId);
+    }, []);
 
     const [countries, setCountries] = useState<CountriesType | null>(null);
     const [countriesLoading, setCountriesLoading] = useState(true);
     const [countriesError, setCountriesError] = useState<string | null>(null);
 
-    const [region, setRegion] = useState<RegionType | null>(null);
+    const [region, setRegion] = useState<RegionResponseType | null>(null);
     const [regionLoading, setRegionLoading] = useState(false);
     const [regionError, setRegionError] = useState<string | null>(null);
 
-    const [subRegion, setsubRegion] = useState<SubRegionType | null>(null);
+    const [subRegion, setsubRegion] = useState<SubRegionResponseType | null>(null);
     const [subRegionLoading, setSubRegionLoading] = useState(false);
     const [subRegionError, setSubRegionError] = useState<string | null>(null);
 
@@ -63,29 +63,29 @@ export default function MyAccount() {
 
     const [addressId, setaddressId] = useState<string>("");
 
-   
+
     const [selectedCountry, setselectedCountry] = useState<string | null>();
     const [selectedRegion, setselectedRegion] = useState<string | null>();
-    const [selectedSubRegion, setselectedSubRegion] = useState<string | null>();
+    const [, setselectedSubRegion] = useState<string | null>();
 
-    
+
     const [isAddress, setisAddress] = useState<boolean>(false);
 
- 
-    const [handleEditAddress, setHandleEditAddress] = useState<boolean>(false); 
-    const [isNewAddressModalOpen, setIsNewAddressModalOpen] = useState<boolean>(false); 
 
-    
+    const [handleEditAddress, setHandleEditAddress] = useState<boolean>(false);
+    const [isNewAddressModalOpen, setIsNewAddressModalOpen] = useState<boolean>(false);
+
+
     const { register, control, handleSubmit, reset, formState: { errors } } = useForm<AddressPayloadType>();
 
-   
+
     useEffect(() => {
         const fetchCountries = async () => {
             setCountriesLoading(true);
             setCountriesError(null);
             try {
                 const data = await GetCountries();
-                setCountries({ data: { results: data } });
+                setCountries({ data: { results: data }, status: "success" });
                 setCountriesLoading(false);
             } catch (error: any) {
                 setCountriesError("Ülkeler yüklenirken bir hata oluştu.");
@@ -99,7 +99,7 @@ export default function MyAccount() {
             try {
                 const response = await GetAllMyAddress();
                 setAddress(response);
-               
+
                 setisAddress(response?.data?.count > 0);
                 setAddressLoading(false);
             } catch (error: any) {
@@ -110,9 +110,9 @@ export default function MyAccount() {
 
         fetchCountries();
         fetchAllMyAddress();
-    }, []); 
+    }, []);
 
-    
+
     useEffect(() => {
         if (selectedCountry) {
             const fetchRegions = async () => {
@@ -120,21 +120,21 @@ export default function MyAccount() {
                 setRegionError(null);
                 try {
                     const data = await GetRegionsByCountry(selectedCountry);
-                    setRegion({ data: { results: data } });
+                    setRegion({ data: { results: data }, status: "success" });
                     setRegionLoading(false);
                 } catch (error: any) {
                     setRegionError("Şehirler yüklenirken bir hata oluştu.");
                     setRegionLoading(false);
-                    setRegion(null); 
+                    setRegion(null);
                 }
             };
             fetchRegions();
         } else {
-            setRegion(null); 
+            setRegion(null);
         }
     }, [selectedCountry]);
 
-   
+
     useEffect(() => {
         if (selectedRegion) {
             const fetchSubRegions = async () => {
@@ -142,29 +142,29 @@ export default function MyAccount() {
                 setSubRegionError(null);
                 try {
                     const data = await GetSubRegionsByRegion(selectedRegion);
-                    setsubRegion({ data: { results: data } });
+                    setsubRegion({ data: { results: data }, status: "success" });
                     setSubRegionLoading(false);
                 } catch (error: any) {
                     setSubRegionError("İlçeler yüklenirken bir hata oluştu.");
                     setSubRegionLoading(false);
-                    setsubRegion(null); 
+                    setsubRegion(null);
                 }
             };
             fetchSubRegions();
         } else {
-            setsubRegion(null); 
+            setsubRegion(null);
         }
-    }, [selectedRegion]); 
+    }, [selectedRegion]);
 
- 
+
     const addressSubmit: SubmitHandler<AddressPayloadType> = async (data) => {
         try {
             await CreateNewAddress(data);
-            const renewedAddress = await GetAllMyAddress(); 
+            const renewedAddress = await GetAllMyAddress();
             setAddress(renewedAddress);
-            setisAddress(true); 
-            reset(); 
-            setIsNewAddressModalOpen(false); 
+            setisAddress(true);
+            reset();
+            setIsNewAddressModalOpen(false);
             alert("Adres başarıyla oluşturuldu!");
         } catch (error: any) {
             console.error("Adres oluşturulurken hata:", error);
@@ -176,9 +176,9 @@ export default function MyAccount() {
     const deleteMyAddress = async (idToDelete: string) => {
         try {
             await DeleteMyAddress(idToDelete);
-            const renewedAddress = await GetAllMyAddress(); 
+            const renewedAddress = await GetAllMyAddress();
             setAddress(renewedAddress);
-          
+
             setisAddress(renewedAddress?.data?.count > 0);
             alert("Adres başarıyla silindi!");
         } catch (error: any) {
@@ -187,13 +187,13 @@ export default function MyAccount() {
         }
     };
 
-   
+
     const editMyAddress: SubmitHandler<AddressPayloadType> = async (data) => {
         try {
-            const response = await EditMyAddress({ data, addressId }); 
+            const response = await EditMyAddress({ data, addressId });
             if (response?.status === "success") {
-                setHandleEditAddress(false); 
-                const renewedAddress = await GetAllMyAddress(); 
+                setHandleEditAddress(false);
+                const renewedAddress = await GetAllMyAddress();
                 setAddress(renewedAddress);
                 alert("Adres başarıyla düzenlendi!");
             } else {
@@ -236,8 +236,8 @@ export default function MyAccount() {
             </div>
             <div className="col-span-10">
                 <div className="address-wrapper" >
-                  
-                    {isAddress && address?.data?.results?.length > 0 ? (
+
+                    {isAddress && (address?.data?.results?.length ?? 0) > 0 ? (
                         <>
                             <div className="saved-address-wrapper" style={{ marginBottom: '20px' }}>
                                 <div className="flex justify-between items-center mb-4">
@@ -245,12 +245,12 @@ export default function MyAccount() {
                                     <button
                                         className="a2"
                                         onClick={() => {
-                                            setIsNewAddressModalOpen(true); 
-                                            setHandleEditAddress(false); 
-                                            reset(); 
+                                            setIsNewAddressModalOpen(true);
+                                            setHandleEditAddress(false);
+                                            reset();
                                             setselectedCountry(null);
-                                            setselectedRegion(null); 
-                                            setselectedSubRegion(null); 
+                                            setselectedRegion(null);
+                                            setselectedSubRegion(null);
                                         }}
                                     >
                                         + Yeni Adres Ekle
@@ -262,12 +262,12 @@ export default function MyAccount() {
                                     <div className="error-message">{addressError}</div>
                                 ) : (
                                     address?.data?.results?.map((a, index) => (
-                                        <div key={index} className="address-box" style={{ marginBottom: '17px' }}> 
+                                        <div key={index} className="address-box" style={{ marginBottom: '17px' }}>
                                             <div className="address-details">
                                                 <div className="address-title">{a.title}</div>
-                                                <div className="address-line">{`${a.full_address}, ${a.apartment_no || ''}`.trimEnd(', ')}</div>
+                                                <div className="address-line">{`${a.full_address}, ${a.apartment_no || ''}`.replace(/,\s*$/, '')}</div>
                                                 <div className="address-location">
-                                                    {`${a.subregion?.name || ''}, ${a.region?.name || ''}, ${a.country?.name || ''}`.trimEnd(', ')}
+                                                    {`${a.subregion?.name || ''}, ${a.region?.name || ''}, ${a.country?.name || ''}`.replace(/,\s*$/, '')}
                                                 </div>
                                             </div>
                                             <div className="address-actions">
@@ -281,7 +281,7 @@ export default function MyAccount() {
                                                 <button
                                                     onClick={() => {
                                                         setaddressId(a.id);
-                                                       
+
                                                         reset({
                                                             title: a.title,
                                                             first_name: a.first_name,
@@ -291,13 +291,13 @@ export default function MyAccount() {
                                                             region_id: a.region_id,
                                                             subregion_id: a.subregion_id,
                                                             phone_number: a.phone_number,
-                                                            apartment_no: a.apartment_no, 
+                                                            apartment_no: a.apartment_no,
                                                         });
                                                         setselectedCountry(a.country?.name || null);
                                                         setselectedRegion(a.region?.name || null);
                                                         setselectedSubRegion(a.subregion?.name || null);
-                                                        setHandleEditAddress(true); 
-                                                        setIsNewAddressModalOpen(false); 
+                                                        setHandleEditAddress(true);
+                                                        setIsNewAddressModalOpen(false);
                                                     }}
                                                     className="icon-button edit-button"
                                                     title="Düzenle"
@@ -311,10 +311,10 @@ export default function MyAccount() {
                             </div>
                         </>
                     ) : (
-                       
+
                         <div className="new-address-form-container">
                             {!isAddress && <h3 className="mb-4 info-message"><p>Kayıtlı Adresiniz Bulunmamaktadır, Lütfen Adres Ekleyiniz</p></h3>}
-                           
+
                             <form onSubmit={handleSubmit(addressSubmit)} className="address-form">
                                 <label className="address-title-label">
                                     *Adres Başlığı
@@ -361,7 +361,7 @@ export default function MyAccount() {
                                 />
                                 {errors.full_address && <p className="error-message">{errors.full_address.message}</p>}
 
-                               
+
 
                                 <label className="address-city-label">
                                     *Ülke
@@ -417,7 +417,7 @@ export default function MyAccount() {
                                     }}
                                     defaultValue=""
                                     className="address-state-input"
-                                    disabled={!selectedCountry || regionLoading || regionError || !region?.data?.results}
+                                    disabled={!selectedCountry || regionLoading || !!regionError || !region?.data?.results}
                                 >
                                     <option value="" disabled>Şehir Seçin</option>
                                     {region?.data?.results?.map((regionItem) => (
@@ -428,7 +428,7 @@ export default function MyAccount() {
                                 </select>
                                 {regionLoading && <div>Şehirler yükleniyor...</div>}
                                 {regionError && <div className="error-message">{regionError}</div>}
-                               
+
                                 {selectedCountry && region?.data?.results?.length === 0 && !regionLoading && !regionError && <div className="info-message">Bu ülkede şehir bulunmuyor.</div>}
                                 {errors.region_id && <p className="error-message">{errors.region_id.message}</p>}
 
@@ -454,7 +454,7 @@ export default function MyAccount() {
                                     }}
                                     defaultValue=""
                                     className="address-subregion-input"
-                                    disabled={!selectedRegion || subRegionLoading || subRegionError || !subRegion?.data?.results}
+                                    disabled={!selectedRegion || subRegionLoading || !!subRegionError || !subRegion?.data?.results}
                                 >
                                     <option value="" disabled>İlçe Seçin</option>
                                     {subRegion?.data?.results?.map((subRegionItem) => (
@@ -465,7 +465,7 @@ export default function MyAccount() {
                                 </select>
                                 {subRegionLoading && <div>İlçeler yükleniyor...</div>}
                                 {subRegionError && <div className="error-message">{subRegionError}</div>}
-                               
+
                                 {selectedRegion && subRegion?.data?.results?.length === 0 && !subRegionLoading && !subRegionError && <div className="info-message">Bu şehirde ilçe bulunmuyor.</div>}
                                 {errors.subregion_id && <p className="error-message">{errors.subregion_id.message}</p>}
 
@@ -510,7 +510,7 @@ export default function MyAccount() {
                                                 inputProps={{
                                                     name: "phone_number",
                                                     required: true,
-                                                   
+
                                                 }}
                                             />
                                             {error && (
@@ -537,8 +537,8 @@ export default function MyAccount() {
 
                     {isNewAddressModalOpen && (
                         <div className="modal-container" onClick={(e) => {
-                          
-                            if (e.target.className === 'modal-container') {
+
+                            if ((e.target as HTMLElement).className === 'modal-container') {
                                 setIsNewAddressModalOpen(false);
                             }
                         }}>
@@ -549,7 +549,7 @@ export default function MyAccount() {
                                     </h5>
                                     <button
                                         className="modal-close-button"
-                                        onClick={() => setIsNewAddressModalOpen(false)} 
+                                        onClick={() => setIsNewAddressModalOpen(false)}
                                     >
                                         <i className="bi bi-x-lg"></i>
                                     </button>
@@ -557,16 +557,16 @@ export default function MyAccount() {
 
                                 <div className="modal-form-wrapper">
                                     <form
-                                        onSubmit={handleSubmit(addressSubmit)} 
+                                        onSubmit={handleSubmit(addressSubmit)}
                                         className="modal-form"
                                     >
-                                      
+
                                         <label className="address-title-label">
                                             *Adres Başlığı
                                         </label>
                                         <input
                                             {...register("title", { required: "Adres başlığı zorunludur." })}
-                                            id="new-address-title-input" 
+                                            id="new-address-title-input"
                                             type="text"
                                             placeholder="ev,iş vb..."
                                             className="address-title-input"
@@ -606,7 +606,7 @@ export default function MyAccount() {
                                         />
                                         {errors.full_address && <p className="error-message">{errors.full_address.message}</p>}
 
-                                     
+
                                         <label className="address-city-label">
                                             *Ülke
                                         </label>
@@ -615,7 +615,7 @@ export default function MyAccount() {
                                                 required: "Lütfen bir ülke seçin.",
                                                 setValueAs: (value) => parseInt(value, 10),
                                             })}
-                                            id="new-address-country-input" 
+                                            id="new-address-country-input"
                                             onChange={(e) => {
                                                 const selectedCountryId = countries?.data?.results?.find(
                                                     (country) => country.id === Number(e.target.value)
@@ -649,7 +649,7 @@ export default function MyAccount() {
                                                 required: "Lütfen bir şehir seçin.",
                                                 setValueAs: (value) => parseInt(value, 10),
                                             })}
-                                            id="new-address-state-input" 
+                                            id="new-address-state-input"
                                             onChange={(e) => {
                                                 const selectedRegionId = region?.data?.results?.find(
                                                     (regionItem) => regionItem.id === Number(e.target.value)
@@ -661,7 +661,7 @@ export default function MyAccount() {
                                             }}
                                             defaultValue=""
                                             className="address-state-input"
-                                            disabled={!selectedCountry || regionLoading || regionError || !region?.data?.results}
+                                            disabled={!selectedCountry || regionLoading || !!regionError || !region?.data?.results}
                                         >
                                             <option value="" disabled>Şehir Seçin</option>
                                             {region?.data?.results?.map((regionItem) => (
@@ -685,7 +685,7 @@ export default function MyAccount() {
                                                 required: "Lütfen bir ilçe seçin.",
                                                 setValueAs: (value) => parseInt(value, 10),
                                             })}
-                                            id="new-address-subregion-input" 
+                                            id="new-address-subregion-input"
                                             onChange={(e) => {
                                                 const selectedSubregionId =
                                                     subRegion?.data?.results?.find(
@@ -698,7 +698,7 @@ export default function MyAccount() {
                                             }}
                                             defaultValue=""
                                             className="address-subregion-input"
-                                            disabled={!selectedRegion || subRegionLoading || subRegionError || !subRegion?.data?.results}
+                                            disabled={!selectedRegion || subRegionLoading || !!subRegionError || !subRegion?.data?.results}
                                         >
                                             <option value="" disabled>İlçe Seçin</option>
                                             {subRegion?.data?.results?.map((subRegionItem) => (
@@ -754,7 +754,7 @@ export default function MyAccount() {
                                                         inputProps={{
                                                             name: "phone_number",
                                                             required: true,
-                                                           
+
                                                         }}
                                                     />
                                                     {error && (
@@ -780,10 +780,10 @@ export default function MyAccount() {
                         </div>
                     )}
 
-                  
+
                     {handleEditAddress && (
                         <div className="modal-container" onClick={(e) => {
-                            if (e.target.className === 'modal-container') {
+                            if ((e.target as HTMLElement).className === 'modal-container') {
                                 setHandleEditAddress(false);
                             }
                         }}>
@@ -802,16 +802,16 @@ export default function MyAccount() {
 
                                 <div className="modal-form-wrapper">
                                     <form
-                                        onSubmit={handleSubmit(editMyAddress)} 
+                                        onSubmit={handleSubmit(editMyAddress)}
                                         className="modal-form"
                                     >
-                                      
+
                                         <label className="address-title-label">
                                             *Adres Başlığı
                                         </label>
                                         <input
                                             {...register("title", { required: "Adres başlığı zorunludur." })}
-                                            id="edit-address-title-input" 
+                                            id="edit-address-title-input"
                                             type="text"
                                             placeholder="ev,iş vb..."
                                             className="address-title-input"
@@ -851,8 +851,8 @@ export default function MyAccount() {
                                         />
                                         {errors.full_address && <p className="error-message">{errors.full_address.message}</p>}
 
-                                        
-                                       
+
+
                                         <label className="address-city-label">
                                             *Ülke
                                         </label>
@@ -907,7 +907,7 @@ export default function MyAccount() {
                                             }}
                                             defaultValue=""
                                             className="address-state-input"
-                                            disabled={!selectedCountry || regionLoading || regionError || !region?.data?.results}
+                                            disabled={!selectedCountry || regionLoading || !!regionError || !region?.data?.results}
                                         >
                                             <option value="" disabled>Şehir Seçin</option>
                                             {region?.data?.results?.map((regionItem) => (
@@ -944,7 +944,7 @@ export default function MyAccount() {
                                             }}
                                             defaultValue=""
                                             className="address-subregion-input"
-                                            disabled={!selectedRegion || subRegionLoading || subRegionError || !subRegion?.data?.results}
+                                            disabled={!selectedRegion || subRegionLoading || !!subRegionError || !subRegion?.data?.results}
                                         >
                                             <option value="" disabled>İlçe Seçin</option>
                                             {subRegion?.data?.results?.map((subRegionItem) => (
@@ -981,7 +981,7 @@ export default function MyAccount() {
                                                             padding: '12px 15px',
                                                             border: '1px solid #e5e5e5',
                                                             borderRadius: '4px',
-                                                            backgroundColor: '#fff', 
+                                                            backgroundColor: '#fff',
                                                             fontSize: '16px',
                                                             color: '#222',
                                                             boxSizing: 'border-box',
@@ -989,7 +989,7 @@ export default function MyAccount() {
                                                             fontStyle: 'normal',
                                                             fontWeight: 400,
                                                             lineHeight: 'normal',
-                                                            height: 'auto', 
+                                                            height: 'auto',
                                                             paddingLeft: '45px',
                                                         }}
                                                         containerClass="address-phone-container"
@@ -1000,7 +1000,7 @@ export default function MyAccount() {
                                                         inputProps={{
                                                             name: "phone_number",
                                                             required: true,
-                                                      
+
                                                         }}
                                                     />
                                                     {error && (

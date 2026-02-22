@@ -10,16 +10,16 @@ import {
     GetSubRegionsByRegion,
 } from "../signup/auth.ts";
 import {
-    AllAddressType,
     ShippingMethod,
-    RegionType,
+    RegionResponseType,
     CountriesType,
-    SubRegionType,
+    SubRegionResponseType,
     AddressPayloadType,
+    AddressFromBackend,
 } from "../signup/address-types.ts";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import './Paymentstyle.css'; 
+import './Paymentstyle.css';
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
@@ -63,12 +63,12 @@ const Payment: React.FC = () => {
     const rawTotalPrice = useCartStore((state) => state.totalPrice)();
     const totalPrice = safeParseFloat(rawTotalPrice);
 
-    const totalItems = useCartStore((state) => state.totalItems)();
+
     const clearCart = useCartStore((state) => state.clearCart);
     const navigate = useNavigate();
 
-    const [allAddresses, setAllAddresses] = useState<AllAddressType[] | null>(null);
-    const [address, setAddress] = useState<AllAddressType | null>(null);
+    const [allAddresses, setAllAddresses] = useState<AddressFromBackend[] | null>(null);
+    const [, setAddress] = useState<AddressFromBackend | null>(null);
     const [currentStep, setCurrentStep] = useState(0); // İlk adım 0
     const [shippingMethods] = useState<ShippingMethod[]>(staticShippingMethods);
     const [selectedShippingMethod, setSelectedShippingMethod] = useState<ShippingMethod | null>(null);
@@ -95,39 +95,39 @@ const Payment: React.FC = () => {
     const [countriesLoading, setCountriesLoading] = useState(true);
     const [countriesError, setCountriesError] = useState<string | null>(null);
 
-    const [region, setRegion] = useState<RegionType | null>(null);
+    const [region, setRegion] = useState<RegionResponseType | null>(null);
     const [regionLoading, setRegionLoading] = useState(false);
     const [regionError, setRegionError] = useState<string | null>(null);
 
-    const [subRegion, setsubRegion] = useState<SubRegionType | null>(null);
+    const [subRegion, setsubRegion] = useState<SubRegionResponseType | null>(null);
     const [subRegionLoading, setSubRegionLoading] = useState(false);
     const [subRegionError, setSubRegionError] = useState<string | null>(null);
 
     const [selectedCountry, setselectedCountry] = useState<string | null>(null);
     const [selectedRegion, setselectedRegion] = useState<string | null>(null);
-    const [selectedSubRegion, setselectedSubRegion] = useState<string | null>(null);
+    const [, setselectedSubRegion] = useState<string | null>(null);
 
     const [isNewAddressModalOpen, setIsNewAddressModalOpen] = useState<boolean>(false);
     const [isEditAddressModalOpen, setIsEditAddressModalOpen] = useState<boolean>(false);
-    const [addressToEdit, setAddressToEdit] = useState<AllAddressType | null>(null);
+    const [addressToEdit, setAddressToEdit] = useState<AddressFromBackend | null>(null);
 
-   
+
     const { register, control, handleSubmit, reset, formState: { errors } } = useForm<AddressPayloadType>();
 
-   
+
     const months = Array.from({ length: 12 }, (_, i) => String(i + 1).padStart(2, '0'));
     const currentYear = new Date().getFullYear();
     const years = Array.from({ length: 10 }, (_, i) => String(currentYear + i));
 
 
-    
+
     const handleCardDigitsChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setCardDigits(e.target.value.replace(/\D/g, ''));
     };
 
- const handleCardExpirationYearChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        setCardExpirationYear(e.target.value); 
-    };
+    const handleCardExpirationYearChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        setCardExpirationYear(e.target.value);
+    };
 
     const handlePaymentMethodChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const selectedMethod = e.target.value;
@@ -161,13 +161,13 @@ const Payment: React.FC = () => {
                     setSelectedAddressId(defaultAddress.id.toString());
                     setAddressError(null);
                 } else {
-                    setAllAddresses([]); 
+                    setAllAddresses([]);
                     setAddressError("Kayıtlı adresiniz bulunmamaktadır. Lütfen adres ekleyiniz.");
                 }
             } catch (error: any) {
                 console.error("Adres alınamadı:", error);
                 setAddressError("Adres bilgileri yüklenirken bir hata oluştu.");
-                setAllAddresses([]); 
+                setAllAddresses([]);
             } finally {
                 setLoading(false);
             }
@@ -184,14 +184,14 @@ const Payment: React.FC = () => {
         }
     }, [selectedAddressId, allAddresses]);
 
-   
+
     useEffect(() => {
         const fetchCountriesData = async () => {
             setCountriesLoading(true);
             setCountriesError(null);
             try {
                 const data = await GetCountries();
-                setCountries({ data: { results: data } });
+                setCountries({ data: { results: data }, status: "success" });
                 setCountriesLoading(false);
             } catch (error: any) {
                 setCountriesError("Ülkeler yüklenirken bir hata oluştu.");
@@ -202,7 +202,7 @@ const Payment: React.FC = () => {
         fetchCountriesData();
     }, []);
 
-   
+
     useEffect(() => {
         if (selectedCountry) {
             const fetchRegions = async () => {
@@ -210,7 +210,7 @@ const Payment: React.FC = () => {
                 setRegionError(null);
                 try {
                     const data = await GetRegionsByCountry(selectedCountry);
-                    setRegion({ data: { results: data } });
+                    setRegion({ data: { results: data }, status: "success" });
                     setRegionLoading(false);
                 } catch (error: any) {
                     setRegionError("Şehirler yüklenirken bir hata oluştu.");
@@ -224,7 +224,7 @@ const Payment: React.FC = () => {
         }
     }, [selectedCountry]);
 
-   
+
     useEffect(() => {
         if (selectedRegion) {
             const fetchSubRegions = async () => {
@@ -232,7 +232,7 @@ const Payment: React.FC = () => {
                 setSubRegionError(null);
                 try {
                     const data = await GetSubRegionsByRegion(selectedRegion);
-                    setsubRegion({ data: { results: data } });
+                    setsubRegion({ data: { results: data }, status: "success" });
                     setSubRegionLoading(false);
                 } catch (error: any) {
                     setSubRegionError("İlçeler yüklenirken bir hata oluştu.");
@@ -249,36 +249,36 @@ const Payment: React.FC = () => {
 
     const addressSubmit: SubmitHandler<AddressPayloadType> = async (data) => {
         try {
-            delete data.apartment_no; 
+            delete data.apartment_no;
 
             await CreateNewAddress(data);
-            const renewedAddressResponse = await GetAllMyAddress(); 
+            const renewedAddressResponse = await GetAllMyAddress();
             if (renewedAddressResponse?.data?.results?.length) {
                 setAllAddresses(renewedAddressResponse.data.results);
                 const newlyAddedAddress = renewedAddressResponse.data.results[renewedAddressResponse.data.results.length - 1];
                 setAddress(newlyAddedAddress);
                 setSelectedAddressId(newlyAddedAddress.id.toString());
-                setAddressError(null); 
+                setAddressError(null);
             }
-            reset(); 
-            setIsNewAddressModalOpen(false); 
-          
+            reset();
+            setIsNewAddressModalOpen(false);
+
         } catch (error: any) {
             console.error("Adres oluşturulurken hata:", error);
-            
+
         }
     };
 
- 
+
     const deleteMyAddress = async (idToDelete: string) => {
-  
+
         const confirmDelete = window.confirm("Bu adresi silmek istediğinizden emin misiniz?");
         if (!confirmDelete) {
             return;
         }
         try {
             await DeleteMyAddress(idToDelete);
-            const renewedAddress = await GetAllMyAddress(); 
+            const renewedAddress = await GetAllMyAddress();
             setAllAddresses(renewedAddress?.data?.results || null);
             if (selectedAddressId === idToDelete) {
                 if (renewedAddress?.data?.results?.length > 0) {
@@ -291,60 +291,60 @@ const Payment: React.FC = () => {
                     setAddressError("Kayıtlı adresiniz bulunmamaktadır. Lütfen adres ekleyiniz.");
                 }
             }
-            
+
         } catch (error: any) {
             console.error("Adres silinirken hata:", error);
-            
+
         }
     };
 
-   
+
     const editMyAddress: SubmitHandler<AddressPayloadType> = async (data) => {
         try {
             if (!addressToEdit) {
-                
+
                 return;
             }
-            delete data.apartment_no; 
+            delete data.apartment_no;
 
             const response = await EditMyAddress({ data, addressId: addressToEdit.id.toString() });
             if (response?.status === "success") {
-                setIsEditAddressModalOpen(false); 
-                const renewedAddress = await GetAllMyAddress(); 
+                setIsEditAddressModalOpen(false);
+                const renewedAddress = await GetAllMyAddress();
                 setAllAddresses(renewedAddress?.data?.results || null);
                 if (selectedAddressId === addressToEdit.id.toString()) {
-                    const updatedAddress = renewedAddress?.data?.results?.find(addr => addr.id.toString() === addressToEdit.id.toString());
+                    const updatedAddress = renewedAddress?.data?.results?.find((addr: any) => addr.id.toString() === addressToEdit.id.toString());
                     setAddress(updatedAddress || null);
                 }
-              
+
             } else {
-                
+
             }
         } catch (error: any) {
             console.error("Adres düzenlenirken hata:", error);
-           
+
         }
     };
 
- 
+
     const goToNextStep = () => {
         if (currentStep === 0) {
             if (!selectedAddressId) {
-                
+
                 return;
             }
             if (allAddresses?.length === 0 && selectedAddressId === "new-address" && !isNewAddressModalOpen) {
-               
+
                 setIsNewAddressModalOpen(true);
                 return;
             }
         } else if (currentStep === 1) {
             if (!selectedShippingMethod) {
-              
+
                 return;
             }
         }
-        
+
 
         if (currentStep < steps.length - 1) {
             setCurrentStep(currentStep + 1);
@@ -366,7 +366,7 @@ const Payment: React.FC = () => {
 
         if (paymentChoice === "credit_cart") {
             if (!cardDigits || cardDigits.length < 13 || cardDigits.length > 16 || !cardExpirationMonth || !cardExpirationYear || !cardSecurityCode || !cardName) {
-            
+
                 return;
             }
         }
@@ -375,19 +375,19 @@ const Payment: React.FC = () => {
         setFormSubmitted(true);
 
         const cardExpirationDate = paymentChoice === "credit_cart"
-        ? `${cardExpirationMonth}-${cardExpirationYear.slice(-2)}`
-        : undefined;
+            ? `${cardExpirationMonth}-${cardExpirationYear.slice(-2)}`
+            : undefined;
 
-    const orderData = {
-        address_id: selectedAddressId,
-        payment_type: paymentChoice,
-        ...(paymentChoice === "credit_cart" && {
-            card_digits: cardDigits,
-            card_expiration_date: cardExpirationDate,
-            card_security_code: cardSecurityCode,
-            card_type: cardType,
-        }),
-    };
+        const orderData = {
+            address_id: selectedAddressId,
+            payment_type: paymentChoice,
+            ...(paymentChoice === "credit_cart" && {
+                card_digits: cardDigits,
+                card_expiration_date: cardExpirationDate,
+                card_security_code: cardSecurityCode,
+                card_type: cardType,
+            }),
+        };
 
         console.log("Gönderilecek Sipariş Verisi:", orderData);
 
@@ -411,7 +411,7 @@ const Payment: React.FC = () => {
             console.log("Sipariş Başarılı:", response.data.data);
             setOrderNumber(response.data.data.order_no);
             clearCart();
-            setCurrentStep(3); 
+            setCurrentStep(3);
 
         } catch (error: any) {
             console.error("Sipariş Oluşturma Hatası:", error);
@@ -424,7 +424,7 @@ const Payment: React.FC = () => {
 
     const steps = ["Teslimat Adresi", "Kargo", "Ödeme", "Tamamlandı"];
 
- 
+
     if (loading) {
         return <div className="text-center py-10">Yükleniyor...</div>;
     }
@@ -445,10 +445,10 @@ const Payment: React.FC = () => {
                         </span>
                     </p>
                 </div>
-             
+
                 {isNewAddressModalOpen && (
                     <div className="modal-container" onClick={(e) => {
-                        if (e.target.className === 'modal-container') {
+                        if ((e.target as HTMLElement).className === 'modal-container') {
                             setIsNewAddressModalOpen(false);
                         }
                     }}>
@@ -510,7 +510,7 @@ const Payment: React.FC = () => {
                                         }}
                                         defaultValue=""
                                         className="address-state-input"
-                                        disabled={!selectedCountry || regionLoading || regionError || !region?.data?.results}
+                                        disabled={!selectedCountry || regionLoading || !!regionError || !region?.data?.results}
                                     >
                                         <option value="" disabled>Şehir Seçin</option>
                                         {region?.data?.results?.map((regionItem) => (
@@ -533,7 +533,7 @@ const Payment: React.FC = () => {
                                         }}
                                         defaultValue=""
                                         className="address-subregion-input"
-                                        disabled={!selectedRegion || subRegionLoading || subRegionError || !subRegion?.data?.results}
+                                        disabled={!selectedRegion || subRegionLoading || !!subRegionError || !subRegion?.data?.results}
                                     >
                                         <option value="" disabled>İlçe Seçin</option>
                                         {subRegion?.data?.results?.map((subRegionItem) => (
@@ -579,21 +579,21 @@ const Payment: React.FC = () => {
         );
     }
 
- 
+
     return (
         <div className="payment-container max-w-6xl mx-auto p-4">
             <h1 className="text-2xl font-bold mb-6 text-center">Ödeme Sayfası</h1>
 
             {currentStep === 3 && orderNumber ? (
-    <div className="bg-white p-6 rounded-lg shadow-md text-center">
-        <h2 className="text-xl font-semibold text-green-600 mb-2">Siparişiniz Başarıyla Alındı!</h2>
-        <p>Sipariş Numaranız: <strong>{orderNumber}</strong></p>
-        <p className="mt-4">Ana sayfaya dönmek için <span onClick={() => navigate('/')} className="underline text-blue-500 cursor-pointer">tıklayın.</span></p>
-    </div>
-) : (
-          
+                <div className="bg-white p-6 rounded-lg shadow-md text-center">
+                    <h2 className="text-xl font-semibold text-green-600 mb-2">Siparişiniz Başarıyla Alındı!</h2>
+                    <p>Sipariş Numaranız: <strong>{orderNumber}</strong></p>
+                    <p className="mt-4">Ana sayfaya dönmek için <span onClick={() => navigate('/')} className="underline text-blue-500 cursor-pointer">tıklayın.</span></p>
+                </div>
+            ) : (
+
                 <div className="payment-content-grid">
-                
+
                     <div className="payment-left-column">
                         <div className="steps-indicator flex flex-col mb-6">
                             {steps.map((step, index) => (
@@ -622,7 +622,7 @@ const Payment: React.FC = () => {
                                         </p>
                                     </div>
 
-                                  
+
                                     {index === 0 && currentStep === 0 && (
                                         <div className="ml-10 mt-1 space-y-0.5">
                                             <h3 className="text-lg font-semibold mb-3">Teslimat Adresinizi Seçin</h3>
@@ -644,9 +644,9 @@ const Payment: React.FC = () => {
                                                                 </label>
                                                             </div>
                                                             <div className="address-details">
-                                                                <div className="address-line">{`${addr.full_address}, ${addr.apartment_no || ''}`.trimEnd(', ')}</div>
+                                                                <div className="address-line">{`${addr.full_address}, ${addr.apartment_no || ''}`.replace(/,\s*$/, '')}</div>
                                                                 <div className="address-location">
-                                                                    {`${addr.region?.name || ''}, ${addr.country?.name || ''}`.trimEnd(', ')}
+                                                                    {`${addr.region?.name || ''}, ${addr.country?.name || ''}`.replace(/,\s*$/, '')}
                                                                 </div>
                                                                 <div className="address-line">Tel: {addr.phone_number}</div>
                                                                 <div className="address-line">Alıcı: {addr.first_name} {addr.last_name}</div>
@@ -657,9 +657,9 @@ const Payment: React.FC = () => {
                                                                         e.preventDefault();
                                                                         setAddressToEdit(addr);
                                                                         reset({
-                                                                            country_id: addr.country_id, 
-                                                                            region_id: addr.region_id, 
-                                                                            subregion_id: addr.subregion_id, 
+                                                                            country_id: addr.country_id,
+                                                                            region_id: addr.region_id,
+                                                                            subregion_id: addr.subregion_id,
                                                                             first_name: addr.first_name,
                                                                             last_name: addr.last_name,
                                                                             phone_number: addr.phone_number,
@@ -691,7 +691,7 @@ const Payment: React.FC = () => {
                                                             </div>
                                                         </div>
                                                     ))}
-                                                  
+
                                                     <div className="add-new-address-box">
                                                         <label className="flex items-center cursor-pointer">
                                                             <input
@@ -738,7 +738,7 @@ const Payment: React.FC = () => {
                                         </div>
                                     )}
 
-                                 
+
                                     {index === 1 && currentStep === 1 && (
                                         <div className="ml-10 mt-4 px-4 py-3 bg-white rounded-lg shadow-sm">
                                             <p className="font-bold text-lg text-gray-800 mb-4 border-b pb-2">Kargo Seçimi</p>
@@ -794,7 +794,7 @@ const Payment: React.FC = () => {
                                         </div>
                                     )}
 
-                                  
+
                                     {index === 2 && currentStep === 2 && (
                                         <div className="ml-10 text-gray-700 text-sm mt-1 space-y-0.5">
                                             <h3 className="text-lg font-semibold mb-2">Ödeme Yöntemi Seçimi</h3>
@@ -814,7 +814,7 @@ const Payment: React.FC = () => {
                                                 ))}
                                             </div>
 
-                
+
                                             {paymentChoice === "credit_cart" && (
                                                 <div className="mt-4">
                                                     <h3 className="text-md font-semibold mb-2">Kredi Kartı Bilgileri</h3>
@@ -912,7 +912,7 @@ const Payment: React.FC = () => {
                                                 </div>
                                             )}
 
-                                            
+
                                             {paymentChoice === "cash_at_door" && (
                                                 <div className="mt-4">
                                                     <h3 className="text-md font-semibold mb-2">Kapıda Nakit Ödeme</h3>
@@ -928,7 +928,7 @@ const Payment: React.FC = () => {
                                                 </div>
                                             )}
 
-                                           
+
                                             {paymentChoice === "credit_cart_at_door" && (
                                                 <div className="mt-4">
                                                     <h3 className="text-md font-semibold mb-2">Kapıda Kredi Kartı Ödeme</h3>
@@ -967,9 +967,9 @@ const Payment: React.FC = () => {
                                                 <span className="text-[#272727] font-['Roboto'] text-sm font-semibold leading-tight">
                                                     {item.name}
                                                 </span>
-                                               <p className="kg-8">
-  {Math.round(safeParseFloat(item.size?.pieces))} KG
-</p>
+                                                <p className="kg-8">
+                                                    {Math.round(safeParseFloat(item.size?.pieces))} KG
+                                                </p>
                                             </div>
                                         </div>
                                         <span className="text-[#272727] font-['Roboto'] text-base font-semibold">₺{(safeParseFloat(item.price) * safeParseFloat(item.count)).toFixed(2)}</span>
@@ -986,10 +986,10 @@ const Payment: React.FC = () => {
                 </div>
             )}
 
-           
+
             {isNewAddressModalOpen && (
                 <div className="modal-container" onClick={(e) => {
-                    if (e.target.className === 'modal-container') {
+                    if ((e.target as HTMLElement).className === 'modal-container') {
                         setIsNewAddressModalOpen(false);
                     }
                 }}>
@@ -1051,7 +1051,7 @@ const Payment: React.FC = () => {
                                     }}
                                     defaultValue=""
                                     className="address-state-input"
-                                    disabled={!selectedCountry || regionLoading || regionError || !region?.data?.results}
+                                    disabled={!selectedCountry || regionLoading || !!regionError || !region?.data?.results}
                                 >
                                     <option value="" disabled>Şehir Seçin</option>
                                     {region?.data?.results?.map((regionItem) => (
@@ -1074,7 +1074,7 @@ const Payment: React.FC = () => {
                                     }}
                                     defaultValue=""
                                     className="address-subregion-input"
-                                    disabled={!selectedRegion || subRegionLoading || subRegionError || !subRegion?.data?.results}
+                                    disabled={!selectedRegion || subRegionLoading || !!subRegionError || !subRegion?.data?.results}
                                 >
                                     <option value="" disabled>İlçe Seçin</option>
                                     {subRegion?.data?.results?.map((subRegionItem) => (
@@ -1117,10 +1117,10 @@ const Payment: React.FC = () => {
                 </div>
             )}
 
-           
+
             {isEditAddressModalOpen && addressToEdit && (
                 <div className="modal-container" onClick={(e) => {
-                    if (e.target.className === 'modal-container') {
+                    if ((e.target as HTMLElement).className === 'modal-container') {
                         setIsEditAddressModalOpen(false);
                     }
                 }}>
@@ -1182,7 +1182,7 @@ const Payment: React.FC = () => {
                                     }}
                                     defaultValue={addressToEdit.region_id}
                                     className="address-state-input"
-                                    disabled={!selectedCountry || regionLoading || regionError || !region?.data?.results}
+                                    disabled={!selectedCountry || regionLoading || !!regionError || !region?.data?.results}
                                 >
                                     <option value="" disabled>Şehir Seçin</option>
                                     {region?.data?.results?.map((regionItem) => (
@@ -1205,7 +1205,7 @@ const Payment: React.FC = () => {
                                     }}
                                     defaultValue={addressToEdit.subregion_id}
                                     className="address-subregion-input"
-                                    disabled={!selectedRegion || subRegionLoading || subRegionError || !subRegion?.data?.results}
+                                    disabled={!selectedRegion || subRegionLoading || !!subRegionError || !subRegion?.data?.results}
                                 >
                                     <option value="" disabled>İlçe Seçin</option>
                                     {subRegion?.data?.results?.map((subRegionItem) => (

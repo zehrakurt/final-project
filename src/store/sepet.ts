@@ -1,6 +1,6 @@
 import { create } from 'zustand';
-import { AddBasketToProduct, deleteFromCart, getCart } from '../routes/signup/auth'; 
-import { getAccessToken } from '../routes/signup/storage'; 
+import { AddBasketToProduct, deleteFromCart, getCart } from '../routes/signup/auth';
+import { getAccessToken } from '../routes/signup/storage';
 
 interface Size {
     gram?: number;
@@ -9,17 +9,17 @@ interface Size {
 }
 
 interface CartItem {
-    id: string; 
-    name: string; 
+    id: string;
+    name: string;
     aroma?: string;
     size?: Size;
-    price: number; 
-    count: number; 
-    image?: string; 
-    total_price?: number; 
-    product_variant_id?: string; 
-    product_id?: string; 
-    product_slug?: string; 
+    price: number;
+    count: number;
+    image?: string;
+    total_price?: number;
+    product_variant_id?: string;
+    product_id?: string;
+    product_slug?: string;
 }
 
 interface CartStore {
@@ -30,7 +30,7 @@ interface CartStore {
     totalItems: () => number;
     addBear: (bear: CartItem) => Promise<void>;
     clearCart: () => void;
-    removeBear: (itemToRemove: CartItem) => Promise<void>; 
+    removeBear: (itemToRemove: CartItem) => Promise<void>;
     increaseBearCount: (item: CartItem) => Promise<void>;
     decreaseBearCount: (item: CartItem) => Promise<void>;
     syncCartWithBackend: () => Promise<void>;
@@ -51,11 +51,11 @@ const useCartStore = create<CartStore>((set, get) => ({
     closeMainDrawer: () => set({ isMainDrawerOpen: false }),
 
     addItemToCart: async (item) => {
-        const { isLoggedIn } = get();
-        const existingItemIndex = get().bears.findIndex((b) => b.product_variant_id === item.product_variant_id);
-        const access_token = getAccessToken(); 
 
-        if (access_token) { 
+        const existingItemIndex = get().bears.findIndex((b) => b.product_variant_id === item.product_variant_id);
+        const access_token = getAccessToken();
+
+        if (access_token) {
             const cartItemToSend = {
                 product_id: parseInt(item.product_id!, 10),
                 product_variant_id: item.product_variant_id,
@@ -65,17 +65,17 @@ const useCartStore = create<CartStore>((set, get) => ({
             try {
                 const response = await AddBasketToProduct(cartItemToSend);
                 if (response?.status === 'success') {
-                 
-                    await get().getCartFromBackend(); 
+
+                    await get().getCartFromBackend();
 
                 } else {
                     console.error('Backend sepete ekleme hatası:', response);
-                    
+
                 }
             } catch (error: any) {
                 console.error('Backend sepete ekleme hatası:', error);
-              
-                
+
+
             }
         } else {
             set((state) => {
@@ -106,7 +106,7 @@ const useCartStore = create<CartStore>((set, get) => ({
         set((state) => ({
             bears: state.bears.filter(
                 (bear) =>
-                    bear.product_variant_id !== itemToRemove.product_variant_id 
+                    bear.product_variant_id !== itemToRemove.product_variant_id
             ),
         }));
         console.log('Silme sonrası local state:', get().bears);
@@ -116,7 +116,7 @@ const useCartStore = create<CartStore>((set, get) => ({
                 const payload = {
                     product_id: parseInt(itemToRemove.product_id, 10),
                     product_variant_id: itemToRemove.product_variant_id,
-                    pieces: 1, 
+                    pieces: 1,
                 };
                 const response = await deleteFromCart(payload);
                 if (response?.status !== 'success') {
@@ -181,7 +181,7 @@ const useCartStore = create<CartStore>((set, get) => ({
                 const payload = {
                     product_id: parseInt(item.product_id, 10),
                     product_variant_id: item.product_variant_id,
-                    pieces: -1, 
+                    pieces: -1,
                 };
                 const response = await AddBasketToProduct(payload);
                 if (response?.status !== 'success') {
@@ -207,7 +207,7 @@ const useCartStore = create<CartStore>((set, get) => ({
                 pieces: bear.count,
             }));
             try {
-                const response = await AddBasketToProduct(cartItems);
+                const response = await AddBasketToProduct(cartItems as any);
                 if (response?.status !== 'success') {
                     console.error('Sepet senkronizasyon hatası:', response);
                 }
@@ -277,4 +277,5 @@ const useCartStore = create<CartStore>((set, get) => ({
     },
 }));
 
-export { useCartStore, CartItem };
+export type { CartItem };
+export { useCartStore };

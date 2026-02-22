@@ -2,11 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { getMyProfile, UpdateMyProfile } from '../signup/auth';
 import { FetchWithAuth } from '../signup/api-client';
-import './Profile.css'; 
+import './Profile.css';
 import { TextInput, Button, Group, Stack } from '@mantine/core';
-import { useMediaQuery } from '@mantine/hooks';
 import PhoneInput from 'react-phone-number-input';
-import 'react-phone-number-input/style.css'; 
+import 'react-phone-number-input/style.css';
 
 
 
@@ -38,22 +37,22 @@ interface OrderFromBackend {
 interface AllOrderTypes {
     status: string;
     data: OrderFromBackend[];
-    message?: string; 
+    message?: string;
 }
 
 const Profile: React.FC = () => {
     // State tanımlamaları
     const [profile, setProfile] = useState<UserProfile | null>(null);
-    const [addresses, setAddresses] = useState<Address[]>([]);
-    const [orders, setOrders] = useState<OrderFromBackend[]>([]);
-    const [loadingProfile, setLoadingProfile] = useState(true);
-    const [loadingAddresses, setLoadingAddresses] = useState(true);
-    const [loadingOrders, setLoadingOrders] = useState(true);
-    const [errorProfile, setErrorProfile] = useState<string | null>(null);
-    const [errorAddresses, setErrorAddresses] = useState<string | null>(null);
-    const [errorOrders, setErrorOrders] = useState<string | null>(null);
+    const [, setAddresses] = useState<Address[]>([]);
+    const [, setOrders] = useState<OrderFromBackend[]>([]);
+    const [, setLoadingProfile] = useState(true);
+    const [, setLoadingAddresses] = useState(true);
+    const [, setLoadingOrders] = useState(true);
+    const [, setErrorProfile] = useState<string | null>(null);
+    const [, setErrorAddresses] = useState<string | null>(null);
+    const [, setErrorOrders] = useState<string | null>(null);
 
-  
+
     const [profileForm, setProfileForm] = useState<UserProfile>({
         first_name: '',
         last_name: '',
@@ -67,7 +66,7 @@ const Profile: React.FC = () => {
     const [updateError, setUpdateError] = useState<string | null>(null);
 
 
-    const isMobile = useMediaQuery('(max-width: 768px)');
+    // const isMobile = useMediaQuery('(max-width: 768px)');
 
 
     useEffect(() => {
@@ -134,9 +133,9 @@ const Profile: React.FC = () => {
         fetchProfileData();
         fetchAddresses();
         fetchOrders();
-    }, []); 
+    }, []);
 
-   
+
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setProfileForm({ ...profileForm, [e.target.name]: e.target.value });
     };
@@ -153,7 +152,7 @@ const Profile: React.FC = () => {
         setUpdateSuccess(null);
         setUpdateError(null);
         try {
-            const updatedData = await UpdateMyProfile(profileForm);
+            const updatedData: any = await UpdateMyProfile(profileForm);
             console.log("Profil güncelleme cevabı:", updatedData);
             if (updatedData && updatedData.data) {
                 setProfile(updatedData.data);
@@ -176,12 +175,12 @@ const Profile: React.FC = () => {
     return (
         <div className='container mx-auto'>
             <div className="grid grid-cols-[2fr_10fr] gap-8">
-   
+
                 <div className="profile-header-container">
                     <div className="profile-links-container">
                         <Link to="/profile" className="profile-title-link profile-link-item">
                             <img
-                                src="/images/13.png" 
+                                src="/images/13.png"
                                 alt="Hesabım İkonu"
                                 className="profile-title-icon"
                             />
@@ -189,7 +188,7 @@ const Profile: React.FC = () => {
                         </Link>
                         <Link to="/orders" className="profile-title-link profile-link-item">
                             <img
-                                src="/images/14.png" 
+                                src="/images/14.png"
                                 alt="Siparişlerim İkonu"
                                 className="profile-title-icon"
                             />
@@ -197,13 +196,13 @@ const Profile: React.FC = () => {
                         </Link>
                         <Link to="/add-address" className="profile-title-link profile-link-item">
                             <img
-                                src="/images/15.png" 
+                                src="/images/15.png"
                                 alt="Adreslerim İkonu"
                                 className="profile-title-icon"
                             />
                             <p className="profile-section-title">Adreslerim</p>
                         </Link>
-                        
+
                         <Link to="/change-password" className="profile-title-link profile-link-item">
                             <svg className="profile-title-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                                 <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
@@ -213,16 +212,16 @@ const Profile: React.FC = () => {
                         </Link>
                     </div>
                 </div>
-                
+
                 <div className="account-info-container">
                     <p className='account-info-title a2'>Hesap Bilgilerim</p>
-     
+
                     {updateSuccess && <div className="text-green-500 mb-4">{updateSuccess}</div>}
                     {updateError && <div className="text-red-500 mb-4">{updateError}</div>}
                     <form onSubmit={handleSubmit}>
-                        <Stack spacing="md">
+                        <Stack gap="md">
                             <Group grow>
-                  
+
                                 <TextInput
                                     label="Ad"
                                     placeholder="Adınızı girin"
@@ -231,7 +230,7 @@ const Profile: React.FC = () => {
                                     onChange={handleInputChange}
                                     classNames={{ input: 'mantine-TextInput-input', label: 'mantine-TextInput-label' }}
                                 />
-                  
+
                                 <TextInput
                                     label="Soyad"
                                     placeholder="Soyadınızı girin"
@@ -241,28 +240,27 @@ const Profile: React.FC = () => {
                                     classNames={{ input: 'mantine-TextInput-input', label: 'mantine-TextInput-label' }}
                                 />
                             </Group>
-                         
+
                             <TextInput
                                 label="Telefon"
                                 placeholder="Telefon numaranızı girin"
                                 name="phone_number"
                                 value={phoneNumber}
-                                onChange={handlePhoneNumberChange} 
-                                component={PhoneInput} 
-                                country="TR" 
+                                onChange={handlePhoneNumberChange as any}
+                                component={(props: any) => <PhoneInput {...props} country="TR" />}
                                 classNames={{ input: 'PhoneInput', label: 'mantine-TextInput-label' }}
                             />
-                           
+
                             <TextInput
                                 label="Email"
                                 placeholder="Email adresiniz"
                                 name="email"
                                 value={profileForm.email?.toUpperCase() || ''}
-                                onChange={handleInputChange} 
-                                readOnly 
+                                onChange={handleInputChange}
+                                readOnly
                                 classNames={{ input: 'mantine-TextInput-input', label: 'mantine-TextInput-label' }}
                             />
-                           
+
                             <div className="save-button-container">
                                 <Button type="submit" className="save-button">
                                     Kaydet

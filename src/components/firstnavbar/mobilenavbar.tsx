@@ -8,7 +8,7 @@ import { MdOutlineShoppingCart } from "react-icons/md";
 import { useCartStore } from '../../store/sepet';
 
 
-export default function Mobilenavbar({ openMainDrawer }) {
+export default function Mobilenavbar({ openMainDrawer }: any) {
   const [opened, { open, close }] = useDisclosure(false);
   const bears = useCartStore((state) => state.bears);
 
@@ -17,10 +17,10 @@ export default function Mobilenavbar({ openMainDrawer }) {
       <div className='container stl mx-auto'>
         <Drawer opened={opened} size="sm" onClose={close}>
           <div className="flex flex-col ...">
-            <div> 
+            <div>
               <ul className='kuu'>
                 <li>Protein     <img src="images/right-caret.svg.png" className='tyr-7' alt="" /></li>
-            
+
                 <li>Spor Gıdaları <img src="images/right-caret.svg.png" className='tyr-7' alt="" /></li>
                 <li>Sağlık  <img src="images/right-caret.svg.png" className='tyr-7' alt="" /></li>
                 <li>Gıda  <img src="images/right-caret.svg.png" className='tyr-7' alt="" /></li>
@@ -37,7 +37,7 @@ export default function Mobilenavbar({ openMainDrawer }) {
             </div>
           </div>
         </Drawer>
-        
+
         <GiHamburgerMenu className='icn-hm' onClick={open} />
         <Link to="/">
           <img className='logo-mobl' src="/images/logo.png" alt="Logo" />

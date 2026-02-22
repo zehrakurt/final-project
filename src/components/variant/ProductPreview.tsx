@@ -2,7 +2,8 @@
 
 
 import { Product } from "./types.ts";
-import { HStack, VStack } from "../../styled-system/jsx";
+const HStack = ({ children, ...props }: any) => <div style={{ display: "flex", flexDirection: "row", gap: "8px" }} {...props}>{children}</div>;
+const VStack = ({ children, alignItems, ...props }: any) => <div style={{ display: "flex", flexDirection: "column", alignItems: alignItems || "stretch", gap: "8px" }} {...props}>{children}</div>;
 import { useProductVariants } from "../../hooks/use-product-variants.ts";
 import { Button } from "./Button.tsx";
 import { Text } from "./Text.tsx";

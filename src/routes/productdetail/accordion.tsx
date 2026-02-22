@@ -1,16 +1,16 @@
-import  { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Accordion } from '@mantine/core';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import './accordion.css'
 const Accordionn = () => {
-    const { productId } = useParams<{ productId: string }>();
+    const { } = useParams<{ productId: string }>();
     const [description, setDescription] = useState('');
     const [features, setFeatures] = useState('');
     const [usage, setUsage] = useState('');
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
-const { slug } = useParams<{ slug: string }>();
+    const { slug } = useParams<{ slug: string }>();
     useEffect(() => {
         if (slug) {
             setLoading(true);

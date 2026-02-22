@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { HoverCard } from "@mantine/core";
 import { Link } from "react-router-dom";
 import "./desknavbar.css";
@@ -98,9 +98,9 @@ export default function Desknavbar() {
                             </HoverCard>
                         </li>
                     ))}
-                   
+
                     <li>
-                        <Link className="spe"  to="/products/all-products">
+                        <Link className="spe" to="/products/all-products">
                             <p>TÜM ÜRÜNLER</p>
                         </Link>
                     </li>

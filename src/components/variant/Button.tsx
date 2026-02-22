@@ -1,7 +1,9 @@
 import React from 'react';
 
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {}
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+    selected?: boolean;
+}
 
-export const Button: React.FC<ButtonProps> = ({ children, ...props }) => {
-    return <button {...props}>{children}</button>;
+export const Button: React.FC<ButtonProps> = ({ children, selected, ...props }) => {
+    return <button style={selected ? { border: '2px solid black' } : {}} {...props}>{children}</button>;
 };

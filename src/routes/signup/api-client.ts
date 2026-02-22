@@ -77,7 +77,7 @@ export async function FetchWithAuth<T = any>(
         throw new Error("Beklenen JSON yanıtı alınamadı.");
       }
     } else {
-     
+
       if (typeof response.text === 'function') {
         data = await response.text();
         console.warn("API yanıtı JSON değil. Dönen değer:", data);
@@ -111,18 +111,14 @@ export const deleteWithAuth = <T>(url: string, body?: any) => {
   return FetchWithAuth<T>(url, options);
 };
 
-const getCountryId = (country: string) => (country === "Turkey" ? 226 : 0);
-const getRegionId = (city: string) => (city === "Bartın" ? 3495 : 0);
-const getSubregionId = (subregion: string) => (subregion === "Kurucaşile İlçesi" ? 39395 : 0);
-const formatPhoneNumber = (phoneNumber: string) =>
-  phoneNumber?.replace(/^(\d{1})(\d{3})(\d{3})(\d{4})$/, "+90 ($2) $3-$4") || phoneNumber;
 
-export const addToCart = async (payload: any) => { 
+
+export const addToCart = async (payload: any) => {
   return await postWithAuth<{ status: string; data: {} }>('/users/cart', payload);
 };
 
 export const getBasketData = async () => {
-  return await getWithAuth<any>('/users/cart');   
+  return await getWithAuth<any>('/users/cart');
 };
 
 

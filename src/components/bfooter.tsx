@@ -1,14 +1,13 @@
 import './bfooter.css'
 import { Link } from "react-router-dom";
-import product from '../routes/productdetail/productdetail'
 
 export default function Bfooter() {
   return (
-    <div className='ftr'> 
+    <div className='ftr'>
       <div className="container mx-auto">
         <div className="grid grid-cols-3 gap-4">
-          
-     
+
+
           <div>
             <ul className="footer-menu">
               <li><img className='footer-logo' src="/images/LOGO_Siyah.png" alt="Logo" /></li>
@@ -39,7 +38,7 @@ export default function Bfooter() {
             </ul>
           </div>
 
-    
+
           <div>
             <ul className="footer-menu">
               <li className="footer-menu-title">Popüler Ürünler</li>

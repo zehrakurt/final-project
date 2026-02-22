@@ -5,7 +5,7 @@ import { getProductComments } from './api';
 import './yorumgrafik.css';
 import RatingStars from './RatingStars';
 import Bestseller from '../../components/bestseller';
-import CommentForm from '../../components/CommentForm'; 
+import CommentForm from '../../components/CommentForm';
 
 interface Comment {
   stars: string;
@@ -17,7 +17,7 @@ interface Comment {
   last_name: string;
 }
 
-interface CommentData {
+export interface CommentData {
   status: string;
   data: {
     count: number;
@@ -39,7 +39,7 @@ const YorumGrafik: React.FC<YorumGrafikProps> = ({ slug }) => {
   const [offset, setOffset] = useState(0);
   const limit = 10;
   const [currentPage, setCurrentPage] = useState(1);
-  const [showCommentForm, setShowCommentForm] = useState(false); 
+  const [showCommentForm, setShowCommentForm] = useState(false);
   const fetchComments = async () => {
     if (!slug) {
       setError('Ürün slug bilgisi eksik.');
@@ -74,11 +74,11 @@ const YorumGrafik: React.FC<YorumGrafikProps> = ({ slug }) => {
     fetchComments();
   }, [slug, offset]);
 
- 
+
   const handleCommentSubmitted = () => {
-    setShowCommentForm(false); 
-    setOffset(0); 
-    setCurrentPage(1); 
+    setShowCommentForm(false);
+    setOffset(0);
+    setCurrentPage(1);
     fetchComments();
   };
 
@@ -99,19 +99,19 @@ const YorumGrafik: React.FC<YorumGrafikProps> = ({ slug }) => {
 
   return (
     <div className="container mx-auto px-4 sm:px-6">
-     
+
       <div className="yorumlar" onClick={() => setShowCommentForm(!showCommentForm)}>
-        
+
         <span className="yorum-text">
           YORUM YAP ({commentCount})
         </span>
-       
+
         {showCommentForm && <span className="close-form-indicator"></span>}
       </div>
 
-  
+
       {showCommentForm && (
-        <div className="comment-form-section"> 
+        <div className="comment-form-section">
           <CommentForm productSlug={slug} onCommentSubmitted={handleCommentSubmitted} />
         </div>
       )}
@@ -155,7 +155,7 @@ const YorumGrafik: React.FC<YorumGrafikProps> = ({ slug }) => {
       ) : (
         <p>Bu ürün için henüz yorum yapılmamış.</p>
       )}
-      <Bestseller/>
+      <Bestseller />
     </div>
   );
 };

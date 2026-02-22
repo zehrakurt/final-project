@@ -1,9 +1,6 @@
-import {styled} from "../../styled-system/jsx";
+import styled from "@emotion/styled";
 
-export const Text = styled("p", {
-    base: {
-        fontSize: "lg",
-        fontWeight: 500,
-        color: "text"
-    }
-})
+export const Text = styled.p`
+    font-size: 1.125rem;
+    font-weight: 500;
+`;

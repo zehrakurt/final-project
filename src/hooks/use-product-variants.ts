@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { ProductVariant, ProductVariantSize } from "../types.ts";
+import { ProductVariant, ProductVariantSize } from "../components/variant/types.ts";
 
 export function useProductVariants(productVariants: ProductVariant[]) {
     const [selectedVariant, setSelectedVariant] = useState<ProductVariant>(
@@ -21,7 +21,7 @@ export function useProductVariants(productVariants: ProductVariant[]) {
     const productSizes = productVariants.reduce(
         (previousValue, currentValue) => {
             if (
-                !previousValue.find((size) =>
+                !previousValue.find((size: ProductVariantSize) =>
                     isSameSize(size, currentValue.size)
                 )
             ) {
@@ -35,11 +35,11 @@ export function useProductVariants(productVariants: ProductVariant[]) {
     const productAromas = Object.keys(productVariantsByAroma);
 
     function getAromaSizes(aroma: string) {
-        return productVariantsByAroma[aroma].map((variant) => variant.size);
+        return productVariantsByAroma[aroma].map((variant: ProductVariant) => variant.size);
     }
 
     function isSizeAvailable(size: ProductVariantSize) {
-        return !getAromaSizes(selectedVariant.aroma).find((aromaSize) =>
+        return !getAromaSizes(selectedVariant.aroma).find((aromaSize: ProductVariantSize) =>
             isSameSize(aromaSize, size)
         );
     }
@@ -50,7 +50,7 @@ export function useProductVariants(productVariants: ProductVariant[]) {
 
     function selectAroma(aroma: string) {
         const aromaWithSameSize = productVariantsByAroma[aroma].find(
-            (variant) => isSameSize(variant.size, selectedVariant.size)
+            (variant: ProductVariant) => isSameSize(variant.size, selectedVariant.size)
         );
         if (aromaWithSameSize) {
             setSelectedVariant(aromaWithSameSize);
@@ -61,7 +61,7 @@ export function useProductVariants(productVariants: ProductVariant[]) {
 
     function selectSize(size: ProductVariantSize) {
         const foundVariant = productVariants.find(
-            (variant) =>
+            (variant: ProductVariant) =>
                 isSameSize(variant.size, size) &&
                 variant.aroma === selectedVariant.aroma
         );

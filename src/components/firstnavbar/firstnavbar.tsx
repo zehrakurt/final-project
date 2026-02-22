@@ -46,7 +46,7 @@ export default function Firstnavbar() {
     const [isSearchActive, setIsSearchActive] = useState(false);
     const [searchLoading, setSearchLoading] = useState(false);
     const searchResultsRef = useRef<HTMLDivElement>(null);
-    const debounceTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+    const debounceTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
     useEffect(() => {
         if (isLoggedIn) {
@@ -57,21 +57,21 @@ export default function Firstnavbar() {
     }, [isLoggedIn, getCartFromBackend]);
 
     useEffect(() => {
-      const handleClickOutside = (event: MouseEvent) => {
-        if (searchResultsRef.current && !searchResultsRef.current.contains(event.target as Node) && !(event.target as HTMLElement).closest('.navbar-search-wrapper')) {
-          setIsSearchActive(false);
+        const handleClickOutside = (event: MouseEvent) => {
+            if (searchResultsRef.current && !searchResultsRef.current.contains(event.target as Node) && !(event.target as HTMLElement).closest('.navbar-search-wrapper')) {
+                setIsSearchActive(false);
+            }
+        };
+
+        if (isSearchActive) {
+            document.addEventListener('mousedown', handleClickOutside);
+        } else {
+            document.removeEventListener('mousedown', handleClickOutside);
         }
-      };
 
-      if (isSearchActive) {
-        document.addEventListener('mousedown', handleClickOutside);
-      } else {
-        document.removeEventListener('mousedown', handleClickOutside);
-      }
-
-      return () => {
-        document.removeEventListener('mousedown', handleClickOutside);
-      };
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
     }, [isSearchActive]);
 
     const handleCloseDrawer = () => {
@@ -118,11 +118,11 @@ export default function Firstnavbar() {
             console.log("API Yanıtı:", response.data);
 
             if (response.data.status === 'success' && Array.isArray(response.data.data)) {
-                setSearchResults(response.data.data); 
+                setSearchResults(response.data.data);
                 console.log("Arama sonuçları başarıyla çekildi:", response.data.data.length, "ürün bulundu.");
             } else {
                 setSearchResults([]);
-             
+
                 console.log("Arama sonuçları boş veya beklenen format (response.data.data bir dizi değil) uygun değil.");
             }
         } catch (error) {

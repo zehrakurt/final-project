@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import './dropdown.css';
 import { Link } from "react-router-dom";
@@ -27,16 +27,16 @@ export default function Dropdown() {
                 setError(null);
                 try {
                     const profileData = await getMyProfile();
-                    console.log("Dropdown içinde gelen profil verisi:", profileData); 
+                    console.log("Dropdown içinde gelen profil verisi:", profileData);
                     if (profileData) {
-                        setProfile(profileData.data); 
+                        setProfile(profileData.data);
                     } else {
                         setError("Profil bilgileri alınamadı.");
-                        setProfile(null); 
+                        setProfile(null);
                     }
                 } catch (error: any) {
                     setError(error.message || "Profil verisi alınırken bir hata oluştu.");
-                    setProfile(null);  
+                    setProfile(null);
                 } finally {
                     setLoading(false);
                 }

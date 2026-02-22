@@ -4,7 +4,7 @@ import './comment.css';
 import { FaStar } from "react-icons/fa";
 
 const CommentsCarousel = () => {
-  const carouselRef = useRef(null);
+  const carouselRef = useRef<HTMLDivElement>(null);
 
   const scrollRight = () => {
     if (carouselRef.current) {
@@ -20,7 +20,7 @@ const CommentsCarousel = () => {
 
   return (
     <>
-       <img className='ortimg' src="/images/6527895 1.png" alt="" />
+      <img className='ortimg' src="/images/6527895 1.png" alt="" />
       <div><img className='ortimg2' src="/images/Untitled.png" alt="" /></div>
       <div className="container mx-auto mt-6">
         <div className="info-bar bb">
@@ -32,8 +32,8 @@ const CommentsCarousel = () => {
               <span className='ttl'>7 Yorum</span>
             </div>
             <div>
-              <button onClick={scrollLeft} className="right-arrow">‹</button>  
-              <button onClick={scrollRight} className="left-arrow">›</button>  
+              <button onClick={scrollLeft} className="right-arrow">‹</button>
+              <button onClick={scrollRight} className="left-arrow">›</button>
             </div>
           </div>
         </div>
@@ -50,7 +50,7 @@ const CommentsCarousel = () => {
           ))}
         </div>
       </div>
-   
+
     </>
   );
 };

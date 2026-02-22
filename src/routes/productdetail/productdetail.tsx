@@ -81,7 +81,7 @@ const ProductDetail: React.FC = () => {
         console.log("ProductDetail component yüklendi");
     }, []);
 
-    const { productId, slug } = useParams<{ productId: string; slug: string }>();
+    const { slug } = useParams<{ productId: string; slug: string }>();
     const navigate = useNavigate();
     const [product, setProduct] = useState<Product | null>(null);
     const [loading, setLoading] = useState(true);
@@ -96,7 +96,7 @@ const ProductDetail: React.FC = () => {
     const [viewedSlugs, setViewedSlugs] = useState<string[]>([]);
     const addItemToCart = useCartStore((state) => state.addItemToCart);
 
-  
+
     const { enqueueSnackbar } = useSnackbar();
 
     useEffect(() => {
@@ -130,7 +130,7 @@ const ProductDetail: React.FC = () => {
                         setError('Ürün verisi alınamadı');
                     }
                 })
-                .catch((error) => {
+                .catch(() => {
                     setError('Ürün yüklenirken hata oluştu');
                 })
                 .finally(() => {
@@ -185,21 +185,21 @@ const ProductDetail: React.FC = () => {
 
         try {
             await addItemToCart(cartItem);
-           
+
             enqueueSnackbar('Ürün sepetinize eklendi!', { variant: 'success' });
         } catch (err: any) {
             setError('Sepete eklenirken bir hata oluştu. Lütfen tekrar deneyin.');
             console.error('Sepete eklerken hata:', err);
-          
+
             enqueueSnackbar('Sepete eklenirken bir hata oluştu!', { variant: 'error' });
         } finally {
             setAddingToCart(false);
         }
-    }, [isLoggedIn, navigate, selectedVariant, product, pieces, addItemToCart, enqueueSnackbar]); 
+    }, [isLoggedIn, navigate, selectedVariant, product, pieces, addItemToCart, enqueueSnackbar]);
 
     useEffect(() => {
         window.scrollTo(0, 0);
-    }, []); 
+    }, []);
 
     const getBackgroundColor = (aroma: string) => {
         const Aromas: AromaColors = {
@@ -224,13 +224,13 @@ const ProductDetail: React.FC = () => {
         return Aromas[aroma] || 'rgba(78, 78, 78, 1)';
     };
 
-  
+
     useEffect(() => {
         const fetchRecentlyViewed = async () => {
             if (viewedSlugs.length > 0) {
                 try {
                     const fetchedProducts: Product[] = [];
-                  
+
                     const uniqueSlugs = [...new Set(viewedSlugs)];
 
                     for (const viewedSlug of uniqueSlugs) {
@@ -252,7 +252,7 @@ const ProductDetail: React.FC = () => {
                 setLoading(false);
             }
         };
-        if (!loading) { 
+        if (!loading) {
             fetchRecentlyViewed();
         }
     }, [viewedSlugs, loading]);
@@ -358,19 +358,18 @@ const ProductDetail: React.FC = () => {
                                     discountPercentage = Math.round(
                                         ((currentVariant.price.total_price - currentVariant.price.discounted_price) /
                                             currentVariant.price.total_price) *
-                                            100
+                                        100
                                     );
                                 }
 
                                 return (
                                     <Button
                                         key={index}
-                                        className={`kg-box ${
-                                            selectedSize?.pieces === size.pieces &&
-                                            selectedSize?.total_services === size.total_services
+                                        className={`kg-box ${selectedSize?.pieces === size.pieces &&
+                                                selectedSize?.total_services === size.total_services
                                                 ? 'selected'
                                                 : ''
-                                        }`}
+                                            }`}
                                         onClick={() => setSelectedSize(size)}
                                     >
                                         <div className="kg-text">{size.pieces} KG</div>
@@ -455,11 +454,13 @@ const ProductDetail: React.FC = () => {
                             </div>
                         </div>
                         <div className="sper-1"></div>
+                        {/* @ts-ignore */}
                         <Accordionn product={product} />
                     </div>
                 </div>
             </div>
             <h1 className="ass">SON GÖRÜNTÜLENEN ÜRÜNLER</h1>
+            {/* @ts-ignore */}
             <RecentlyViewedProducts viewedProducts={recentlyViewedProducts} />
             {product && <YorumGrafik slug={product.slug} />}
         </div>

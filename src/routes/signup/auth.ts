@@ -8,19 +8,19 @@ import {
   getAccessToken,
 } from "./storage";
 import { isTokenExpired } from "./jwt-utils";
-import { OrderToProductsPayload } from "./address-types";
+// import { OrderToProductsPayload } from "./address-types";
 import { FetchWithAuth } from "./api-client";
 const BASE_URL = "https://fe1111.projects.academy.onlyjs.com/api/v1";
 
 
 async function handleResponse<T>(response: AxiosResponse<T>): Promise<T> {
   if (response.status < 200 || response.status >= 300) {
-    const errorData = response.data as any; 
+    const errorData = response.data as any;
     let errorMessage = 'API isteği başarısız oldu';
     if (errorData?.message) {
       errorMessage = errorData.message;
-    } else if (errorData?.reason) { 
-      errorMessage = JSON.stringify(errorData.reason); 
+    } else if (errorData?.reason) {
+      errorMessage = JSON.stringify(errorData.reason);
     } else if (typeof response.data === 'string') {
       errorMessage = response.data;
     } else {
@@ -106,11 +106,11 @@ const api: AxiosInstance = axios.create({
 });
 
 api.interceptors.request.use(
-  (config: AxiosRequestConfig) => {
+  (config: any) => {
     const token = getAccessToken();
-    if (token && !config.headers?.['Authorization']) { 
+    if (token && !config.headers?.['Authorization']) {
       config.headers = {
-        ...config.headers, 
+        ...config.headers,
         'Authorization': `Bearer ${token}`,
       };
     }
@@ -471,15 +471,15 @@ export interface OrderToProductsPayload {
 }
 
 export async function OrderToProducts(data: OrderToProductsPayload): Promise<any> {
-    console.log('Gönderilen Sipariş Verisi:', data);
-    try {
-    
-        const response = await api.post("/orders/complete-shopping", data);
-        return handleResponse(response); 
-    } catch (error) {
-        console.error("OrderToProducts hatası:", error);
-        throw error;
-    }
+  console.log('Gönderilen Sipariş Verisi:', data);
+  try {
+
+    const response = await api.post("/orders/complete-shopping", data);
+    return handleResponse(response);
+  } catch (error) {
+    console.error("OrderToProducts hatası:", error);
+    throw error;
+  }
 }
 interface UserProfile {
   first_name?: string;
@@ -505,7 +505,7 @@ export async function UpdateMyProfile(data: UserProfile): Promise<UsersType['dat
     if (typeof response.status !== 'undefined' && !response.status.startsWith('2')) {
       let errorMessage = `Profil güncellenirken bir hata oluştu. HTTP Durum Kodu: ${response.status}`;
       try {
-        const errorData = await response.json();
+        const errorData = await (response as any).json();
         if (errorData && errorData.message) {
           errorMessage = errorData.message;
         } else if (errorData && errorData.error) {
@@ -516,7 +516,7 @@ export async function UpdateMyProfile(data: UserProfile): Promise<UsersType['dat
       } catch (jsonError) {
         console.error("Hata yanıtı JSON olarak ayrıştırılamadı:", jsonError);
         try {
-          const errorText = await response.text();
+          const errorText = await (response as any).text();
           errorMessage = errorText;
         } catch (textError) {
           console.error("Hata yanıtısı metin olarak da alınamadı:", textError);
@@ -541,7 +541,7 @@ export interface UsersType {
     phone_number: string;
   };
   message?: string;
-  error?: string; 
+  error?: string;
 }
 
 
@@ -589,15 +589,15 @@ export const getDistrictsByCityId = async (regionId: number) => {
 };
 
 export const postProductComment = async (productSlug: string, payload: { stars: number; title: string; comment: string }) => {
-    try {
-        const response = await api.post(`/products/${productSlug}/comments`, payload);
-        return handleResponse(response); 
-    } catch (error: any) {
-        let errorMessage = "Yorum gönderilirken hata oluştu: Bilinmeyen bir hata oluştu";
-        if (error?.response?.data?.message) {
-            errorMessage = "Yorum gönderilirken hata oluştu: " + error.response.data.message;
-        }
-        console.error(errorMessage, error?.response?.data || error);
-        throw error;
+  try {
+    const response = await api.post(`/products/${productSlug}/comments`, payload);
+    return handleResponse(response);
+  } catch (error: any) {
+    let errorMessage = "Yorum gönderilirken hata oluştu: Bilinmeyen bir hata oluştu";
+    if (error?.response?.data?.message) {
+      errorMessage = "Yorum gönderilirken hata oluştu: " + error.response.data.message;
     }
+    console.error(errorMessage, error?.response?.data || error);
+    throw error;
+  }
 };
