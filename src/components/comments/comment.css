@@ -37,14 +37,16 @@
   transform: translateY(-280%);
   font-size: 30px;
   color: black;
+  cursor: pointer;
+  z-index: 10;
 }
 
 .left-arrow {
-  right: 10px;
+  right: 40px;
 }
 
 .right-arrow {
-  right: 10;
+  right: 10px;
 }
 
 .info-bar {
@@ -138,6 +140,8 @@ text-decoration-line: underline;
   }
 
   .left-arrow, .right-arrow {
+    position: static;
+    transform: none;
     order: 3;
     align-self: flex-end;
   }

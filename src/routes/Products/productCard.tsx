@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react'; 
+import React from 'react';
 import './productcard.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
@@ -27,20 +27,9 @@ interface ProductCardProps {
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({ product, baseURL, isProductListPage }) => {
-    const discountBoxRef = useRef<HTMLDivElement>(null); 
-    const cardRef = useRef<HTMLAnchorElement>(null); 
 
-    useEffect(() => {
-        if (discountBoxRef.current && cardRef.current) {
-            const discountBoxWidth = discountBoxRef.current.offsetWidth;
-            const cardWidth = cardRef.current.offsetWidth;
-            
-       
-            const offsetRight = cardWidth - discountBoxWidth - 0;
 
-            cardRef.current.style.setProperty('--discount-offset-right', `${offsetRight}px`);
-        }
-    }, [product]);
+
 
     const stars = Array.from({ length: 5 }, (_, index) => ({
         id: `${product.slug}-star-${index}`,
@@ -49,23 +38,23 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, baseURL, isProductLi
 
     const discountPercentage =
         product.price_info &&
-        product.price_info.discounted_price &&
-        product.price_info.total_price
+            product.price_info.discounted_price &&
+            product.price_info.total_price
             ? Math.round(
-                  ((product.price_info.total_price - product.price_info.discounted_price) /
-                      product.price_info.total_price) *
-                      100
-              )
+                ((product.price_info.total_price - product.price_info.discounted_price) /
+                    product.price_info.total_price) *
+                100
+            )
             : null;
 
     const discountBoxClass = isProductListPage ? "discount-box discount-box-product-list" : "discount-box";
 
     return (
-        <Link ref={cardRef} to={`/product/${product.slug}`} className="card max-w-xs mx-auto relative">
+        <Link to={`/product/${product.slug}`} className="card max-w-xs mx-auto relative">
             <img className="img-1" src={`${baseURL}${product.photo_src}`} alt={product.name} />
 
             {discountPercentage !== null && (
-                <div ref={discountBoxRef} className={discountBoxClass}>
+                <div className={discountBoxClass}>
                     %{discountPercentage} <span className="discount-text">İNDİRİM</span>
                 </div>
             )}

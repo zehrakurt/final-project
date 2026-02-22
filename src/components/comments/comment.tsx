@@ -31,9 +31,9 @@ const CommentsCarousel = () => {
               <span className='stars-2 flex'><FaStar /><FaStar /><FaStar /></span>
               <span className='ttl'>7 Yorum</span>
             </div>
-            <div>
-              <button onClick={scrollLeft} className="right-arrow">‹</button>
-              <button onClick={scrollRight} className="left-arrow">›</button>
+            <div className="flex gap-2 relative z-10">
+              <button onClick={scrollLeft} className="left-arrow">‹</button>
+              <button onClick={scrollRight} className="right-arrow">›</button>
             </div>
           </div>
         </div>
