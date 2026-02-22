@@ -410,7 +410,7 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-.discounted-price {
+.product-detail-layout .discounted-price {
     color: red;
     font-family: Inter;
     font-size: 34.531px;
@@ -419,7 +419,7 @@
     line-height: 40px;
 }
 
-.original-price {
+.product-detail-layout .original-price {
     color: #888;
     font-family: Inter;
     font-size: 24px;

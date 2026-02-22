@@ -1,6 +1,4 @@
-
-
-.prt-name{
+.prt-name {
     color: #000;
     text-align: center;
     font-family: Inter;
@@ -11,12 +9,13 @@
     margin-top: 73px;
     margin-bottom: 16px;
 }
+
 .card-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
 }
- 
+
 .card {
     padding: 16px;
     margin: 10px;
@@ -24,13 +23,15 @@
     height: 365px;
     flex-shrink: 0;
     text-align: center;
+    position: relative;
 }
- 
+
 .product-image {
     width: 168px;
     height: 168px;
 }
-.name-1{
+
+.name-1 {
     color: #000;
     text-align: center;
     font-family: Inter;
@@ -49,12 +50,12 @@
     font-weight: 500;
     line-height: 16px;
 }
- 
+
 .stars {
     color: #f5c518;
     font-size: 18px;
 }
- 
+
 .review {
     color: #333;
     font-family: Inter;
@@ -63,7 +64,7 @@
     font-weight: 500;
     line-height: 17px;
 }
- 
+
 .price {
     color: #000;
     text-align: center;
@@ -73,7 +74,8 @@
     font-weight: 400;
     line-height: 32px;
 }
-.tplm{
+
+.tplm {
     color: #000;
     text-align: center;
     font-family: Inter;
@@ -83,17 +85,18 @@
     line-height: 20px;
     margin-bottom: 63px;
 }
-.dec-7{
+
+.dec-7 {
     color: #000;
     font-family: Inter;
     font-size: 15.125px;
     font-style: normal;
     font-weight: 400;
-    line-height: 22.08px; 
+    line-height: 22.08px;
     margin-bottom: 13px;
 }
 
-.dec-8{
+.dec-8 {
     color: #000;
     font-family: Inter;
     font-size: 15.125px;
@@ -101,7 +104,8 @@
     font-weight: 700;
     line-height: 22.08px;
 }
-.blue-4{
+
+.blue-4 {
     color: #059669;
     text-align: center;
     font-family: Inter;
