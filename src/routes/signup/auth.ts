@@ -8,7 +8,7 @@ import {
   getAccessToken,
 } from "./storage";
 import { isTokenExpired } from "./jwt-utils";
-// import { OrderToProductsPayload } from "./address-types";
+
 import { FetchWithAuth } from "./api-client";
 const BASE_URL = "https://fe1111.projects.academy.onlyjs.com/api/v1";
 
