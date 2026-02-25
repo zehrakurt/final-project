@@ -87,7 +87,7 @@
 }
 
 .kuu li {
-  color: #fff !important;
+  color: black !important;
   font-family: Inter, sans-serif !important;
   font-size: 16.172px !important;
   font-style: normal !important;
@@ -97,7 +97,7 @@
 }
 
 .alt-5 {
-  background: #1e1e1e;
+
   display: flex;
   height: 442px;
   flex-direction: column;
@@ -111,22 +111,22 @@
 
 .mantine-Drawer-content {
   padding: 0 !important;
-  background-color: #000 !important;
+
 }
 
 .mantine-Drawer-body {
   padding: 0 !important;
-  background-color: #000 !important;
+
 }
 
 .alt-5 {
   padding-top: 15px !important;
-  background: #1e1e1e !important;
+
   width: 100%;
 }
 
 .alt-5 ul li {
-  color: #fff !important;
+  color: black !important;
   font-family: Inter !important;
   font-size: 13.75px !important;
   font-style: normal !important;
@@ -135,7 +135,7 @@
 }
 
 .alt-5 ul li.mtt {
-  color: #fff !important;
+  color: black !important;
   font-family: Inter !important;
   font-size: 13.75px !important;
   font-style: normal !important;
