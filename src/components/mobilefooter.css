@@ -1,54 +1,60 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
 .ftr-77 {
-   
-    color: white;
-    border: none;
-    padding: 0.5rem 1rem;
-    font-size: 1.5rem;
-    cursor: pointer;
-    border-radius: 4px;
 
-  }
-  .hdr-58{
-    background-color: #222;;
-  }
-  .js-ntr{
-padding-top: 43px;
-  }
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  font-size: 1.5rem;
+  cursor: pointer;
+  border-radius: 4px;
 
-.js-ntr span{
-  color: #FFF;
-
-font-family: Inter;
-font-size: 17.969px;
-font-style: normal;
-font-weight: 500;
-line-height: 28px;
-text-transform: uppercase;
 }
 
-  .logo5{
-    padding-top: 24px;
-    padding-left: 19px;
-  }
-  .cpr-77{
-    color: #999;
+.hdr-58 {
+  background-color: #222;
+  ;
+}
 
-font-family: Inter;
-font-size: 10.125px;
-font-style: normal;
-font-weight: 400;
-line-height: 16px; 
-margin-top: 171px;
-padding-bottom: 16px;
-padding-left: 19px;
-  }
+.js-ntr {
+  padding-top: 43px;
+}
 
-  @media (min-width:600px) {
-    .hdr-58{
-      display: none;
-    }
-  }
+.js-ntr span {
+  color: white;
 
-  
+  font-family: Inter;
+  font-size: 17.969px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 28px;
+  text-transform: uppercase;
+}
+
+.hdr-58 ul {
+  color: white;
+}
+
+.logo5 {
+  padding-top: 24px;
+  padding-left: 19px;
+}
+
+.cpr-77 {
+  color: #999;
+
+  font-family: Inter;
+  font-size: 10.125px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 16px;
+  margin-top: 171px;
+  padding-bottom: 16px;
+  padding-left: 19px;
+}
+
+@media (min-width:600px) {
+  .hdr-58 {
+    display: none;
+  }
+}
